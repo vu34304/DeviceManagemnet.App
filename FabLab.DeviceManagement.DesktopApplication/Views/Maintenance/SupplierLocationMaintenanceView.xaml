@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="FabLab.DeviceManagement.DesktopApplication.Views.Maintenance.SupplierLocationMaintenanceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Maintenance"
+             mc:Ignorable="d" 
+xmlns:maintenance="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Maintenance;assembly=FabLab.DeviceManagement.DesktopApplication.Core"
+d:DataContext="{d:DesignInstance Type = maintenance:SupplierLocationMaintenanceViewModel}"
+xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components" 
+d:DesignHeight="800" d:DesignWidth="1052"
+Background="{StaticResource ColorBackground}"
+Padding="5">
+    <Grid>
+            
+    </Grid>
+</UserControl>

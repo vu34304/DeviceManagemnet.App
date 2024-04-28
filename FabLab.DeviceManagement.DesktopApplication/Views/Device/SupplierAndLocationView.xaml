@@ -1,0 +1,739 @@
+﻿<UserControl x:Class="FabLab.DeviceManagement.DesktopApplication.Views.Device.SupplierAndLocationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device"
+            xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+            xmlns:prism="http://prismlibrary.com/" 
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+            xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components" 
+            xmlns:vc="clr-namespace:FabLab.DeviceManagement.DesktopApplication.ValueConverters" 
+            xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;assembly=FabLab.DeviceManagement.DesktopApplication.Core"          
+             mc:Ignorable="d" 
+             d:DesignHeight="770" d:DesignWidth="1190"
+             d:DataContext="{d:DesignInstance Type=device:SupplierLocationTagViewModel}"
+             Background="{StaticResource ColorBackground}"
+             Padding="5">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadViewCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+        <materialDesign:DialogHost.DialogContent>
+            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Thêm-->
+
+            <materialDesign:Card Grid.Row="0" 
+         Grid.Column="0"
+         Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0"
+Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius="10">
+                        <TextBlock Text="Thêm nhà cung cấp"
+   Grid.Row="0"
+   Grid.ColumnSpan="3"                              
+    Style="{StaticResource CardTitle}"/>
+                    </Border>
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+        Text="Tên NCC:"
+        Style="{StaticResource FieldLabel}"
+        Margin="10"
+        VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1"
+    materialDesign:HintAssist.Hint="Tên nhà cung cấp"
+    FontSize="16"
+    Style="{StaticResource TextBox}"
+    Margin="10"
+    VerticalAlignment="Center"
+    Text="{Binding NewSupplierName}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+      Text="Địa chỉ:"
+      Style="{StaticResource FieldLabel}"
+      Margin="10"
+      VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1"
+      materialDesign:HintAssist.Hint="Địa chỉ"
+      FontSize="16"
+      Style="{StaticResource TextBox}"
+      Margin="10"
+      VerticalAlignment="Center"
+      Text="{Binding NewAddress}"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" 
+      Text="SĐT:"
+      Style="{StaticResource FieldLabel}"
+      Margin="10"
+      VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="3" Grid.Column="1"
+      materialDesign:HintAssist.Hint="Số điện thoại"
+      FontSize="16"
+      Style="{StaticResource TextBox}"
+      Margin="10"
+      VerticalAlignment="Center"
+      Text="{Binding NewPhoneNumber}"/>
+                    <Button Grid.Column="3" Grid.Row="2"
+      Margin="10"
+      Width="120"
+      Style="{StaticResource ButtonPrimary}"
+      materialDesign:ButtonAssist.CornerRadius="10"
+      Content="Thêm">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding CreateSupplierCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="1" 
+                     Grid.Column="0"
+                     Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"
+    Grid.ColumnSpan="3" Margin="10" Padding="5" Background="LightGray" CornerRadius="10">
+                        <TextBlock VerticalAlignment="Center" Text="Thêm địa chỉ"
+       Grid.Row="0"
+       Grid.ColumnSpan="3"                              
+        Style="{StaticResource CardTitle}"/>
+                    </Border>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                    Text="Location ID:"
+                    Style="{StaticResource FieldLabel}"
+                    Margin="10"
+                    VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                materialDesign:HintAssist.Hint="Location ID"
+                FontSize="16"
+                Style="{StaticResource TextBox}"
+                Margin="10"
+                VerticalAlignment="Center"
+                Text="{Binding NewLocationId}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                  Text="Ghi chú:"
+                  Style="{StaticResource FieldLabel}"
+                  Margin="10"
+                  VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1"
+                  materialDesign:HintAssist.Hint="Ghi chú"
+                  FontSize="16"
+                  Style="{StaticResource TextBox}"
+                  Margin="10"
+                  VerticalAlignment="Center"
+                  Text="{Binding NewNote}"/>
+
+                    <Button Grid.Column="2" Grid.RowSpan="4"
+                  Margin="10"
+                  Width="120"
+                  Style="{StaticResource ButtonPrimary}"
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  Content="Thêm">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding CreateLocationCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="2" 
+                     Grid.Column="0"
+                     Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"
+    Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius="10">
+                        <TextBlock VerticalAlignment="Center" Text="Thêm Tag"
+       Grid.Row="0"
+       Grid.ColumnSpan="3"                              
+        Style="{StaticResource CardTitle}"/>
+                    </Border>
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                    Text="Tag ID:" 
+                    Style="{StaticResource FieldLabel}"
+                    Margin="10"
+                    VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                materialDesign:HintAssist.Hint="Tag ID" 
+                FontSize="16"
+                Style="{StaticResource TextBox}"
+                Margin="10"
+                VerticalAlignment="Center"
+                Text="{Binding NewTagId}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                  Text="Detail:"
+                  Style="{StaticResource FieldLabel}"
+                  Margin="10"
+                  VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1"
+                  materialDesign:HintAssist.Hint="Detail"
+                  FontSize="16"
+                  Style="{StaticResource TextBox}"
+                  Margin="10"
+                  VerticalAlignment="Center"
+                  Text="{Binding NewTagDetail}"/>
+                  
+                    <Button Grid.Column="2" Grid.RowSpan="3"
+                  Margin="10"
+                  Width="120"
+                  Style="{StaticResource ButtonPrimary}"
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  Content="Thêm">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding CreateTagCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+            <!--Danh sách-->
+
+            <materialDesign:Card Grid.Row="0" x:Name="Data1" 
+                                 Grid.Column="1"
+                                 Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0"
+Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius="10">
+                            <TextBlock Text="Danh sách nhà cung cấp"
+   Grid.Row="0"
+   Grid.ColumnSpan="3"                              
+    Style="{StaticResource CardTitle}"/>
+                        </Border>
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+            Text="Tên NCC:"
+            Style="{StaticResource FieldLabel}"
+            Margin="10"
+            VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" 
+          Margin="10"
+          materialDesign:HintAssist.Hint="Tên nhà cung cấp"
+          Style="{StaticResource ComboBox}"
+          ItemsSource="{Binding SupplierNames,UpdateSourceTrigger=PropertyChanged}"
+          Text="{Binding SupplierName}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+
+                        <Button Grid.Column="3" Grid.Row="1"
+          Margin="10"
+          Width="120"
+          Style="{StaticResource ButtonPrimary}"
+          materialDesign:ButtonAssist.CornerRadius="10"
+          Content="Tìm kiếm">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <prism:InvokeCommandAction Command="{Binding LoadSupplierEntriesCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                            <Separator Margin="5"/>
+                        </Grid>
+                    </Grid>
+                    <DataGrid Grid.Row="2" x:Name="DataGrid_1"
+                                Margin="10,10,10,10"
+                                IsReadOnly="True"
+                              MouseLeftButtonDown="DataGrid_MouseLeftButtonDown"
+                                AutoGenerateColumns="False"
+                                ItemsSource="{Binding SupplierEntries}"
+                                Background="{StaticResource ColorSurface}"
+                                VirtualizingPanel.ScrollUnit="Pixel" Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tên NCC" Binding="{Binding SupplierName}" Width="*"/>
+                            <DataGridTextColumn Header="Địa chỉ" Binding="{Binding Address}" Width="*"/>
+                            <DataGridTextColumn Header="SĐT" Binding="{Binding PhoneNumber}" Width="*"/>
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Cập nhật"
+                  materialDesign:ButtonAssist.CornerRadius="10">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction Command="{Binding SaveCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Xóa"
+                  materialDesign:ButtonAssist.CornerRadius="10">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate DataType="{x:Type device:SupplierEntryViewModel}">
+                                <Border Background="{StaticResource PrimaryHueMidBrush}" BorderBrush="{StaticResource ColorSurfaceOn}"
+              BorderThickness="1">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="1.5*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="0.6*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Row="0" Grid.Column="0"
+                 Text="Tên NCC:"
+                 Style="{StaticResource FieldLabel}"
+                 Margin="10"
+                 VerticalAlignment="Center"/>
+                                            <TextBox Grid.Row="0" Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Tên NCC"
+                 FontSize="16" IsEnabled="False"
+                 Style="{StaticResource TextBox}"
+                 Margin="10"
+                 VerticalAlignment="Center"
+                 Text="{Binding SupplierName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                            <TextBlock Grid.Row="0" Grid.Column="2"
+                 Text="Địa chỉ:"
+                 Style="{StaticResource FieldLabel}"
+                 Margin="10"
+                 VerticalAlignment="Center"/>
+                                            <TextBox Grid.Row="0" Grid.Column="3"
+                 materialDesign:HintAssist.Hint="Địa chỉ"
+                 FontSize="16"
+                 Style="{StaticResource TextBox}"
+                 Margin="10"
+                 VerticalAlignment="Center"
+                 Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger =PropertyChanged}"/>
+
+                                            <TextBlock Grid.Row="0" Grid.Column="4"
+                 Text="SĐT:"
+                 Style="{StaticResource FieldLabel}"
+                 Margin="10"
+                 VerticalAlignment="Center"/>
+                                            <TextBox Grid.Row="0" Grid.Column="5"
+materialDesign:HintAssist.Hint="SĐT"
+FontSize="16"
+Style="{StaticResource TextBox}"
+Margin="10"
+VerticalAlignment="Center"
+Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger =PropertyChanged}"/>
+                                        </Grid>
+
+                                       
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="1" 
+                     Grid.Column="1"
+                     Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0"
+Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius="10">
+                            <TextBlock Text="Danh sách vị trí"
+   Grid.Row="0"
+   Grid.ColumnSpan="3"                              
+    Style="{StaticResource CardTitle}"/>
+                        </Border>
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+  Text="Location ID:"
+  Style="{StaticResource FieldLabel}"
+  Margin="10"
+  VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" 
+Margin="10"
+materialDesign:HintAssist.Hint="Location ID"
+Style="{StaticResource ComboBox}"
+ItemsSource="{Binding LocationIds, UpdateSourceTrigger=PropertyChanged}"
+Text="{Binding LocationId}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+
+                        <Button Grid.Column="3" Grid.Row="1"
+Margin="10"
+Width="120"
+Style="{StaticResource ButtonPrimary}"
+materialDesign:ButtonAssist.CornerRadius="10"
+Content="Tìm kiếm">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <prism:InvokeCommandAction Command="{Binding LoadLocationEntriesCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                            <Separator Margin="5"/>
+                        </Grid>
+                    </Grid>
+                    <DataGrid Grid.Row="2" 
+                                Margin="10,10,10,10"
+                                IsReadOnly="True"
+                              MouseLeftButtonDown="DataGrid_MouseLeftButtonDown"
+                                AutoGenerateColumns="False"
+                                ItemsSource="{Binding LocationEntries}"
+                                Background="{StaticResource ColorSurface}"
+                                VirtualizingPanel.ScrollUnit="Pixel" Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="LocationId" Binding="{Binding LocationId}" Width="*"/>
+                            <DataGridTextColumn Header="Ghi chú" Binding="{Binding Note}" Width="*"/>
+                           
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Cập nhật"
+                  materialDesign:ButtonAssist.CornerRadius="10">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction Command="{Binding SaveCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Xóa"
+                  materialDesign:ButtonAssist.CornerRadius="10">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate DataType="{x:Type device:LocationEntryViewModel}">
+                                <Border  Background="{StaticResource PrimaryHueMidBrush}" BorderBrush="{StaticResource ColorSurfaceOn}"
+              BorderThickness="1">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="1.5*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="0.6*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Row="0" Grid.Column="0"
+                 Text="Location ID:"
+                 Style="{StaticResource FieldLabel}"
+                 Margin="10"
+                 VerticalAlignment="Center"/>
+                                            <TextBox Grid.Row="0" Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Location ID"
+                 FontSize="16"  IsEnabled="False"
+                 Style="{StaticResource TextBox}"
+                 Margin="10"
+                 VerticalAlignment="Center"
+                 Text="{Binding LocationId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                            <TextBlock Grid.Row="0" Grid.Column="2"
+                 Text="Ghi chú:"
+                 Style="{StaticResource FieldLabel}"
+                 Margin="10"
+                 VerticalAlignment="Center"/>
+                                            <TextBox Grid.Row="0" Grid.Column="3"
+                 materialDesign:HintAssist.Hint="Ghi chú"
+                 FontSize="16"
+                 Style="{StaticResource TextBox}"
+                 Margin="10"
+                 VerticalAlignment="Center"
+                 Text="{Binding Note, Mode=TwoWay, UpdateSourceTrigger =PropertyChanged}"/>
+
+
+                                        </Grid>
+
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="2"  x:Name="Card3"
+                 Grid.Column="1"
+                 Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0"
+Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius="10">
+                            <TextBlock Text="Danh sách Tag"
+   Grid.Row="0"
+   Grid.ColumnSpan="3"                              
+    Style="{StaticResource CardTitle}"/>
+                        </Border>
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+  Text="Tag ID:"
+  Style="{StaticResource FieldLabel}"
+  Margin="10"
+  VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" 
+Margin="10"
+materialDesign:HintAssist.Hint="Tag ID"
+Style="{StaticResource ComboBox}"
+ItemsSource="{Binding TagIds, UpdateSourceTrigger=PropertyChanged}"
+Text="{Binding TagId}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+
+                        <Button Grid.Column="3" Grid.Row="1"
+Margin="10"
+Width="120"
+Style="{StaticResource ButtonPrimary}"
+materialDesign:ButtonAssist.CornerRadius="10"
+Content="Tìm kiếm">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <prism:InvokeCommandAction Command="{Binding LoadTagEntriesCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                            <Separator Margin="5"/>
+                        </Grid>
+                    </Grid>
+                    <DataGrid   Grid.Row="1" x:Name="data3"
+                                Margin="10,10,10,10"
+                                IsReadOnly="True"
+                                MouseLeftButtonDown="data3_MouseLeftButtonDown"
+                                AutoGenerateColumns="False"
+                                ItemsSource="{Binding TagEntries}"
+                                Background="{StaticResource ColorSurface}"
+                                VirtualizingPanel.ScrollUnit="Pixel" Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="TagId" Binding="{Binding TagId}" Width="*"/>
+                            <DataGridTextColumn Header="Detail" Binding="{Binding TagDetail}" Width="*"/>
+
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Cập nhật"
+    materialDesign:ButtonAssist.CornerRadius="10">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction Command="{Binding SaveCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Xóa"
+    materialDesign:ButtonAssist.CornerRadius="10">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate DataType="{x:Type device:TagEntryViewModel}">
+                                <Border Background="{StaticResource PrimaryHueMidBrush}" BorderBrush="{StaticResource ColorSurfaceOn}"
+BorderThickness="1">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="1.5*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="0.6*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Row="0" Grid.Column="0"
+   Text="Location ID:"
+   Style="{StaticResource FieldLabel}"
+   Margin="10"
+   VerticalAlignment="Center"/>
+                                            <TextBox Grid.Row="0" Grid.Column="1"
+   materialDesign:HintAssist.Hint="Tag ID"
+   FontSize="16"  IsEnabled="False"
+   Style="{StaticResource TextBox}"
+   Margin="10"
+   VerticalAlignment="Center"
+   Text="{Binding TagId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                            <TextBlock Grid.Row="0" Grid.Column="2"
+   Text="Ghi chú:"
+   Style="{StaticResource FieldLabel}"
+   Margin="10"
+   VerticalAlignment="Center"/>
+                                            <TextBox Grid.Row="0" Grid.Column="3"
+   materialDesign:HintAssist.Hint="Detail"
+   FontSize="16"
+   Style="{StaticResource TextBox}"
+   Margin="10"
+   VerticalAlignment="Center"
+   Text="{Binding TagDetail, Mode=TwoWay, UpdateSourceTrigger =PropertyChanged}"/>
+
+
+                                        </Grid>
+
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+                </Grid>
+            </materialDesign:Card>
+
+
+        </Grid>
+    </materialDesign:DialogHost>
+</UserControl>
