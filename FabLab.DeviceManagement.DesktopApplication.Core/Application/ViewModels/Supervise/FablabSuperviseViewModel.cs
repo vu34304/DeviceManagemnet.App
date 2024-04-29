@@ -30,9 +30,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double OperationTime1 { get; set; }
         public double Oee1 { get; set; }
 
-        public string Power1 { get; set; }
-        public string Speed1 { get; set; }
-        public string Vibration1 { get; set; }
+        public double Power1 { get; set; }
+        public double Speed1 { get; set; }
+        public double Vibration1 { get; set; }
 
         //Machine 2
         public DateTime? TimeStamp2 { get; set; }
@@ -40,9 +40,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double ShiftTime2 { get; set; }
         public double OperationTime2 { get; set; }
         public double Oee2 { get; set; }
-        public string Power2 { get; set; }
-        public string Speed2 { get; set; }
-        public string Vibration2 { get; set; }
+
+        public double Power2 { get; set; }
+        public double Speed2 { get; set; }
+        public double Vibration2 { get; set; }
 
         //Machine 3
         public DateTime? TimeStamp3 { get; set; }
@@ -50,9 +51,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double ShiftTime3 { get; set; }
         public double OperationTime3 { get; set; }
         public double Oee3 { get; set; }
-        public string Power3 { get; set; }
-        public string Speed3 { get; set; }
-        public string Vibration3 { get; set; }
+        public double Power3 { get; set; }
+        public double Speed3 { get; set; }
+        public double Vibration3 { get; set; }
 
         //Machine 4
         public DateTime? TimeStamp4 { get; set; }
@@ -60,9 +61,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double ShiftTime4 { get; set; }
         public double OperationTime4 { get; set; }
         public double Oee4 { get; set; }
-        public string Power4 { get; set; }
-        public string Speed4 { get; set; }
-        public string Vibration4 { get; set; }
+        public double Power4 { get; set; }
+        public double Speed4 { get; set; }
+        public double Vibration4 { get; set; }
 
 
         //Status Environment
@@ -114,7 +115,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             LoadFablabSuperviseViewCommand = new RelayCommand(LoadFablabSuperviseView);
             NextViewCommand = new RelayCommand(NextView);
             PreviusViewCommand = new RelayCommand(PreviusView);
-
             ColorHumidity = "White";
             ColorTemperature = "White";
             ColorGas = "White";
@@ -126,7 +126,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             var tag = JsonConvert.DeserializeObject<DataMachineChangedNotification>(json);
         }
-
         private void SignalRClient_EnvironmentChanged(string json)
         {
             var tag = JsonConvert.DeserializeObject<EnvironmentChangedNotification>(json);
@@ -164,7 +163,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 }
             }
         }
-
+        
         private async void SignalRClient_OnTagChanged(string json)
         {
             Task read = new(() =>
@@ -225,6 +224,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         }
 
+        //update chart
+        #region update value chart
         private async void UpdateValueOEEMachine1(double IdleTime, double ShiftTime, double OperationTime, double Oee)
         {
             Task Update = new(() =>
@@ -422,15 +423,83 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Update.Start();
             await Update;
         }
+        #endregion update value chart
+        //
 
         private async void LoadFablabSuperviseView()
         {
             IsBusy = true;
-            await UpdateOee();
-            await UpdateValueEnvironment();
+            //await UpdateValueEnvironment();
+            //await UpdateOee();
+            //await UpdateDataMachine();
+            await Task.WhenAll( 
+                UpdateValueEnvironment(),
+                UpdateOee(),
+                UpdateDataMachine());
             IsBusy = false;
         }
 
+        private async Task UpdateDataMachine()
+        {
+            var tags = await _signalRClient.GetBufferMachineDataList();
+            var Machine1 = (from tag in tags where tag.machineId == "KB36" select tag).ToList();
+            var Machine2 = (from tag in tags where tag.machineId == "TSH1390" select tag).ToList();
+            var Machine3 = (from tag in tags where tag.machineId == "ERL1330" select tag).ToList();
+            var Machine4 = (from tag in tags where tag.machineId == "FRD900S" select tag).ToList();
+
+            if (Machine1 != null)
+            {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Power1 = Convert.ToDouble(Machine1.LastOrDefault(i => i.name == "Power").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Speed1 = Convert.ToDouble(Machine1.LastOrDefault(i => i.name == "Speed").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Vibration1 = Convert.ToDouble(Machine1.LastOrDefault(i => i.name == "Vibration").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            }
+
+            if (Machine2 != null)
+            {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Power2 = Convert.ToDouble(Machine2.LastOrDefault(i => i.name == "Power").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Speed2 = Convert.ToDouble(Machine2.LastOrDefault(i => i.name == "Speed").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Vibration2 = Convert.ToDouble(Machine2.LastOrDefault(i => i.name == "Vibration").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            }
+
+            if (Machine3 != null)
+            {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Power3 = Convert.ToDouble(Machine3.LastOrDefault(i => i.name == "Power").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Speed3 = Convert.ToDouble(Machine3.LastOrDefault(i => i.name == "Speed").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Vibration3 = Convert.ToDouble(Machine3.LastOrDefault(i => i.name == "Vibration").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            }
+
+            if (Machine4 != null)
+            {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Power4 = Convert.ToDouble(Machine4.LastOrDefault(i => i.name == "Power").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Speed4 = Convert.ToDouble(Machine4.LastOrDefault(i => i.name == "Speed").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Vibration4 = Convert.ToDouble(Machine4.LastOrDefault(i => i.name == "Vibration").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            }
+
+        }
         private async Task UpdateOee()
         {
             var tags = await _signalRClient.GetBufferList();

@@ -60,7 +60,7 @@ Text="KB30" Style="{StaticResource CardTitle}"/>
                     VerticalAlignment="Center"/>
                     <Border Margin="10"  Grid.Row="1" Padding="10" Grid.Column="1" CornerRadius="30" BorderThickness="2" BorderBrush="Black" >
                         <TextBlock HorizontalAlignment="Center" Grid.Column="1" 
-Text="{Binding TimeStamp1 }"
+Text="{Binding Power1 }"
 Style="{StaticResource FieldLabel}"
 Margin="10"
 VerticalAlignment="Center"/>
@@ -73,7 +73,7 @@ VerticalAlignment="Center"/>
                     VerticalAlignment="Center"/>
                     <Border Margin="10"  Grid.Row="2" Padding="10" Grid.Column="1" CornerRadius="30" BorderThickness="2" BorderBrush="Black" >
                         <TextBlock HorizontalAlignment="Center" Grid.Column="1" 
-Text="{Binding IdleTime1 }"
+Text="{Binding Speed1 }"
 Style="{StaticResource FieldLabel}"
 Margin="10"
 VerticalAlignment="Center"/>
@@ -85,7 +85,7 @@ VerticalAlignment="Center"/>
                     VerticalAlignment="Center"/>
                     <Border Margin="10"  Grid.Row="3" Padding="10" Grid.Column="1" CornerRadius="30" BorderThickness="2" BorderBrush="Black" >
                         <TextBlock HorizontalAlignment="Center" Grid.Column="1" 
-Text="{Binding ShiftTime1 }"
+Text="{Binding Vibration1 }"
 Style="{StaticResource FieldLabel}"
 Margin="10"
 VerticalAlignment="Center"/>

@@ -13,12 +13,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string value { get; set; }
         public string timestamp { get; set; }
 
-        public DataMachineChangedNotification(string machineId, string name, string value, string timestamp)
-        {
-            this.machineId = machineId;
-            this.name = name;
-            this.value = value;
-            this.timestamp = timestamp;
-        }
+       
     }
 }

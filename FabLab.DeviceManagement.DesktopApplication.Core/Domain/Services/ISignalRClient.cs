@@ -17,6 +17,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services
         Task ConnectAsync();
         Task<List<TagChangedNotification>> GetBufferList();
         Task<List<EnvironmentChangedNotification>> GetBufferEnvironmentList();
+        Task<List<DataMachineChangedNotification>> GetBufferMachineDataList();
+
         Task<object?> GetBufferTimeStamp(string DeviceId);
         Task<object?> GetBufferIdleTime(string DeviceId);
         Task<object?> GetBufferShiftTime(string DeviceId);

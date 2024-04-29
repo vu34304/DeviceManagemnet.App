@@ -34,6 +34,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             await connection.StartAsync();
             var a = connection.State;
         }
+
+        //Get all OEE value
         public async Task<List<TagChangedNotification>> GetBufferList()
         {
             var respone = await connection.InvokeAsync<string>("SendAllMachineOee");
@@ -44,6 +46,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
             return tags;
         }
+
+        //Get all environment value
         public async Task<List<EnvironmentChangedNotification>> GetBufferEnvironmentList()
         {
             var respone = await connection.InvokeAsync<string>("SendAllEnvironment");
@@ -54,6 +58,23 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
             return tags;
         }
+
+        public async Task<List<DataMachineChangedNotification>> GetBufferMachineDataList()
+        {
+            var respone = await connection.InvokeAsync<string>("SendAllMachineData");
+            var tags = JsonConvert.DeserializeObject<List<DataMachineChangedNotification>>(respone);
+            if (tags is null)
+            {
+                return new List<DataMachineChangedNotification>();
+            }
+            return tags;
+
+        }
+
+        //Get all machinevalue
+
+
+        #region get customvalue oee
         public async Task<object?> GetBufferTimeStamp(string DeviceId)
         {
             var respone = await connection.InvokeAsync<string>("SendAllMachineOee");
@@ -129,6 +150,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
             return null;
         }
+        #endregion get customvalue oee
+
 
         public async Task<object?> GetBufferValue(string sensorId)
         {
@@ -171,5 +194,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
             else return false;
         }
+        
     }
 }
