@@ -40,7 +40,7 @@
                  >
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.7*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
@@ -60,10 +60,8 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
-
-                                <!--<ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>-->
                             </Grid.ColumnDefinitions>
+                  
 
                             <TextBlock Grid.Column="0"
                     Text="Humidity"
@@ -77,6 +75,12 @@
         MinValue="0"
         MaxValue="200">
                             </lvc:PieChart>
+                            <!--<lvc:PieChart
+        Series="{Binding Series5}"
+        InitialRotation="-90"
+        MinValue="0"
+        MaxValue="100">
+                            </lvc:PieChart>-->
                             <TextBlock  Grid.Column="1"
                     Text="Temperature"
                     Style="{StaticResource FieldLabel}"

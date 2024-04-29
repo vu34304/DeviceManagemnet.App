@@ -114,7 +114,7 @@ Text="OEE" Style="{StaticResource CardTitle}"/>
   InitialRotation="-90"
   MaxAngle="270"
   MinValue="0"
-  MaxValue="150">
+  MaxValue="{Binding IdleTime4}">
                     </lvc:PieChart>
                 </Grid>
 

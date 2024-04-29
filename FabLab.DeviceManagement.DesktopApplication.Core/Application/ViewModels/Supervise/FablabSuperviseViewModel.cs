@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using SkiaSharp;
 using System.Security.Cryptography;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Supervise
 {
@@ -320,7 +321,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             Task Update = new(() =>
             {
-               
+                IdleTime = Math.Round(IdleTime,2);
+                ShiftTime = Math.Round(ShiftTime, 2);
+                OperationTime = Math.Round(OperationTime, 2);
+                Oee = Math.Round(Oee, 5);
+                
                 Series = GaugeGenerator.BuildSolidGauge(
                 new GaugeItem(IdleTime, series => SetStyle("IdleTime", series)),
                 new GaugeItem(ShiftTime, series => SetStyle("ShiftTime", series)),
@@ -330,6 +335,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     series.DataLabelsSize = 30;
                     series.InnerRadius = 20;
+                    //series.InnerColor = Color.FromArgb();
+                    
                 }));
             });
             Update.Start();
@@ -339,6 +346,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             Task Update = new(() =>
             {
+                IdleTime = Math.Round(IdleTime, 2);
+                ShiftTime = Math.Round(ShiftTime, 2);
+                OperationTime = Math.Round(OperationTime, 2);
+                Oee = Math.Round(Oee, 5);
 
                 Series1 = GaugeGenerator.BuildSolidGauge(
                 new GaugeItem(IdleTime, series => SetStyle("IdleTime", series)),
@@ -358,6 +369,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             Task Update = new(() =>
             {
+                IdleTime = Math.Round(IdleTime, 2);
+                ShiftTime = Math.Round(ShiftTime, 2);
+                OperationTime = Math.Round(OperationTime, 2);
+                Oee = Math.Round(Oee, 5);
 
                 Series2 = GaugeGenerator.BuildSolidGauge(
                 new GaugeItem(IdleTime, series => SetStyle("IdleTime", series)),
@@ -380,10 +395,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 SolidColorPaint solidColorPaint = new SolidColorPaint();
                 if (humidity <= 90 && humidity >= 80)
                 {
-                    solidColorPaint = new SolidColorPaint(SKColors.Green);
+                    solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
                 }
                 else if (humidity > 90) solidColorPaint = new SolidColorPaint(SKColors.Red);
                 else solidColorPaint = new SolidColorPaint(SKColors.Yellow);
+
 
                 Series5 = GaugeGenerator.BuildSolidGauge(
              new GaugeItem(Convert.ToDouble(humidity), series =>
@@ -393,6 +409,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                  series.DataLabelsPaint = solidColorPaint;
                  series.DataLabelsPosition = PolarLabelsPosition.ChartCenter;
                  series.InnerRadius = 75;
+
              }),
              new GaugeItem(GaugeItem.Background, series =>
              {
@@ -410,7 +427,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 SolidColorPaint solidColorPaint = new SolidColorPaint();
                 if (temperature <= 30 && temperature >= 25)
                 {
-                    solidColorPaint = new SolidColorPaint(SKColors.Green);
+                    solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
                 }
                 else if (temperature > 30) solidColorPaint = new SolidColorPaint(SKColors.Red);
                 else solidColorPaint = new SolidColorPaint(SKColors.Yellow);
@@ -440,7 +457,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 SolidColorPaint solidColorPaint = new SolidColorPaint();
                 if (gas <= 90 && gas >= 80)
                 {
-                    solidColorPaint = new SolidColorPaint(SKColors.Green);
+                    solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
                 }
                 else if (gas > 90) solidColorPaint = new SolidColorPaint(SKColors.Red);
                 else solidColorPaint = new SolidColorPaint(SKColors.Yellow);
@@ -463,7 +480,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Update.Start();
             await Update;
         }
-
         private async void UpdateValueNoise(double noise)
         {
             Task Update = new(() =>
@@ -471,7 +487,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 SolidColorPaint solidColorPaint = new SolidColorPaint();
                 if (noise <= 90 && noise >= 80)
                 {
-                    solidColorPaint = new SolidColorPaint(SKColors.Green);
+                    solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
                 }
                 else if (noise > 90) solidColorPaint = new SolidColorPaint(SKColors.Red);
                 else solidColorPaint = new SolidColorPaint(SKColors.Yellow);
@@ -498,6 +514,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             Task Update = new(() =>
             {
+                IdleTime = Math.Round(IdleTime,2);
+                ShiftTime = Math.Round(ShiftTime, 2);
+                OperationTime = Math.Round(OperationTime, 2);
+                Oee = Math.Round(Oee, 5);
 
                 Series3 = GaugeGenerator.BuildSolidGauge(
                 new GaugeItem(IdleTime, series => SetStyle("IdleTime", series)),
@@ -669,9 +689,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             series.DataLabelsFormatter =
                     point => $"{point.Context.Series.Name}: {point.Coordinate.PrimaryValue}";
             series.InnerRadius = 20;
-            series.RelativeOuterRadius = 20;
-            series.RelativeInnerRadius = 20;
+            series.RelativeOuterRadius = 3;
+            series.RelativeInnerRadius = 3;
         }
+
+
 
         private void NextView()
         {
