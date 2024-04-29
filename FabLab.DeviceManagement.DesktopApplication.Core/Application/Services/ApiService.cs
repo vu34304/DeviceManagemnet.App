@@ -24,8 +24,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
     {
         public event Action? StartLoading;
         public event Action? FinishLoading;
-        public event Action? StartCreateEquipment;
-        public event Action? FinishCreateEquipment;
+
 
         private readonly HttpClient _httpClient;
         private const string serverUrl = "https://equipmentmanagementapi20240411122819.azurewebsites.net/";
@@ -408,9 +407,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
 
             var content = new StringContent(jsonCamelCase, Encoding.UTF8, "application/json");
 
-            StartCreateEquipment?.Invoke();
             HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}api/EquipmentType", content);
-            FinishCreateEquipment?.Invoke();
 
             try
             {

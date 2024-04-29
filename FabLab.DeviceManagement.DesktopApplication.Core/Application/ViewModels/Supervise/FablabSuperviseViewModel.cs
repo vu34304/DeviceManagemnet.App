@@ -253,8 +253,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         break;
                 }
             }
-        }
-        
+        }     
         private async void SignalRClient_OnTagChanged(string json)
         {
             Task read = new(() =>
@@ -520,9 +519,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async void LoadFablabSuperviseView()
         {
             IsBusy = true;
-            //await UpdateValueEnvironment();
-            //await UpdateOee();
-            //await UpdateDataMachine();
             await Task.WhenAll( 
                 UpdateValueEnvironment(),
                 UpdateOee(),

@@ -67,9 +67,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     NewDescription = SelectedItem.Description;
                     NewSpecificationEquimentTypes = SelectedItem.SpecificationEquimentTypes;
                     NewTagStr = string.Join("", SelectedItem.Tags.Select(s => $"#{s}"));
-
-
-
                 }
             }
         }
@@ -180,7 +177,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             OpenCreateViewCommand = new RelayCommand(OpenCreateView);
             CloseCreateViewCommand = new RelayCommand(CloseCreateView);
             CloseFixViewCommand = new RelayCommand(CloseFixView);
-            //SaveCommand = new RelayCommand(SaveAsync);
+            SaveCommand = new RelayCommand(SaveAsync);
             AddTagCommand = new RelayCommand(AddTag);
             OpenSearchAdvanceViewCommand = new RelayCommand(OpenSearchView);
             CLoseSearchAdvanceViewCommand = new RelayCommand(CloseSearchView);
@@ -189,20 +186,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             IsOpenSearchAdvanceView = false;
             apiService.StartLoading += ApiService_StartLoading;
             apiService.FinishLoading += ApiService_FinishLoading;
-            apiService.StartCreateEquipment += ApiService_StartCreateEquipment;
-            apiService.FinishCreateEquipment += ApiService_FinishCreateEquipment;
-            
+           
         }
 
-        private void ApiService_FinishCreateEquipment()
-        {
-            IsBusyCreate = false;
-        }
-
-        private void ApiService_StartCreateEquipment()
-        {
-            IsBusyCreate = true;
-        }
 
         private void ApiService_FinishLoading()
         {
@@ -429,7 +415,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
-            openFileDialog.Filter = "Image files|*.bmp;*.jpg;*.png";
+            openFileDialog.Filter = "Image files|*.bmp;*.jpg;*.png;*.webp";
             openFileDialog.FilterIndex = 1;
             int index = 0;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -510,19 +496,24 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
                     try
                     {
+                        IsBusyCreate = true;
                         await _apiService.CreateEquipmentType(createDto);
+                        IsBusyCreate = false;
                         LoadEquipmentTypeView();
                     }
                     catch (HttpRequestException)
                     {
+                        IsBusyCreate = false;
                         ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                        
                     }
                     catch (DuplicateEntityException)
-                    {
+                    {   IsBusyCreate = false;
                         ShowErrorMessage("Đã có lỗi xảy ra: Mã vật tư đã tồn tại.");
                     }
                     catch (Exception)
                     {
+                        IsBusyCreate = false;
                         ShowErrorMessage("Đã có lỗi xảy ra: Không thể tạo vật tư mới.");
                     }
                     MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -530,6 +521,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     NewEquipmentTypeId = "";
                     NewEquipmentTypeName = "";
                     NewDescription = "";
+                    TagId = "";
                     IsOpenCreateView = false;
                 }
                 else MessageBox.Show("Vui lòng chọn lĩnh vực!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -556,31 +548,31 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
             }
         }
-        //private async void SaveAsync()
-        //{
+        private async void SaveAsync()
+        {
+            
+            EquipmentTypeDto fixdto = new EquipmentTypeDto(NewEquipmentTypeId, NewEquipmentTypeName, NewDescription, NewCategory,NewTag);
+            if (_mapper is not null && _apiService is not null)
+            {
+                try
+                {
+                    await _apiService.FixEquipmentTypesAsync(fixdto);
+                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoadEquipmentTypeView();
+                }
+                catch (HttpRequestException)
+                {
 
-        //    EquipmentTypeDto fixdto = new EquipmentTypeDto(NewEquipmentTypeId, NewEquipmentTypeName, NewDescription, NewCategory);
-        //    if (_mapper is not null && _apiService is not null)
-        //    {
-        //        try
-        //        {
-        //            await _apiService.FixEquipmentTypesAsync(fixdto);
-        //            MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-        //            LoadEquipmentTypeView();
-        //        }
-        //        catch (HttpRequestException)
-        //        {
-                    
-        //            ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-        //        }
-        //    }
-        //    NewEquipmentTypeId = "";
-        //    NewEquipmentTypeName = "";
-        //    NewDescription = "";
-        //    NewCategory = ECategory.All;
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+            }
+            NewEquipmentTypeId = "";
+            NewEquipmentTypeName = "";
+            NewDescription = "";
+            NewCategory = ECategory.All;
 
 
-        //}
+        }
         public BitmapImage Base64toImage(string Base64)
         {
             byte[] binarydata = Convert.FromBase64String(Base64);

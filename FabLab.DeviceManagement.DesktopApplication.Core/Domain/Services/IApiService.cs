@@ -24,8 +24,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services
         event Action? StartLoading;
         event Action? FinishLoading;
 
-        event Action? StartCreateEquipment;
-        event Action? FinishCreateEquipment;
         //Equipment
         Task<IEnumerable<EquipmentDto>> GetAllEquipmentsAsync();
         Task<IEnumerable<EquipmentDto>> GetAllEquipmentsActive();

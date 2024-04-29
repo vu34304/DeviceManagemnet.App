@@ -133,7 +133,7 @@
 
                     <TextBox Grid.Column="1" Grid.Row="1"
                 materialDesign:HintAssist.Hint="Tag"
-                FontSize="16"
+                FontSize="16" IsReadOnly="True"
                 Style="{StaticResource TextBox}"
                 Margin="10"
                 VerticalAlignment="Center"
