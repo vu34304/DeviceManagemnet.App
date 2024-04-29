@@ -82,6 +82,7 @@
                     Style="{StaticResource FieldLabel}"
                     Margin="10 20 10 0" HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"/>
+                            
 
 
                             <lvc:PieChart Grid.Column="1" 

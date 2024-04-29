@@ -124,6 +124,98 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private void SignalRClient_DataMachineChanged(string json)
         {
             var tag = JsonConvert.DeserializeObject<DataMachineChangedNotification>(json);
+            if (tag != null)
+            {
+                switch (tag.machineId)
+                {
+                    case "KB36":
+                        {
+                            switch (tag.name)
+                            {
+                                case "Power":
+                                    {
+                                        Power1 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Speed":
+                                    {
+                                        Speed1 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Vibration":
+                                    {
+                                        Vibration1 = Convert.ToDouble(tag.value); break;
+                                    }
+                                default: break;
+                                
+                            }
+                            break;
+                        }
+                    case "TSH1390":
+                        {
+                            switch (tag.name)
+                            {
+                                case "Power":
+                                    {
+                                        Power2 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Speed":
+                                    {
+                                        Speed2 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Vibration":
+                                    {
+                                        Vibration2 = Convert.ToDouble(tag.value); break;
+                                    }
+                                default: break;
+
+                            }
+                            break;
+                        }
+                    case "ERL1330":
+                        {
+                            switch (tag.name)
+                            {
+                                case "Power":
+                                    {
+                                        Power3 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Speed":
+                                    {
+                                        Speed3 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Vibration":
+                                    {
+                                        Vibration3 = Convert.ToDouble(tag.value); break;
+                                    }
+                                default: break;
+
+                            }
+                            break;
+                        }
+                    case "FRD900S":
+                        {
+                            switch (tag.name)
+                            {
+                                case "Power":
+                                    {
+                                        Power4 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Speed":
+                                    {
+                                        Speed4 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Vibration":
+                                    {
+                                        Vibration4 = Convert.ToDouble(tag.value); break;
+                                    }
+                                default: break;
+
+                            }
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
         }
         private void SignalRClient_EnvironmentChanged(string json)
         {
