@@ -1,0 +1,249 @@
+﻿<UserControl x:Class="FabLab.DeviceManagement.DesktopApplication.Views.Project.CreateNewProjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:local="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Project"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             mc:Ignorable="d" 
+             xmlns:project="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Project;assembly=FabLab.DeviceManagement.DesktopApplication.Core"   
+             d:DataContext="{d:DesignInstance Type = project:CreateNewProjectViewModel}"   
+             xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components" 
+             d:DesignHeight="800" d:DesignWidth="1052"
+             Background="{StaticResource ColorBackground}"
+             Padding="5">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadCreateProjectViewModelCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+        <materialDesign:DialogHost.DialogContent>
+            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--<Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" 
+                         Margin="10"
+                         Style="{StaticResource ButtonPrimary}"
+                         materialDesign:ButtonAssist.CornerRadius="10"
+                         Content="Tạo">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <prism:InvokeCommandAction Command="{Binding LoadCreateProjectViewModelCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Column="1" 
+           Margin="10"
+
+           Style="{StaticResource ButtonPrimary}"
+           materialDesign:ButtonAssist.CornerRadius="10"
+           Content="Sửa">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <prism:InvokeCommandAction Command="{Binding LoadDeviceEntriesCommand1}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Column="2" 
+           Margin="10"
+           Style="{StaticResource ButtonPrimary}"
+           materialDesign:ButtonAssist.CornerRadius="10"
+           Content="Thêm thiết bị">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <prism:InvokeCommandAction Command="{Binding LoadDeviceEntriesCommand1}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>-->
+
+            <materialDesign:Card Margin="10" Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Width="400"  Margin="0 0 10 0" Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0"
+                                Text="Tên dự án:"
+                                Style="{StaticResource FieldLabel}"
+                                Margin="10"
+                                VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1"
+                                  materialDesign:HintAssist.Hint="Tên dự án"
+                                  FontSize="16"
+                                  Style="{StaticResource TextBox}"
+                                  Margin="10"
+                                  VerticalAlignment="Center"
+                                  Text="{Binding ProjectName}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1"
+                                Text="Ngày bắt đầu:"
+                                Style="{StaticResource FieldLabel}"
+                                Margin="10"
+                                VerticalAlignment="Center"/>
+                            <DatePicker 
+                             Grid.Column="1"
+                             Grid.Row="1"
+                             Margin="10"
+                             materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                             Style="{StaticResource DatePicker}"
+                             SelectedDate="{Binding StartDate}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2"
+                             Text="Ngày kết thúc:"
+                             Style="{StaticResource FieldLabel}"
+                             Margin="10"
+                             VerticalAlignment="Center"/>
+                            <DatePicker 
+                              Grid.Column="1"
+                              Grid.Row="2"
+                              Margin="10"
+                              materialDesign:HintAssist.Hint="Ngày kết thúc"
+                              Style="{StaticResource DatePicker}"
+                              SelectedDate="{Binding EndDate}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="3"
+                            Text="Mô tả dự án:"
+                            Style="{StaticResource FieldLabel}"
+                            Margin="10"
+                            VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Grid.Row="3"
+                              materialDesign:HintAssist.Hint="Mô tả dự án"
+                              FontSize="16"
+                              Style="{StaticResource TextBox}"
+                              Margin="10"
+                              VerticalAlignment="Center"
+                              Text="{Binding Description}"/>
+                        </Grid>
+
+                        <Grid x:Name="grid_1" Margin="10 0 0 0" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                    Text="Tên thiết bị:"                                  
+                                    Style="{StaticResource FieldLabel}"
+                                    Margin="10"
+                                    VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="1"
+                                    Grid.Row="0"
+                            materialDesign:HintAssist.Hint="Tên thiết bị"
+                            Style="{StaticResource ComboBox}"
+                            Margin="10"
+                            ItemsSource="{Binding EquipmentNames}"
+                            Text="{Binding BorrowEquipmentName}">
+                                    <ComboBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel />
+                                        </ItemsPanelTemplate>
+                                    </ComboBox.ItemsPanel>
+                                </ComboBox>
+                                <Button Grid.Column="2" 
+                                        Margin="10"
+                                        Style="{StaticResource ButtonPrimary}"
+                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                        Content="Thêm">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <prism:InvokeCommandAction Command="{Binding AddEquipmentCommand}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Button>
+                            </Grid>
+                         
+                            <Grid Grid.Row="2">
+                                <Separator Margin="10"/>
+                            </Grid>
+                            <TextBlock Grid.Row="3" Text="Danh sách thiết bị dự kiến" Style="{StaticResource CardTitle}"/>
+                            <DataGrid IsReadOnly="True" 
+                                      AutoGenerateColumns="False" 
+                                      VirtualizingPanel.ScrollUnit="Pixel" 
+                                      Margin=" 10" 
+                                      VerticalAlignment="Top" 
+                                      Grid.Row="4" 
+                                      ItemsSource="{Binding BorowEquipments}">
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Header="STT" Binding="{Binding index }" />
+                                    <DataGridTextColumn Header="Tên thiết bị"  Binding="{Binding name }" />
+
+
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Grid.Row="1"
+                                   Grid.Column="3"
+                                    Margin="10"
+                                    HorizontalAlignment="Right"
+                                   Height="30"
+                                    Width="80"                              
+                                    FontSize="14"      
+                                     Command="{Binding DataContext.DeleteEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"
+                                  materialDesign:ButtonAssist.CornerRadius="5"
+                                  Content="Delete">
+
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+
+
+                            </DataGrid>
+
+                        </Grid>
+                    </Grid>
+                    <Button Grid.Row="1" 
+Margin="10"
+
+Style="{StaticResource ButtonPrimary}"
+materialDesign:ButtonAssist.CornerRadius="10"
+Content="Lưu">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding CreateProjectCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </materialDesign:DialogHost>
+</UserControl>
