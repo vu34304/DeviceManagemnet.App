@@ -9,6 +9,7 @@ using LiveChartsCore.SkiaSharpView.Extensions;
 using LiveChartsCore.SkiaSharpView.Painting;
 using Newtonsoft.Json;
 using SkiaSharp;
+using System.Security.Cryptography;
 using System.Windows.Input;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Supervise
@@ -425,7 +426,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async void LoadFablabSuperviseView()
         {
             IsBusy = true;
-            await UpdateOee();
+            //await UpdateOee();
             await UpdateValueEnvironment();
             IsBusy = false;
         }
@@ -472,18 +473,46 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
         private async Task UpdateValueEnvironment()
         {
-           
-            if (_signalRClient != null)
+            var tags = await _signalRClient.GetBufferEnvironmentList();
+
+            var _humidity = tags.LastOrDefault(i => i.Name == "Humidity");
+            var _temperature = tags.LastOrDefault(i => i.Name == "Humidity");
+            var _gas = tags.LastOrDefault(i => i.Name == "Humidity");
+            var _noise = tags.LastOrDefault(i => i.Name == "Humidity");
+
+            if (_humidity is not null)
             {
-                Humidity = Convert.ToInt64(await _signalRClient.GetBufferValue("Humidity"));               
+                Humidity = Convert.ToInt64(_humidity.Value);
                 UpdateValueHumidity(Humidity);
-                Temperature = Convert.ToInt64(await _signalRClient.GetBufferValue("Tempurature"));
+            }
+            if (_temperature is not null)
+            {
+                Temperature = Convert.ToInt64(_temperature.Value);
                 UpdateValueTemperature(Temperature);
-                Gas = Convert.ToInt64(await _signalRClient.GetBufferValue("Gas"));
+            }
+            if (_gas is not null)
+            {
+                Gas = Convert.ToInt64(_gas.Value);
                 UpdateValueGas(Gas);
-                Noise = Convert.ToInt64(await _signalRClient.GetBufferValue("Noise"));
+            }
+            if (_noise is not null)
+            {
+                Noise = Convert.ToInt64(_noise.Value); 
                 UpdateValueNoise(Noise);
             }
+
+
+            //if (_signalRClient != null)
+            //{
+            //    Humidity = Convert.ToInt64(await _signalRClient.GetBufferValue("Humidity"));               
+            //    UpdateValueHumidity(Humidity);
+            //    Temperature = Convert.ToInt64(await _signalRClient.GetBufferValue("Tempurature"));
+            //    UpdateValueTemperature(Temperature);
+            //    Gas = Convert.ToInt64(await _signalRClient.GetBufferValue("Gas"));
+            //    UpdateValueGas(Gas);
+            //    Noise = Convert.ToInt64(await _signalRClient.GetBufferValue("Noise"));
+            //    UpdateValueNoise(Noise);
+            //}
         }
         
         public static void SetStyle(string name, PieSeries<ObservableValue> series)

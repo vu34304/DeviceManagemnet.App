@@ -31,7 +31,6 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        
                     </Grid.RowDefinitions>
                     <TextBlock  Padding="10" Margin="10" Grid.Row="0" 
 Text="KB30" Style="{StaticResource CardTitle}"/>

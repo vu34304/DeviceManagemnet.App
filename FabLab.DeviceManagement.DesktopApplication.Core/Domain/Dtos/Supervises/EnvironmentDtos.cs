@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Supervises
 {
-    internal class EnvironmentDtos
+    public class EnvironmentDtos
     {
+
     }
 }
