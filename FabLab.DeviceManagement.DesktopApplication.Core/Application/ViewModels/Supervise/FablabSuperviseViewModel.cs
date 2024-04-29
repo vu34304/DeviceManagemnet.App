@@ -426,50 +426,54 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async void LoadFablabSuperviseView()
         {
             IsBusy = true;
-            //await UpdateOee();
+            await UpdateOee();
             await UpdateValueEnvironment();
             IsBusy = false;
         }
 
         private async Task UpdateOee()
         {
-            if (_signalRClient != null)
-            {
-                //Machine 1
-                TimeStamp1 = DateTime.TryParse(Convert.ToString((await _signalRClient.GetBufferTimeStamp("KB36"))), out var span) ? span : default;
-                IdleTime1 = Convert.ToDouble(await _signalRClient.GetBufferIdleTime("KB36"))/60;
-                ShiftTime1 = Convert.ToDouble(await _signalRClient.GetBufferShiftTime("KB36")) / 60;
-                OperationTime1 = Convert.ToDouble(await _signalRClient.GetBufferOperationTime("KB36"))/60;
-                Oee1 = Convert.ToDouble(await _signalRClient.GetBufferOee("KB36"));
+            var tags = await _signalRClient.GetBufferList();
+
+            var Machine1 = tags.LastOrDefault(i => i.DeviceId == "KB36");
+            var Machine2 = tags.LastOrDefault(i => i.DeviceId == "TSH1390");
+            var Machine3 = tags.LastOrDefault(i => i.DeviceId == "ERL1330");
+            var Machine4 = tags.LastOrDefault(i => i.DeviceId == "FRD900S");
+
+            if(Machine1 != null)
+            {               
+                IdleTime1 = Convert.ToDouble(Machine1.IdleTime) / 60;
+                ShiftTime1 = Convert.ToDouble(Machine1.ShiftTime) / 60;
+                OperationTime1 = Convert.ToDouble(Machine1.OperationTime) / 60;
+                Oee1 = Convert.ToDouble(Machine1.Oee);
                 UpdateValueOEEMachine1(IdleTime1, ShiftTime1, OperationTime1, Oee1);
-
-                ////Machine 2
-                TimeStamp2 = DateTime.TryParse(Convert.ToString((await _signalRClient.GetBufferTimeStamp("TSH1390"))), out var span2) ? span2 : default;
-                IdleTime2 = Convert.ToDouble(await _signalRClient.GetBufferIdleTime("TSH1390"));
-                ShiftTime2 = Convert.ToDouble(await _signalRClient.GetBufferShiftTime("TSH1390"));
-                OperationTime2 = Convert.ToDouble(await _signalRClient.GetBufferOperationTime("machTSH1390ine2"));
-                Oee2 = Convert.ToDouble(await _signalRClient.GetBufferOee("TSH1390"));
+            }
+            if (Machine2 != null)
+            {
+                IdleTime2 = Convert.ToDouble(Machine2.IdleTime) / 60;
+                ShiftTime2 = Convert.ToDouble(Machine2.ShiftTime) / 60;
+                OperationTime2 = Convert.ToDouble(Machine2.OperationTime) / 60;
+                Oee2 = Convert.ToDouble(Machine2.Oee);
                 UpdateValueOEEMachine2(IdleTime2, ShiftTime2, OperationTime2, Oee2);
-
-                ////Machine 3
-                TimeStamp3 = DateTime.TryParse(Convert.ToString((await _signalRClient.GetBufferTimeStamp("ERL1330"))), out var span3) ? span3 : default;
-                IdleTime3 = Convert.ToDouble(await _signalRClient.GetBufferIdleTime("ERL1330"));
-                ShiftTime3 = Convert.ToDouble(await _signalRClient.GetBufferShiftTime("ERL1330"));
-                OperationTime3 = Convert.ToDouble(await _signalRClient.GetBufferOperationTime("ERL1330"));
-                Oee3 = Convert.ToDouble(await _signalRClient.GetBufferOee("ERL1330"));
+            }
+            if (Machine3 != null)
+            {
+                IdleTime3 = Convert.ToDouble(Machine3.IdleTime) / 60;
+                ShiftTime3 = Convert.ToDouble(Machine3.ShiftTime) / 60;
+                OperationTime3 = Convert.ToDouble(Machine3.OperationTime) / 60;
+                Oee3 = Convert.ToDouble(Machine3.Oee);
                 UpdateValueOEEMachine3(IdleTime3, ShiftTime3, OperationTime3, Oee3);
 
-
-                ////Machine 4
-                TimeStamp4 = DateTime.TryParse(Convert.ToString((await _signalRClient.GetBufferTimeStamp("FRD900S"))), out var span4) ? span4 : default;
-                IdleTime4 = Convert.ToDouble(await _signalRClient.GetBufferIdleTime("FRD900S"));
-                ShiftTime4 = Convert.ToDouble(await _signalRClient.GetBufferShiftTime("FRD900S"));
-                OperationTime4 = Convert.ToDouble(await _signalRClient.GetBufferOperationTime("FRD900S"));
-                Oee4 = Convert.ToDouble(await _signalRClient.GetBufferOee("FRD900S"));
-                UpdateValueOEEMachine4(IdleTime4, ShiftTime4, OperationTime4, Oee4);
-
-
             }
+            if (Machine4 != null)
+            {
+                IdleTime4 = Convert.ToDouble(Machine4.IdleTime) / 60;
+                ShiftTime4 = Convert.ToDouble(Machine4.ShiftTime) / 60;
+                OperationTime4 = Convert.ToDouble(Machine4.OperationTime) / 60;
+                Oee4 = Convert.ToDouble(Machine4.Oee);
+                UpdateValueOEEMachine4(IdleTime4, ShiftTime4, OperationTime4, Oee4);
+            }
+            
         }
         private async Task UpdateValueEnvironment()
         {
@@ -500,19 +504,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Noise = Convert.ToInt64(_noise.Value); 
                 UpdateValueNoise(Noise);
             }
-
-
-            //if (_signalRClient != null)
-            //{
-            //    Humidity = Convert.ToInt64(await _signalRClient.GetBufferValue("Humidity"));               
-            //    UpdateValueHumidity(Humidity);
-            //    Temperature = Convert.ToInt64(await _signalRClient.GetBufferValue("Tempurature"));
-            //    UpdateValueTemperature(Temperature);
-            //    Gas = Convert.ToInt64(await _signalRClient.GetBufferValue("Gas"));
-            //    UpdateValueGas(Gas);
-            //    Noise = Convert.ToInt64(await _signalRClient.GetBufferValue("Noise"));
-            //    UpdateValueNoise(Noise);
-            //}
         }
         
         public static void SetStyle(string name, PieSeries<ObservableValue> series)
