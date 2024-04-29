@@ -91,7 +91,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 OnPropertyChanged();
             }
         }
-
         //Chart environment
         public IEnumerable<ISeries> Series5 { get; set; }
         public IEnumerable<ISeries> Series6 { get; set; }
