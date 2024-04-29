@@ -12,7 +12,7 @@
              xmlns:borrowreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.BorrowReturn;assembly=FabLab.DeviceManagement.DesktopApplication.Core"
              d:DataContext="{d:DesignInstance Type = borrowreturn:CreateNewLendRequestViewModel}"
              xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components" 
-             d:DesignHeight="800" d:DesignWidth="1052"
+             d:DesignHeight="770" d:DesignWidth="1190"
              Background="{StaticResource ColorBackground}"
              Padding="5">
     <i:Interaction.Triggers>
@@ -32,7 +32,7 @@
 
             <!--Danh sach thiet bi-->
             <materialDesign:Card Grid.Column="0"
-             Margin="10">
+             Margin="10 10 5 10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -181,7 +181,7 @@ Content="Đăng kí mượn thiết bị">
                 </Grid>
             </materialDesign:Card>
             <!--Don muon-->
-            <materialDesign:Card Margin="10" Grid.Column="1">
+            <materialDesign:Card Margin="5 10 10 10" Grid.Column="1">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>

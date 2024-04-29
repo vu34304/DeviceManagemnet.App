@@ -129,10 +129,10 @@ Style="{StaticResource TabControlLogoStyle}">
                                          HorizontalAlignment="Center" 
                                          VerticalAlignment="Center" 
                                          Margin="0,0,6,0"/>
-                            <HeaderedContentControl  Content="Quản lý TB mượn/trả"
+                            <HeaderedContentControl  Content="Quản lý mượn/trả"
                                                      HorizontalAlignment="Center"
                                                      FontSize="20"
-                                                     FontWeight="Bold" />
+                                                     FontWeight="Bold" Margin="0,0,25,0" />
                         </StackPanel>
                     </TabItem.Header>
                     <borrowreturn:CreateNewRequestView DataContext="{Binding BorrowReturnNavigation}"/>

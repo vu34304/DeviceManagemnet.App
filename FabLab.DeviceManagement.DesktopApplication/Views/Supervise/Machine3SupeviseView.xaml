@@ -32,8 +32,11 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock  Padding="10" Margin="10" Grid.Row="0" 
+
+                    <Border Height="55" Margin="10"  Background="LightGray" VerticalAlignment="Bottom" Grid.Column="1"  Grid.Row="0"  CornerRadius="10">
+                        <TextBlock  Padding="10" Margin="10" Grid.Row="0"  VerticalAlignment="Center"
 Text="ERL1330" Style="{StaticResource CardTitle}"/>
+                    </Border>
                     <Image Grid.Row="1" MaxHeight="250" MaxWidth="250" Margin="10" 
                            Source="/Resources/Images/may3.jpg" />
                 </Grid>
@@ -52,7 +55,9 @@ Text="ERL1330" Style="{StaticResource CardTitle}"/>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Margin="10" Grid.ColumnSpan="4" Padding="10" Grid.Row="0" Text="Thông số" Style="{StaticResource CardTitle}"/>
+                    <Border Height="55" Margin="10 10 10 30" Grid.ColumnSpan="4"  Background="LightGray" VerticalAlignment="Bottom" Grid.Column="0"  Grid.Row="0"  CornerRadius="10">
+                        <TextBlock Margin="10" VerticalAlignment="Center" Grid.ColumnSpan="4" Padding="10" Grid.Row="0" Text="Thông số" Style="{StaticResource CardTitle}"/>
+                    </Border>
                     <TextBlock Grid.Column="0" Grid.Row="1"
                     Text="Power:"
                     Style="{StaticResource FieldLabel}"
@@ -107,14 +112,16 @@ VerticalAlignment="Center"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock  Padding="10" Margin="10" Grid.Row="0" 
-Text="OEE" Style="{StaticResource CardTitle}"/>
+
+                    <Border Height="55" Margin="10" Grid.ColumnSpan="4"  Background="LightGray" VerticalAlignment="Bottom" Grid.Column="0"  Grid.Row="0"  CornerRadius="10">
+                        <TextBlock Margin="10" VerticalAlignment="Center" Grid.ColumnSpan="4" Padding="10" Grid.Row="0" Text="Chỉ số OEE" Style="{StaticResource CardTitle}"/>
+                    </Border>
                     <lvc:PieChart Grid.Row="1"
   Series="{Binding Series2}"
   InitialRotation="-90"
   MaxAngle="270"
   MinValue="0"
-  MaxValue="{Binding IdleTime3}">
+  MaxValue="100">
                     </lvc:PieChart>
                 </Grid>
 

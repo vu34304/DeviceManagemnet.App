@@ -23,12 +23,20 @@
             <prism:InvokeCommandAction Command="{Binding LoadFablabSuperviseViewCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
-        <materialDesign:DialogHost.DialogContent>
-            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
-        </materialDesign:DialogHost.DialogContent>
-        
-        <busyIndicator:BusyMask  x:Name="BusyIndicator" 
+
+    <TabControl TabStripPlacement="Top" 
+Style="{StaticResource MaterialDesignFilledTabControl}"
+materialDesign:ColorZoneAssist.Background="LightGray">
+        <TabItem Height="55"  Style="{StaticResource TabItem2layerRowStyle}">
+            <TabItem.Header >
+                <TextBlock Style="{StaticResource HeaderText}" Text="GIÁM SÁT FABLAB" FontWeight="Bold"/>
+            </TabItem.Header>
+            <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+                <materialDesign:DialogHost.DialogContent>
+                    <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+                </materialDesign:DialogHost.DialogContent>
+
+                <busyIndicator:BusyMask  x:Name="BusyIndicator" 
                 IsBusy="{Binding IsBusy,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1"
                 IndicatorType="Ring" 
                 BusyContent="Please wait..." 
@@ -38,138 +46,154 @@
                 FontSize="24"             
                 Background="#D8FFFFFF"            
                  >
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.7*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <materialDesign:Card Grid.Row="0" Padding="5" Margin="10">
-                    <Grid>
+                    <Grid >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="0.7*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Border Grid.Row="0" Margin="10" Background="LightGray" CornerRadius="10">
-                            <TextBlock  Grid.Row="0" Text="Thông số môi trường" Style="{StaticResource CardTitle}"/>
-                        </Border>
-                        <Grid  Grid.Row="1">
+                        <materialDesign:Card Grid.Row="0" Padding="5" Margin="10">
+                            <Grid>
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                  
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0"
-                    Text="Humidity"
-                    Style="{StaticResource FieldLabel}"
-                    Margin="10 20 10 0" HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"/>
-                            <lvc:PieChart Grid.Column="0" 
+                                <Border VerticalAlignment="Bottom"  Grid.Row="0" Height="30" Width="150"  Margin="10 20 10 0" Background="LightGray" CornerRadius="10">
+                                    <TextBlock Grid.Column="0"
+                                    Text="Humidity" 
+                                    Style="{StaticResource FieldLabel}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                                </Border>
+
+                                <lvc:PieChart Grid.Column="0" 
         Series="{Binding Series5}"
         InitialRotation="-225"
         MaxAngle="270"
         MinValue="0"
         MaxValue="200">
-                            </lvc:PieChart>
-                            <!--<lvc:PieChart
+                                </lvc:PieChart>
+                                <!--<lvc:PieChart
         Series="{Binding Series5}"
         InitialRotation="-90"
         MinValue="0"
         MaxValue="100">
-                            </lvc:PieChart>-->
-                            <TextBlock  Grid.Column="1"
-                    Text="Temperature"
-                    Style="{StaticResource FieldLabel}"
-                    Margin="10 20 10 0" HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"/>
-                            
+                            </lvc:P ieChart>-->
+                                <Border  Background="LightGray" VerticalAlignment="Bottom" Grid.Column="1"  Grid.Row="0" Height="30" Width="150"  Margin="10 20 10 0"  CornerRadius="10">
+                                    <TextBlock Grid.Column="0"
+        Text="Temperature" 
+        Style="{StaticResource FieldLabel}"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"/>
+                                </Border>
 
 
-                            <lvc:PieChart Grid.Column="1" 
+
+                                <lvc:PieChart Grid.Column="1" 
 Series="{Binding Series6}"
 InitialRotation="-225"
 MaxAngle="270"
 MinValue="0"
 MaxValue="100">
-                            </lvc:PieChart>
-                            <TextBlock  Grid.Column="2" Grid.Row="0"
-                    Text="Gas" HorizontalAlignment="Center"
-                    Style="{StaticResource FieldLabel}"
-                    Margin="10 20 10 0"
-                    VerticalAlignment="Bottom"/>
+                                </lvc:PieChart>
+                                <Border Grid.Column="2" VerticalAlignment="Bottom"  Grid.Row="0" Height="30" Width="150"  Margin="10 20 10 0" Background="LightGray" CornerRadius="10">
+                                    <TextBlock Grid.Column="0"
+        Text="Gas" 
+        Style="{StaticResource FieldLabel}"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"/>
+                                </Border>
 
-                            <lvc:PieChart Grid.Column="2" Grid.Row="0"
+                                <lvc:PieChart Grid.Column="2" Grid.Row="0"
 Series="{Binding Series7}"
 InitialRotation="-225"
 MaxAngle="270"
 MinValue="0"
 MaxValue="100">
-                            </lvc:PieChart>
-                            <TextBlock  Grid.Column="3" Grid.Row="0"
-                    Text="Noise"
-                    Style="{StaticResource FieldLabel}"
-                    Margin="10 20 10 0" HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"/>
-                            <lvc:PieChart Grid.Column="3" Grid.Row="0"
+                                </lvc:PieChart>
+                                <Border Grid.Column="3" VerticalAlignment="Bottom"  Grid.Row="0" Height="30" Width="150"  Margin="10 20 10 0" Background="LightGray" CornerRadius="10">
+                                    <TextBlock Grid.Column="0"
+        Text="Noise" 
+        Style="{StaticResource FieldLabel}"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"/>
+                                </Border>
+                                <lvc:PieChart Grid.Column="3" Grid.Row="0"
 Series="{Binding Series8}"
 InitialRotation="-225"
 MaxAngle="270"
 MinValue="0"
 MaxValue="100">
-                            </lvc:PieChart>
+                                </lvc:PieChart>
 
 
 
+
+                            </Grid>
+                        </materialDesign:Card>
+                        <Grid Grid.Row="1" x:Name="grid">
+
+                            <local:Machine1SupeviseView Visibility="{Binding OpenViewMachineKB36}"/>
+                            <local:Machine2SupeviseView Visibility="{Binding OpenViewMachineTSH1390}"/>
+                            <local:Machine3SupeviseView Visibility="{Binding OpenViewMachineERL1330}"/>
+                            <local:Machine4SupeviseView Visibility="{Binding OpenViewMachineFRD900S}"/>
 
                         </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" 
+Margin="80 10 10 10"   Command="{Binding PreviusViewCommand}"
+Style="{StaticResource ButtonPrimary}" IsEnabled="{Binding IsLastView}"
+materialDesign:ButtonAssist.CornerRadius="10"
+>
+                                <!--<i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <prism:InvokeCommandAction Command="{Binding PreviusViewCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>-->
+                                <materialDesign:PackIcon Kind="ArrowLeftBold" Height="30" Width="30"/>
+
+                            </Button>
+                            <Button Grid.Column="1" 
+Margin="10 10 80 10"  IsEnabled="{Binding IsFisrtView}"
+Style="{StaticResource ButtonPrimary}" Command="{Binding NextViewCommand }"
+materialDesign:ButtonAssist.CornerRadius="10"
+>
+                                <!--<i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <prism:InvokeCommandAction Command="{Binding NextViewCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>-->
+                                <materialDesign:PackIcon Kind="ArrowRightBold" Height="30" Width="30"/>
+                            </Button>
+                        </Grid>
+
                     </Grid>
-                </materialDesign:Card>
-                <Grid Grid.Row="1" x:Name="grid">
+                </busyIndicator:BusyMask>
+            </materialDesign:DialogHost>
+        </TabItem>
 
-                    <local:Machine1SupeviseView Visibility="{Binding OpenViewMachineKB36}"/>
-                    <local:Machine2SupeviseView Visibility="{Binding OpenViewMachineTSH1390}"/>
-                    <local:Machine3SupeviseView Visibility="{Binding OpenViewMachineERL1330}"/>
-                    <local:Machine4SupeviseView Visibility="{Binding OpenViewMachineFRD900S}"/>
+        <!--<TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
+           <TabItem.Header >
+               <TextBlock Style="{StaticResource HeaderText}" Text="BẢO TRÌ LOẠI THIẾT BỊ" FontWeight="Bold"/>
+           </TabItem.Header>
+           <local:EquipmentTypeMaintenanceView DataContext="{Binding EquipmentTypeMaintenanceViewModel}"/>
+       </TabItem>
+       <TabItem  Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
+           <TabItem.Header >
+               <TextBlock Style="{StaticResource HeaderText}" Text="NCC VÀ VỊ TRÍ" FontWeight="Bold"/>
+           </TabItem.Header>
+           <local:SupplierLocationMaintenanceView DataContext="{Binding SupplierLocationMaintenanceViewModel   }"/>
+       </TabItem>-->
+    </TabControl>
 
-                </Grid>
-
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" 
-Margin="80 10 10 10"  
-Style="{StaticResource ButtonPrimary}"
-materialDesign:ButtonAssist.CornerRadius="10"
->
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <prism:InvokeCommandAction Command="{Binding PreviusViewCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <materialDesign:PackIcon Kind="ArrowLeftBold" Height="30" Width="30"/>
-
-                    </Button>
-                    <Button Grid.Column="1" 
-Margin="10 10 80 10"  
-Style="{StaticResource ButtonPrimary}"
-materialDesign:ButtonAssist.CornerRadius="10"
->
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <prism:InvokeCommandAction Command="{Binding NextViewCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <materialDesign:PackIcon Kind="ArrowRightBold" Height="30" Width="30"/>
-                    </Button>
-                </Grid>
-
-            </Grid>
-        </busyIndicator:BusyMask>
-    </materialDesign:DialogHost>
+    
 </UserControl>

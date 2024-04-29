@@ -104,10 +104,44 @@
 
                 <TextBlock Grid.Row="2"
                                    Grid.Column="0"
-                                  Text="Mô tả:"
+                                  Text="Tag:"
                                    Margin="10" 
                                   Style="{StaticResource FieldLabel}"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
+
+                <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox  Grid.Column="0" 
+materialDesign:HintAssist.Hint="Tag Selected" 
+FontSize="16"
+Style="{StaticResource TextBox}"
+Margin="10" 
+VerticalAlignment="Center"
+Text="{Binding TagId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" materialDesign:HintAssist.Hint="Tags" 
+Text="{Binding TagSelected}" Margin="10" Style="{StaticResource ComboBox}" 
+IsEditable="True" Foreground="Black" 
+ItemsSource="{Binding TagIds}">
+                    </ComboBox>
+                </Grid>
+
+                <Button Grid.Row="2"  
+ Grid.Column="3"
+Margin="10"
+  HorizontalAlignment="Left"
+ Height="30"                            
+  FontSize="14"                             
+materialDesign:ButtonAssist.CornerRadius="5"
+Content="Add Tag">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <prism:InvokeCommandAction Command="{Binding AddTagCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <TextBox Grid.Row="1" Grid.Column="1" 
            materialDesign:HintAssist.Hint="Mô tả"
            FontSize="16"
            Style="{StaticResource TextBox}"
@@ -117,41 +151,12 @@
 
                 <TextBlock Grid.Row="1" Grid.Column="0" 
        Margin="10,0,0,0" 
-       Text="Tag:"
+       Text="Mô tả:"
        Style="{StaticResource FieldLabel}"/>
 
-                <TextBox Grid.Column="1" Grid.Row="1"
-                materialDesign:HintAssist.Hint="Tag"
-                FontSize="16" IsReadOnly="True"
-                Style="{StaticResource TextBox}"
-                Margin="10"
-                VerticalAlignment="Center"
-                Text="{Binding NewTagStr, UpdateSourceTrigger=PropertyChanged}"/>
+                
             </Grid>
-            <!--<Grid Grid.Row="2" Background="LightGray">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="3*"/>
-                    </Grid.ColumnDefinitions>
-                    <DataGrid Margin="10" IsReadOnly="True" ItemsSource="{Binding SpecificationEquimentTypes}"></DataGrid>
-                    <DataGrid   Margin="10" IsReadOnly="True" 
-AutoGenerateColumns="False"  MaxHeight="300"  Grid.Column="1"  Padding="10" 
-VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding Pictures, Mode=TwoWay}" >
-
-                        <DataGrid.Columns >
-                            <DataGridTemplateColumn   Header="Image">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding Source}" MaxHeight="300"  />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>-->
-
-
+    
             <StackPanel Margin="10" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3">
                 <Button Grid.Row="5"
                      Grid.Column="7"

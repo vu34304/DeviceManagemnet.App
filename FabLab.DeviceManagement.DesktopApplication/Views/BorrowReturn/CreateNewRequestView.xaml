@@ -11,7 +11,7 @@
              xmlns:borrowreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.BorrowReturn;assembly=FabLab.DeviceManagement.DesktopApplication.Core"
              d:DataContext="{d:DesignInstance Type=borrowreturn:BorrowReturnNavigationViewModel}"            
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1052"
+                d:DesignHeight="900" d:DesignWidth="1152"
              Background="{StaticResource ColorBackground}"
              Padding="10">
     <Grid>

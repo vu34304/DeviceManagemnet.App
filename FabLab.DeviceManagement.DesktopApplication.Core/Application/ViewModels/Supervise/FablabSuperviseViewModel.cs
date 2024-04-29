@@ -106,6 +106,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public ICommand LoadFablabSuperviseViewCommand { get; set; }
         public ICommand NextViewCommand { get; set; }
         public ICommand PreviusViewCommand { get; set; }
+        //enable button change view
+        public bool IsFisrtView { get; set; }
+        public bool IsLastView { get; set; }
         public FablabSuperviseViewModel(ISignalRClient signalRClient)
         {
             _signalRClient = signalRClient;
@@ -119,6 +122,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             ColorTemperature = "White";
             ColorGas = "White";
             ColorNoise = "White";
+    
             UpdateView(0);
         }
 
@@ -272,6 +276,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 ShiftTime1 = Convert.ToDouble(tag.ShiftTime)/60;
                                 OperationTime1 = Convert.ToDouble(tag.OperationTime)/60;
                                 Oee1 = Convert.ToDouble(tag.Oee);
+                                UpdateValueOEEMachine1(IdleTime1, ShiftTime1, OperationTime1, Oee1);
                                 break;
                             }
 
@@ -282,6 +287,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 ShiftTime2 = Convert.ToDouble(tag.ShiftTime);
                                 OperationTime2 = Convert.ToDouble(tag.OperationTime);
                                 Oee2 = Convert.ToDouble(tag.Oee);
+                                UpdateValueOEEMachine2(IdleTime2, ShiftTime2, OperationTime2, Oee2);
                                 break;
                             }
                         case "machine3":
@@ -291,6 +297,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 ShiftTime3 = Convert.ToDouble(tag.ShiftTime);
                                 OperationTime3 = Convert.ToDouble(tag.OperationTime);
                                 Oee3 = Convert.ToDouble(tag.Oee);
+                                UpdateValueOEEMachine3(IdleTime3, ShiftTime3, OperationTime3, Oee3);
                                 break;
                             }
                         case "machine4":
@@ -300,6 +307,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 ShiftTime4 = Convert.ToDouble(tag.ShiftTime);
                                 OperationTime4 = Convert.ToDouble(tag.OperationTime);
                                 Oee4 = Convert.ToDouble(tag.Oee);
+                                UpdateValueOEEMachine4(IdleTime4, ShiftTime4, OperationTime4, Oee4);
                                 break;
                             }
 
@@ -321,15 +329,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             Task Update = new(() =>
             {
-                IdleTime = Math.Round(IdleTime,2);
-                ShiftTime = Math.Round(ShiftTime, 2);
-                OperationTime = Math.Round(OperationTime, 2);
+                var A = Math.Round(IdleTime / ShiftTime, 3);
+                var P = Math.Round(OperationTime / IdleTime, 3);
                 Oee = Math.Round(Oee, 5);
-                
+
                 Series = GaugeGenerator.BuildSolidGauge(
-                new GaugeItem(IdleTime, series => SetStyle("IdleTime", series)),
-                new GaugeItem(ShiftTime, series => SetStyle("ShiftTime", series)),
-                new GaugeItem(OperationTime, series => SetStyle("OperationTime", series)),
+                new GaugeItem(100, series => SetStyleQ("Q", series)),
+                new GaugeItem(P, series => SetStyle("P", series)),
+                new GaugeItem(A, series => SetStyle("A", series)),           
                 new GaugeItem(Oee, series => SetStyle("OEE", series)),
                 new GaugeItem(GaugeItem.Background, series =>
                 {
@@ -346,15 +353,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             Task Update = new(() =>
             {
-                IdleTime = Math.Round(IdleTime, 2);
-                ShiftTime = Math.Round(ShiftTime, 2);
-                OperationTime = Math.Round(OperationTime, 2);
+                var A = Math.Round(IdleTime / ShiftTime, 3);
+                var P = Math.Round(OperationTime / IdleTime, 3);
                 Oee = Math.Round(Oee, 5);
 
                 Series1 = GaugeGenerator.BuildSolidGauge(
-                new GaugeItem(IdleTime, series => SetStyle("IdleTime", series)),
-                new GaugeItem(ShiftTime, series => SetStyle("ShiftTime", series)),
-                new GaugeItem(OperationTime, series => SetStyle("OperationTime", series)),
+                new GaugeItem(100, series => SetStyleQ("Q", series)),
+                new GaugeItem(P, series => SetStyle("P", series)),
+                new GaugeItem(A, series => SetStyle("A", series)),
                 new GaugeItem(Oee, series => SetStyle("OEE", series)),
                 new GaugeItem(GaugeItem.Background, series =>
                 {
@@ -369,15 +375,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             Task Update = new(() =>
             {
-                IdleTime = Math.Round(IdleTime, 2);
-                ShiftTime = Math.Round(ShiftTime, 2);
-                OperationTime = Math.Round(OperationTime, 2);
+                var A = Math.Round(IdleTime / ShiftTime, 3);
+                var P = Math.Round(OperationTime / IdleTime, 3);
                 Oee = Math.Round(Oee, 5);
 
                 Series2 = GaugeGenerator.BuildSolidGauge(
-                new GaugeItem(IdleTime, series => SetStyle("IdleTime", series)),
-                new GaugeItem(ShiftTime, series => SetStyle("ShiftTime", series)),
-                new GaugeItem(OperationTime, series => SetStyle("OperationTime", series)),
+                new GaugeItem(100, series => SetStyleQ("Q", series)),
+                new GaugeItem(P, series => SetStyle("P", series)),
+                new GaugeItem(A, series => SetStyle("A", series)),
                 new GaugeItem(Oee, series => SetStyle("OEE", series)),
                 new GaugeItem(GaugeItem.Background, series =>
                 {
@@ -514,15 +519,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             Task Update = new(() =>
             {
-                IdleTime = Math.Round(IdleTime,2);
-                ShiftTime = Math.Round(ShiftTime, 2);
-                OperationTime = Math.Round(OperationTime, 2);
+                var A = Math.Round(IdleTime / ShiftTime, 3);
+                var P = Math.Round(OperationTime / IdleTime, 3);
                 Oee = Math.Round(Oee, 5);
 
                 Series3 = GaugeGenerator.BuildSolidGauge(
-                new GaugeItem(IdleTime, series => SetStyle("IdleTime", series)),
-                new GaugeItem(ShiftTime, series => SetStyle("ShiftTime", series)),
-                new GaugeItem(OperationTime, series => SetStyle("OperationTime", series)),
+                new GaugeItem(100, series => SetStyleQ("Q", series)),
+                new GaugeItem(P, series => SetStyle("P", series)),
+                new GaugeItem(A, series => SetStyle("A", series)),
                 new GaugeItem(Oee, series => SetStyle("OEE", series)),
                 new GaugeItem(GaugeItem.Background, series =>
                 {
@@ -692,6 +696,16 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             series.RelativeOuterRadius = 3;
             series.RelativeInnerRadius = 3;
         }
+        public static void SetStyleQ(string name, PieSeries<ObservableValue> series)
+        {
+            series.Name = name;
+            series.DataLabelsPosition = PolarLabelsPosition.Start;
+            series.DataLabelsFormatter =
+                    point => $"{point.Context.Series.Name}: {point.Coordinate.PrimaryValue}%";
+            series.InnerRadius = 20;
+            series.RelativeOuterRadius = 3;
+            series.RelativeInnerRadius = 3;
+        }
 
 
 
@@ -723,6 +737,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         OpenViewMachineTSH1390 = "Hidden";
                         OpenViewMachineERL1330 = "Hidden";
                         OpenViewMachineFRD900S = "Hidden";
+                        IsFisrtView = true;
+                        IsLastView = false;
                         break;
                     }
                 case 1:
@@ -731,6 +747,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         OpenViewMachineTSH1390 = "Visible";
                         OpenViewMachineERL1330 = "Hidden";
                         OpenViewMachineFRD900S = "Hidden";
+                        IsFisrtView = true;
+                        IsLastView = true;
                         break;
                     }
                 case 2:
@@ -739,6 +757,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         OpenViewMachineTSH1390 = "Hidden";
                         OpenViewMachineERL1330 = "Visible";
                         OpenViewMachineFRD900S = "Hidden";
+                        IsFisrtView = true;
+                        IsLastView = true;
                         break;
                     }
                 case 3:
@@ -747,10 +767,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         OpenViewMachineTSH1390 = "Hidden";
                         OpenViewMachineERL1330 = "Hidden";
                         OpenViewMachineFRD900S = "Visible";
+                        IsFisrtView = false;
+                        IsLastView = true;
                         break;
                     }
 
             }
+
+            
         }
 
     }

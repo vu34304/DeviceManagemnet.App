@@ -565,12 +565,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
         private async void SaveAsync()
         {
-            
+            NewTag = TagId.Split("#").Skip(1).ToArray();
+
             EquipmentTypeDto fixdto = new EquipmentTypeDto(NewEquipmentTypeId, NewEquipmentTypeName, NewDescription, NewCategory,NewTag);
             if (_mapper is not null && _apiService is not null)
             {
                 try
                 {
+                    
                     await _apiService.FixEquipmentTypesAsync(fixdto);
                     MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     LoadEquipmentTypeView();

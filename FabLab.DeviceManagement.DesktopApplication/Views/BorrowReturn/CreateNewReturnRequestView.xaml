@@ -11,7 +11,7 @@
              xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components" 
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=borrowreturn:CreateNewReturnRequestViewModel}"
-             d:DesignHeight="800" d:DesignWidth="1052"
+             d:DesignHeight="770" d:DesignWidth="1190"
              Background="{StaticResource ColorBackground}"
              Padding="5">
     <i:Interaction.Triggers>
