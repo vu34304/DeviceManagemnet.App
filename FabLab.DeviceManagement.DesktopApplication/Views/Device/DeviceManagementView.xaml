@@ -123,7 +123,7 @@ Content="Tìm kiếm nâng cao">
                                 <DataGridTemplateColumn Width="auto">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Content="Xóa"
+                                            <Button Content="Delete"
                         materialDesign:ButtonAssist.CornerRadius="10">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">
@@ -138,7 +138,7 @@ Content="Tìm kiếm nâng cao">
                                 <DataGridTemplateColumn Width="auto">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Content="Sửa"
+                                            <Button Content="Edit"
                                                 materialDesign:ButtonAssist.CornerRadius="10">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">

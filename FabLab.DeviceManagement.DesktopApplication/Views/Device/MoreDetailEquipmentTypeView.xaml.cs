@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace FabLab.DeviceManagement.DesktopApplication.Views.Device
 {
     /// <summary>
-    /// Interaction logic for EquipmentTypeView.xaml
+    /// Interaction logic for MoreDetailEquipmentTypeView.xaml
     /// </summary>
-    public partial class EquipmentTypeView : UserControl
+    public partial class MoreDetailEquipmentTypeView : UserControl
     {
-        public EquipmentTypeView()
+        public MoreDetailEquipmentTypeView()
         {
-            
             InitializeComponent();
-        }   
+        }
     }
 }

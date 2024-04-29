@@ -48,9 +48,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public event Action? Updated;
         public event Action? OnException;
         public event Action? IsOpenFixView;
+        public event Action? IsOpenMoreDetailView;
 
         public ICommand DeleteCommand { get; set; }
         public ICommand OpenFixViewCommand { get; set; }
+        public ICommand OpenOpenMoreDetailViewCommand { get; set; }
 
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -60,6 +62,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
             DeleteCommand = new RelayCommand(DeleteAsync);
             OpenFixViewCommand = new RelayCommand(OpenFixView);
+            OpenOpenMoreDetailViewCommand = new RelayCommand(OpenMoreDetail);
         }
         public EquipmentTypeEntryViewModel(string equipmentTypeId, string equipmentTypeName, ECategory category, string description, string[] tags) : this()
         {
@@ -143,6 +146,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             return bi;
         }
 
-        
+        private void OpenMoreDetail()
+        {
+            IsOpenMoreDetailView?.Invoke();
+        }
     }
 }

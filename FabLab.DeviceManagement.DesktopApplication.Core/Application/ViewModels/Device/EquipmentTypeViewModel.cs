@@ -40,6 +40,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         public bool IsOpenCreateView { get; set; }
         public bool IsOpenFixView { get; set; }
+        public bool IsOpenMoreDetailView { get; set; }
         //Thong so
         public ObservableCollection<SpecificationEquimentType> SpecificationEquimentTypes { get; set; } = new();
         //Hinh anh
@@ -153,6 +154,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public ICommand AddTagCommand { get; set; }
         public ICommand OpenSearchAdvanceViewCommand { get; set; }
         public ICommand CLoseSearchAdvanceViewCommand { get; set; }
+        public ICommand CLoseMoreDetailViewCommand { get; set; }
 
 
         public EquipmentTypeViewModel(IApiService apiService, IMapper mapper, EquipmentTypeStore equipmentTypeStore)
@@ -181,6 +183,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             AddTagCommand = new RelayCommand(AddTag);
             OpenSearchAdvanceViewCommand = new RelayCommand(OpenSearchView);
             CLoseSearchAdvanceViewCommand = new RelayCommand(CloseSearchView);
+            CLoseMoreDetailViewCommand = new RelayCommand(CloseMoreDetailView);
             IsOpenCreateView = false;
             IsOpenFixView = false;
             IsOpenSearchAdvanceView = false;
@@ -245,6 +248,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 }
             }
         }
+
+        //Open and Close View Popup
         private void CloseFixView()
         {
             IsOpenFixView = false;
@@ -265,7 +270,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             IsOpenCreateView = false;
         }
 
-
         private void OpenSearchView()
         {
             IsOpenSearchAdvanceView = true;
@@ -274,6 +278,24 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             IsOpenSearchAdvanceView = false;
         }
+        private void Entry_IsOpenMoreDetailView()
+        {
+            IsOpenMoreDetailView = true;
+            LoadDetail();
+        }
+        private void CloseMoreDetailView()
+        {
+            IsOpenMoreDetailView = false;
+        }
+
+        //Open fix view
+        private void Entry_IsOpenFixView()
+        {
+            IsOpenFixView = true;        
+        }
+
+        //
+
         private async void LoadInitial()
         {
 
@@ -304,6 +326,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         entry.Updated += LoadInitial;
                         entry.OnException += Error;
                         entry.IsOpenFixView += Entry_IsOpenFixView;
+                        entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
 
 
                     }
@@ -315,15 +338,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
         }
 
-        //Open fix view
-        private void Entry_IsOpenFixView()
-        {
-            IsOpenFixView = true;
-            LoadDetail();
-        }
-
        
-
         private async void SearchEquipmentType()
         {
             if (!String.IsNullOrEmpty(SearchKeyWord))
