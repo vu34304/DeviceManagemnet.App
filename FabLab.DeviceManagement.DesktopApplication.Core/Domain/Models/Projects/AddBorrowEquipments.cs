@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.SeedWork;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,19 @@ using System.Threading.Tasks;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Projects
 {
-    public class AddBorrowEquipments
+    public class AddBorrowEquipments:BaseViewModel
     {
-        public int index { get; set; }
+        private int _index;
+        public int index
+        {
+            get => _index;
+            set 
+            {
+               _index = value;
+                OnPropertyChanged(nameof(index));
+            }
+        }
+            
         public string name { get; set; }
         public string id { get; set; }
     }

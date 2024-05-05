@@ -460,11 +460,20 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private void DeleteImage(ImageEquimentType obj)
         {
             ImageEquimentTypes.Remove(obj);
+            var index = 0;
+            foreach (var item in ImageEquimentTypes)
+            {
+                item.ImageName = "Picture " + $"{index}";
+                index++;
+                OnPropertyChanged();
+            }
         }
 
 
         public void AddSpec()
         {
+            
+
             if (!String.IsNullOrEmpty(NewName) || !String.IsNullOrEmpty(NewUnit) || !String.IsNullOrEmpty(NewValue))
             {
                 NewSpecificationEquimentTypes.Add(new SpecificationEquimentType()
@@ -575,6 +584,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     
                     await _apiService.FixEquipmentTypesAsync(fixdto);
                     MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    IsOpenFixView = false;
                     LoadEquipmentTypeView();
                 }
                 catch (HttpRequestException)
@@ -586,6 +596,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             NewEquipmentTypeId = "";
             NewEquipmentTypeName = "";
             NewDescription = "";
+            TagId = "";
             NewCategory = ECategory.All;
 
 

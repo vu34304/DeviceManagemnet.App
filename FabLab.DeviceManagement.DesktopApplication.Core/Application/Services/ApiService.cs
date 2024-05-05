@@ -27,7 +27,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
 
 
         private readonly HttpClient _httpClient;
-        private const string serverUrl = "https://equipmentmanagementapi20240411122819.azurewebsites.net/";
+        private const string serverUrl = "https://equipmentmanagementapi20240504223223.azurewebsites.net/";
 
         public ApiService()
         {
@@ -643,6 +643,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         # region Borrow
         public async Task<IEnumerable<BorrowEquipmentDto>> GetBorrowEquipmentAsync(string projectName)
         {
+            if (projectName.Contains("#"))
+            {
+                projectName = projectName.Replace("#", "%23");
+            }
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipment/Enhanced?pageSize=20&Status=0&ProjectName={projectName}&pageNumber=1");
 
             response.EnsureSuccessStatusCode();

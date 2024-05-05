@@ -87,7 +87,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
             }
-            
+
 
             await Task.WhenAll(
                 _databaseSynchronizationService.SynchronizeLocationsData(),

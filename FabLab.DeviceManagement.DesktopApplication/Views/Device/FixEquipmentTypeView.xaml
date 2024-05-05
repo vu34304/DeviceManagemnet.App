@@ -57,7 +57,7 @@
                                    Margin="10"
                                    Text="Mã loại:"
                                    Style="{StaticResource FieldLabel}"/>
-                <TextBox Grid.Column="1"
+                <TextBox Grid.Column="1" IsEnabled="False"
                                     materialDesign:HintAssist.Hint="Mã loại"
                                     FontSize="16"
                                     Style="{StaticResource TextBox}"

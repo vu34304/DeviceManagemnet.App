@@ -80,13 +80,22 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             if (!String.IsNullOrEmpty(BorrowEquipmentName))
             {
-                var item = equipments.SingleOrDefault(i=>i.EquipmentName == BorrowEquipmentName);
+                var item = equipments.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
+                foreach (var a in BorowEquipments)
+                {
+                    if (a.name == BorrowEquipmentName)
+                    {
+                        MessageBox.Show("Thiết bị đã được chọn !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        item=null;
+                    }
+                }
+                
 
                if(item != null)
                 {
                     BorowEquipments.Add(new()
                     {
-                        index = BorowEquipments.Count() + 1,
+                        index = BorowEquipments.Count(),
                         name = BorrowEquipmentName,
                         id = item.EquipmentId
                     });
@@ -100,6 +109,13 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private void DeleteBorrowEquipment(AddBorrowEquipments obj)
         {
             BorowEquipments.Remove(obj);
+            var index = 0;
+            foreach (var item in BorowEquipments)
+            {
+                item.index = index;
+                index++;
+                OnPropertyChanged();
+            }
         }
         private async void CreateProject()
         {

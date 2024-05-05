@@ -334,7 +334,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Oee = Math.Round(Oee, 5);
 
                 Series = GaugeGenerator.BuildSolidGauge(
-                new GaugeItem(100, series => SetStyleQ("Q", series)),
+                new GaugeItem(1, series => SetStyle("Q", series)),
                 new GaugeItem(P, series => SetStyle("P", series)),
                 new GaugeItem(A, series => SetStyle("A", series)),           
                 new GaugeItem(Oee, series => SetStyle("OEE", series)),
@@ -358,7 +358,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Oee = Math.Round(Oee, 5);
 
                 Series1 = GaugeGenerator.BuildSolidGauge(
-                new GaugeItem(100, series => SetStyleQ("Q", series)),
+                new GaugeItem(1, series => SetStyle("Q", series)),
                 new GaugeItem(P, series => SetStyle("P", series)),
                 new GaugeItem(A, series => SetStyle("A", series)),
                 new GaugeItem(Oee, series => SetStyle("OEE", series)),
@@ -380,7 +380,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Oee = Math.Round(Oee, 5);
 
                 Series2 = GaugeGenerator.BuildSolidGauge(
-                new GaugeItem(100, series => SetStyleQ("Q", series)),
+                new GaugeItem(1, series => SetStyle("Q", series)),
                 new GaugeItem(P, series => SetStyle("P", series)),
                 new GaugeItem(A, series => SetStyle("A", series)),
                 new GaugeItem(Oee, series => SetStyle("OEE", series)),
@@ -524,7 +524,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Oee = Math.Round(Oee, 5);
 
                 Series3 = GaugeGenerator.BuildSolidGauge(
-                new GaugeItem(100, series => SetStyleQ("Q", series)),
+                new GaugeItem(1, series => SetStyle("Q", series)),
                 new GaugeItem(P, series => SetStyle("P", series)),
                 new GaugeItem(A, series => SetStyle("A", series)),
                 new GaugeItem(Oee, series => SetStyle("OEE", series)),
@@ -696,16 +696,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             series.RelativeOuterRadius = 3;
             series.RelativeInnerRadius = 3;
         }
-        public static void SetStyleQ(string name, PieSeries<ObservableValue> series)
-        {
-            series.Name = name;
-            series.DataLabelsPosition = PolarLabelsPosition.Start;
-            series.DataLabelsFormatter =
-                    point => $"{point.Context.Series.Name}: {point.Coordinate.PrimaryValue}%";
-            series.InnerRadius = 20;
-            series.RelativeOuterRadius = 3;
-            series.RelativeInnerRadius = 3;
-        }
+        
 
 
 

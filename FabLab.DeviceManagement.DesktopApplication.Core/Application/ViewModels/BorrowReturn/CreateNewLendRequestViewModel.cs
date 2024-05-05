@@ -11,6 +11,7 @@ using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using MessageBox = System.Windows.MessageBox;
 
@@ -21,11 +22,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
     {
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
-        public ObservableCollection<AddBorrowEquipments> BorrowEquipments { get; set; } = new();
+        public ObservableCollection<AddBorrowEquipments> BorrowEquipments { get; set; } =new ObservableCollection<AddBorrowEquipments>();
         public List<BorrowEquipmentDto> BorrowEquipmentDtos { get; set; } = new();
-        public List<string> BorrowEquipmentNames { get; set; } = new();
 
-        public List<string> BorrowEquipmentNames1 { get; set; } = new();
+        public ObservableCollection<BorrowEquipmentDto> ListBorrowEquipments { get; set; } = new();
 
         public string BorrowEquipmentName { get; set; }
         public bool IsReady { get; set; }
@@ -51,8 +51,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         private List<EquipmentDto> equipments = new();
 
-        private CreateNewLendRequestEntryViewModel _SelectedItem;
-        public CreateNewLendRequestEntryViewModel SelectedItem
+        private BorrowEquipmentDto _SelectedItem;
+
+        public BorrowEquipmentDto SelectedItem
         {
             get => _SelectedItem;
             set
@@ -69,22 +70,20 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
         }
 
-        public ObservableCollection<CreateNewLendRequestEntryViewModel> EquipmentEntries { get; set; } = new();
-        public CreateNewLendRequestEntryViewModel createNewLendRequestEntryViewModel { get; set; }
-
         public ICommand LoadCreateNewLendRequestViewCommand { get; set; }
         public ICommand FilterEquipmentCommand { get; set; }
         public ICommand AddBorrowEquipmentCommand { get; set; }
+        public ICommand RemoveBorrowEquipmentCommand { get; set; }
         public ICommand CreateLendRequestCommand { get; set; }
-        public CreateNewLendRequestViewModel(IApiService apiService, IMapper mapper, CreateNewLendRequestEntryViewModel createNewLendRequestEntryViewModel)
+        public CreateNewLendRequestViewModel(IApiService apiService, IMapper mapper)
         {
             _apiService = apiService;
             _mapper = mapper;
             LoadCreateNewLendRequestViewCommand = new RelayCommand(LoadCreateNewLendRequestView);
             FilterEquipmentCommand = new RelayCommand(FilterEquipment);
             AddBorrowEquipmentCommand = new RelayCommand(AddEquipment);
+            RemoveBorrowEquipmentCommand = new RelayCommand(RemoveEquipment);
             CreateLendRequestCommand = new RelayCommand(CreateLendRequest);
-            this.createNewLendRequestEntryViewModel = createNewLendRequestEntryViewModel;
         }
 
         private void LoadCreateNewLendRequestView()
@@ -95,7 +94,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             OnPropertyChanged(nameof(EquipmentNames));
             OnPropertyChanged(nameof(EquipmentIds));
             BorrowEquipments.Clear();
-            EquipmentEntries.Clear();
             BorrowId = "";
             BorrowedDate = DateTime.Now;
             ReturnedDate = DateTime.Now;
@@ -103,6 +101,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Reason = "";
             ProjectName = "";
             Approved = true;
+            BorrowEquipmentDtos.Clear();
+            BorrowEquipments.Clear();
         }
         private async void UpdateProjectNames()
         {
@@ -145,9 +145,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
                     if (BorrowEquipmentDtos.Count() != 0)
                     {
-                        var viewModels = _mapper.Map<IEnumerable<BorrowEquipmentDto>, IEnumerable<CreateNewLendRequestEntryViewModel>>(BorrowEquipmentDtos);
-                        EquipmentEntries = new(viewModels);
-                        BorrowEquipmentName = "";
                         BorrowEquipments.Clear();
                         if (ProjectsFilter.Where(i => i.Approved == false).Count() != 0)
                         {
@@ -167,34 +164,49 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
             else MessageBox.Show("Vui lòng chọn vào dự án!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+
+       
+
         private void AddEquipment()
         {
 
             if (!String.IsNullOrEmpty(BorrowEquipmentName))
             {
-
                 var equipment = equipments.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
 
                 if (equipment != null)
                 {
                     BorrowEquipments.Add(new()
                     {
-                        index = BorrowEquipments.Count() + 1,
+                        index = BorrowEquipments.Count(),
                         id = equipment.EquipmentId,
                         name = BorrowEquipmentName
 
                     });
-                    BorrowEquipmentName = "";
+               
                 }
-
-                var item = EquipmentEntries.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
-                if (item != null) { EquipmentEntries.Remove(item); }
-
-                BorrowEquipmentName = "";
             }
-            else MessageBox.Show("Vui lòng chọn vào thiết bị cần đăng kí !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+            
         }
+        private void RemoveEquipment()
+        {
 
+            if (!String.IsNullOrEmpty(BorrowEquipmentName))
+            {              
+                var itemToRemove = BorrowEquipments.SingleOrDefault(r => r.name == BorrowEquipmentName);
+                if (itemToRemove != null)
+                BorrowEquipments.Remove(itemToRemove);
+
+                var index = 0;
+                foreach (var item in BorrowEquipments)
+                {                  
+                    item.index = index;
+                    index++;
+                    OnPropertyChanged();
+                }
+            }
+           
+        }
         private async void CreateLendRequest()
         {
             var createDto = new CreateBorrowDto(
@@ -225,6 +237,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
             MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             ProjectName = "";
+            BorrowEquipmentDtos.Clear();
+            BorrowEquipments.Clear();
+            BorrowId = "";
+            BorrowedDate = DateTime.Now;
+            ReturnedDate = DateTime.Now;
+            Borrower = "";
+            Reason = "";
+
 
         }
 

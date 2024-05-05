@@ -76,43 +76,7 @@ Text="{Binding ProjectName}">
                                 </ItemsPanelTemplate>
                             </ComboBox.ItemsPanel>
                         </ComboBox>
-                        <!--<TextBlock Grid.Column="0"
-               Grid.Row="1"
-               Text="Tên loại:"
-               Style="{StaticResource FieldLabel}"
-               Margin="10"
-               VerticalAlignment="Center"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1"
-               Margin="10"
-               materialDesign:HintAssist.Hint="Tên loại"
-               Style="{StaticResource ComboBox}"
-               ItemsSource="{Binding EquipmentNames}"
-               Text="{Binding EquipmentName}">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>
-                        <TextBlock Grid.Row="2" Grid.Column="0" 
-                 Margin="10"
-                 Style="{StaticResource FieldLabel}"
-                 Text="Lĩnh vực:"/>
-
-                        <ComboBox Grid.Row="2" Grid.Column="1"
-              Margin="10"
-              materialDesign:HintAssist.Hint="Lĩnh vực"
-              Style="{StaticResource ComboBox}"
-              ItemsSource="{Binding Path=Category, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
-              SelectedValuePath="Value"
-              DisplayMemberPath="Description"
-              Text="{Binding Path=Category}">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>-->
+                        
                         <Button Grid.Column="2" Grid.Row="0"
             Margin="10"
             Width="120"
@@ -136,27 +100,30 @@ Text="{Binding ProjectName}">
             VerticalAlignment="Top"
             Grid.Row="3" 
             SelectedItem="{Binding SelectedItem}"
-            ItemsSource="{Binding EquipmentEntries}">
+            ItemsSource="{Binding BorrowEquipmentDtos, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
                         <DataGrid.Columns >
                             <DataGridTextColumn  Header="Tên thiết bị" Binding="{Binding EquipmentName }" />
                             <DataGridTextColumn Header="Tình trạng"  Binding="{Binding Status }" />
-                            <!--<DataGridTemplateColumn Width="auto" >
+                            <DataGridTemplateColumn Header="Đăng kí " Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Thêm"
-materialDesign:ButtonAssist.CornerRadius="10">
+                                        <CheckBox>
                                             <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Click">
-                                                    <prism:InvokeCommandAction Command="{Binding AddEquipmentCommand}"/>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <prism:InvokeCommandAction Command="{Binding DataContext.AddBorrowEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <prism:InvokeCommandAction Command="{Binding DataContext.RemoveBorrowEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
-                                        </Button>
+                                        </CheckBox>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>-->
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
+                        
                     </DataGrid>
-                    <Button Grid.Row="5" 
+                    <!--<Button Grid.Row="5" 
 Margin="10"
  Command="{Binding AddBorrowEquipmentCommand}"
  IsEnabled="{Binding IsReady}"
@@ -164,7 +131,7 @@ Style="{StaticResource ButtonPrimary}"
 materialDesign:ButtonAssist.CornerRadius="10"
 Content="Đăng kí mượn thiết bị">
                       
-                    </Button>
+                    </Button>-->
                     <!--<Button Grid.Row="" 
       Margin="10" 
           Command="{Binding AddBorrowEquipmentCommand}"
@@ -310,9 +277,11 @@ Text="Đơn mượn" FontWeight="Bold" FontSize="20"/>
           Margin=" 10"  
           VerticalAlignment="Top" 
           Grid.Row="4" 
-          ItemsSource="{Binding BorrowEquipments}">
+          ItemsSource="{Binding BorrowEquipments, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        
                         <DataGrid.Columns >
-                            <DataGridTextColumn Header="STT" Binding="{Binding index  }" />
+
+                            <DataGridTextColumn Header="STT" Binding="{Binding index, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay  }" />
                             <DataGridTextColumn Header="Tên thiết bị"  Binding="{Binding name }" />
 
 
