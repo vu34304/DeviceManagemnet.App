@@ -98,8 +98,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string ContentButton { get; set; }
         
         public EStatus UpdatedStatus { get; set; }
-        public bool IsMaintenance => (Status == EStatus.Maintenance || Status == EStatus.NonFunctional) ? false : true;
-        public  EStatus temp { get; set; }  
+
 
         //Command
         public ICommand SaveCommand { get; set; }
@@ -181,24 +180,24 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             {
                 case EStatus.Active:
                     {
-                        temp = EStatus.NonFunctional;
+                        UpdatedStatus = EStatus.NonFunctional;
                         break;
                     }
                 case EStatus.NonFunctional:
                     {
-                        temp = EStatus.Maintenance; 
+                        UpdatedStatus = EStatus.Maintenance; 
                         break;
                     }
                 case EStatus.Maintenance:
                     {
-                        temp = EStatus.Active;
+                        UpdatedStatus = EStatus.Active;
                         break;
                     }
                 default: break;
 
             }
 
-            FixEquipmentDto fixDto = new FixEquipmentDto(EquipmentId, EquipmentName, YearOfSupply, CodeOfManager, temp, LocationId,SupplierName,equipmentTypeId);
+            FixEquipmentDto fixDto = new FixEquipmentDto(EquipmentId, EquipmentName, YearOfSupply, CodeOfManager, UpdatedStatus, LocationId,SupplierName,equipmentTypeId);
 
             if (_mapper is not null && _apiService is not null)
             {

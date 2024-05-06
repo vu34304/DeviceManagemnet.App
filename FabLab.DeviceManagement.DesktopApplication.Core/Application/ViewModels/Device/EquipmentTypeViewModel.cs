@@ -357,6 +357,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             entry.SetMapper(_mapper);
                             entry.Updated += LoadInitial;
                             entry.OnException += Error;
+                            entry.IsOpenFixView += Entry_IsOpenFixView;
+                            entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
                         }
                     }
                     else 
@@ -394,6 +396,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             entry.SetMapper(_mapper);
                             entry.Updated += LoadInitial;
                             entry.OnException += Error;
+                            entry.IsOpenFixView += Entry_IsOpenFixView;
+                            entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
                         }
                         EquipmentTypeId = "";
                         EquipmentTypeName = "";

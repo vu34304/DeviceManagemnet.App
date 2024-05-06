@@ -366,6 +366,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             entry.SetMapper(_mapper);
                             entry.Updated += LoadInitial;
                             entry.OnException += Error;
+                            entry.IsOpenFixView += Entry_IsOpen;
+                            entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
                         }
                         TagId = "";
                     }
@@ -405,6 +407,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             entry.SetMapper(_mapper);
                             entry.Updated += LoadInitial;
                             entry.OnException += Error;
+                            entry.IsOpenFixView += Entry_IsOpen;
+                            entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
                         }
                     }
                     else
