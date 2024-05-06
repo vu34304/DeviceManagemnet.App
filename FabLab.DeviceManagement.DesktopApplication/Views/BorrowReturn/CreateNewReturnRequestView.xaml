@@ -44,6 +44,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -62,11 +63,11 @@ materialDesign:HintAssist.Hint="Tên dự án"
 Style="{StaticResource ComboBox}"
 ItemsSource="{Binding ProjectNames}"
 Text="{Binding ProjectName}">
-                            <!--<i:Interaction.Triggers>
+                            <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
-                                    <prism:InvokeCommandAction Command="{Binding LoadBorrowIdsCommand}"/>
+                                    <prism:InvokeCommandAction Command="{Binding EnableButtonSearchCommand}"/>
                                 </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
+                            </i:Interaction.Triggers>
                             
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -78,13 +79,14 @@ Text="{Binding ProjectName}">
 Margin="10" 
 Height="{Binding Height, ElementName=grid1}"
 Style="{StaticResource ButtonPrimary}"
-materialDesign:ButtonAssist.CornerRadius="10"
+materialDesign:ButtonAssist.CornerRadius="10" Command="{Binding LoadBorrowIdsCommand }"
+                                 IsEnabled="{Binding IsEnable}"
 Content="Tìm kiếm">
-                            <i:Interaction.Triggers>
+                            <!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <prism:InvokeCommandAction Command="{Binding LoadBorrowIdsCommand}"/>
                                 </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            </i:Interaction.Triggers>-->
                         </Button>
                         <TextBlock Grid.Column="0"
  Grid.Row="1"
@@ -96,7 +98,7 @@ Content="Tìm kiếm">
 Margin="10"
 materialDesign:HintAssist.Hint="Mã đơn mượn"
 Style="{StaticResource ComboBox}"
-ItemsSource="{Binding BorrowIds}" IsEnabled="{Binding IsSearched}"
+ItemsSource="{Binding BorrowIds,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsEnabled="{Binding IsSearched}"
 Text="{Binding BorrowId}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -104,8 +106,12 @@ Text="{Binding BorrowId}">
                                 </ItemsPanelTemplate>
                             </ComboBox.ItemsPanel>
                         </ComboBox>
+                        <!--<ListView ItemsSource="{Binding BorrowIds}" Grid.Row="2" Grid.ColumnSpan="3">
+                            
+                           
+                        </ListView>-->
                         <TextBlock Grid.Column="0"
- Grid.Row="2"
+ Grid.Row="3"
   Text="Ngày trả hiện tại:"
   Style="{StaticResource FieldLabel}"
   Margin="10"
@@ -122,7 +128,7 @@ Text="{Binding ProjectName}">
                                 </ItemsPanelTemplate>
                             </ComboBox.ItemsPanel>
                         </ComboBox>-->
-                        <TextBox  Grid.Row="2"
+                        <TextBox  Grid.Row="3"
 materialDesign:HintAssist.Hint="Ngày trả hiện tại" 
 FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"
 Style="{StaticResource TextBox}"

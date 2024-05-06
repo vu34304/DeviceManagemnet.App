@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Input;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Returnings;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.BorrowReturn
 {
@@ -32,8 +33,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         //Kiem tra da tim kiem ma don hay chua
         public bool IsSearched { get; set; }
+        public bool IsEnable { get; set; }
         public ICommand LoadCreateNewReturnRequestViewCommand {  get; set; }    
         public ICommand LoadBorrowIdsCommand {  get; set; }
+        public ICommand EnableButtonSearchCommand {  get; set; }
         public ICommand ReturnRequestCommand {  get; set; }
 
         public CreateNewReturnRequestViewModel(IApiService apiService) 
@@ -42,7 +45,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             LoadCreateNewReturnRequestViewCommand = new RelayCommand(LoadCreateNewReturnRequestView);
             LoadBorrowIdsCommand = new RelayCommand(LoadBorrows);
             ReturnRequestCommand = new RelayCommand(ReturnRequest);
-            IsSearched = false;
+            EnableButtonSearchCommand = new RelayCommand(EnableButtonSearch);
+            BorrowId = "";
+           
         }
 
         private void LoadCreateNewReturnRequestView()
@@ -51,6 +56,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             OnPropertyChanged(nameof(ProjectNames));
             ProjectName = string.Empty;
             RealReturnDate = DateTime.Now;
+            BorrowIds.Clear();
+        }
+
+        private void EnableButtonSearch()
+        {
+            IsEnable = true;
         }
         private async void UpdateProjectNames()
         {
@@ -77,6 +88,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     BorrowId = BorrowIds.First();
                 }
                 IsSearched = true;
+                IsEnable = false;
             }
             catch (HttpRequestException)
             {
@@ -86,29 +98,47 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         private async void ReturnRequest()
         {
-            var returnDto = new ReturnDto
+            if (!String.IsNullOrEmpty(BorrowId))
             {
-                BorrowId = BorrowId,
-                RealReturnedDate = RealReturnDate,
-            };
-            try
-            {
-                if (MessageBox.Show("Xác nhận trả", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                var returnDto = new ReturnDto
                 {
-                    await _apiService.ReturnAsync(returnDto);
-                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    IsSearched = true;
-                   
+                    BorrowId = BorrowId,
+                    RealReturnedDate = RealReturnDate,
+                };
+                try
+                {
+                    if (MessageBox.Show("Xác nhận trả", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        await _apiService.ReturnAsync(returnDto);
+                        MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        BorrowIds.Remove(BorrowId);
+                        OnPropertyChanged(nameof(BorrowIds));
+                        IsSearched = true;
+
+                    }
+                    else { }
+
                 }
-                else { }
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
 
+                if (BorrowIds.Count > 0)
+                {
+                    BorrowId = BorrowIds.First();
+                }
+                else
+                {
+                    BorrowId = "";
+                    IsSearched = false;
+                }
             }
-            catch (HttpRequestException)
+            else
             {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                MessageBox.Show("Chưa chọn mã đơn mượn!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
-            BorrowId = "";
+           
         }
 
     }

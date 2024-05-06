@@ -235,12 +235,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 ShowErrorMessage("Đã có lỗi xảy ra: Không thể tạo dự án mới.");
             }
             MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-            
-            foreach(var item in BorrowEquipments)
-            {
-                var equipment = BorrowEquipmentDtos.SingleOrDefault(i => i.EquipmentName == item.name);
-                if (equipment != null)  BorrowEquipmentDtos.Remove(equipment);
-            }
+            BorrowEquipmentDtos = (await _apiService.GetBorrowEquipmentAsync(ProjectName)).ToList();
             BorrowEquipments.Clear();
             BorrowId = "";
             BorrowedDate = DateTime.Now;

@@ -27,7 +27,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
     public class DeviceEntryViewModel : BaseViewModel
     {
 
-        private SupplierStore? _supplierStore; 
+        private SupplierStore? _supplierStore;
         private LocationStore? _locationStore;
         private EquipmentTypeStore? _equipmentTypeStore;
         public ObservableCollection<string>? SupplierNames => _supplierStore?.SupplierNames;
@@ -45,11 +45,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public EStatus Status { get; set; }
         public string[] Tags { get; set; }
 
-        public bool IsMaintenance => (Status == EStatus.Maintenance || Status == EStatus.NonFunctional) ? false : true;
+
         public ObservableCollection<SpecificationEquimentType> Specifications { get; set; } = new();
         public ObservableCollection<ImageBitmap> Pictures { get; set; } = new();
         public List<FileDataBase64EquipmentType> DataPics { get; set; }
-        
+
 
         private string equipmentTypeId;
         private string? equipmentTypeName;
@@ -88,17 +88,27 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 }
             }
         }
+        //Invoke
         public event Action? Updated;
         public event Action? OnException;
         public event Action? IsOpenFixView;
         public event Action? IsOpenMoreDetailView;
 
+        //Maintenance Equipment
+        public string ContentButton { get; set; }
+        
+        public EStatus UpdatedStatus { get; set; }
+        public bool IsMaintenance => (Status == EStatus.Maintenance || Status == EStatus.NonFunctional) ? false : true;
+        public  EStatus temp { get; set; }  
 
+        //Command
         public ICommand SaveCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand UpdateStatusCommand { get; set; }
 
         public ICommand GetSpecificationEquipmentTypesAsyncCommand { get; set; }
+
+
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public DeviceEntryViewModel()
@@ -125,7 +135,29 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Tags = tags;
         }
 
+        public void SetStatusEquipment()
+        {
+            switch (Status)
+            {
+                case EStatus.Active:
+                    {
+                        ContentButton = "NonFunctional";
+                        break;
+                    }
+                case EStatus.NonFunctional:
+                    {
+                        ContentButton = "Maintenance";
+                        break;
+                    }
+                case EStatus.Maintenance:
+                    {
+                        ContentButton = "Active";
+                        break;
+                    }
+                default: break;
 
+            }
+        }
         public void SetApiService(IApiService apiService)
         {
             _apiService = apiService;
@@ -144,7 +176,29 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
         private async void UpdateStatus()
         {
-            FixEquipmentDto fixDto = new FixEquipmentDto(EquipmentId, EquipmentName, YearOfSupply, CodeOfManager, EStatus.Maintenance, LocationId,SupplierName,equipmentTypeId);
+            
+            switch (Status)
+            {
+                case EStatus.Active:
+                    {
+                        temp = EStatus.NonFunctional;
+                        break;
+                    }
+                case EStatus.NonFunctional:
+                    {
+                        temp = EStatus.Maintenance; 
+                        break;
+                    }
+                case EStatus.Maintenance:
+                    {
+                        temp = EStatus.Active;
+                        break;
+                    }
+                default: break;
+
+            }
+
+            FixEquipmentDto fixDto = new FixEquipmentDto(EquipmentId, EquipmentName, YearOfSupply, CodeOfManager, temp, LocationId,SupplierName,equipmentTypeId);
 
             if (_mapper is not null && _apiService is not null)
             {

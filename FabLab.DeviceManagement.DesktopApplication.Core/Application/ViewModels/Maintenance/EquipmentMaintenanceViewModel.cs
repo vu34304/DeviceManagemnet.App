@@ -118,6 +118,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     entry.SetApiService(_apiService);
                     entry.SetMapper(_mapper);
+                    entry.SetStatusEquipment();
                     entry.Updated += LoadInitial;
                     entry.OnException += Error;
                 }
