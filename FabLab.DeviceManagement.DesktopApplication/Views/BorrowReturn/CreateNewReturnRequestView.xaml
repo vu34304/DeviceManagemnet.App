@@ -62,11 +62,11 @@ materialDesign:HintAssist.Hint="Tên dự án"
 Style="{StaticResource ComboBox}"
 ItemsSource="{Binding ProjectNames}"
 Text="{Binding ProjectName}">
-                            <i:Interaction.Triggers>
+                            <!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <prism:InvokeCommandAction Command="{Binding LoadBorrowIdsCommand}"/>
                                 </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            </i:Interaction.Triggers>-->
                             
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -74,8 +74,8 @@ Text="{Binding ProjectName}">
                                 </ItemsPanelTemplate>
                             </ComboBox.ItemsPanel>
                         </ComboBox>
-                        <!--<Button  Grid.Row="0" Grid.Column="2"
-Margin="10"
+                        <Button  Grid.Row="0" Grid.Column="2"
+Margin="10" 
 Height="{Binding Height, ElementName=grid1}"
 Style="{StaticResource ButtonPrimary}"
 materialDesign:ButtonAssist.CornerRadius="10"
@@ -85,7 +85,7 @@ Content="Tìm kiếm">
                                     <prism:InvokeCommandAction Command="{Binding LoadBorrowIdsCommand}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                        </Button>-->
+                        </Button>
                         <TextBlock Grid.Column="0"
  Grid.Row="1"
   Text="Mã đơn mượn:"

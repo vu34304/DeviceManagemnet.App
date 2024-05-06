@@ -72,6 +72,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             {
                 Borrows = (await _apiService.GetBorrowsAsync(ProjectName)).ToList();
                 BorrowIds = Borrows.Select(i => i.BorrowId).ToList();
+                if(BorrowIds.Count > 0)
+                {
+                    BorrowId = BorrowIds.First();
+                }
                 IsSearched = true;
             }
             catch (HttpRequestException)
@@ -93,7 +97,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     await _apiService.ReturnAsync(returnDto);
                     MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    IsSearched = false;
+                    IsSearched = true;
                    
                 }
                 else { }

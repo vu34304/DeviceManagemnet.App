@@ -100,7 +100,7 @@ Text="{Binding ProjectName}">
             VerticalAlignment="Top"
             Grid.Row="3" 
             SelectedItem="{Binding SelectedItem}"
-            ItemsSource="{Binding BorrowEquipmentDtos, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+            ItemsSource="{Binding BorrowEquipmentDtos}">
                         <DataGrid.Columns >
                             <DataGridTextColumn  Header="Tên thiết bị" Binding="{Binding EquipmentName }" />
                             <DataGridTextColumn Header="Tình trạng"  Binding="{Binding Status }" />
