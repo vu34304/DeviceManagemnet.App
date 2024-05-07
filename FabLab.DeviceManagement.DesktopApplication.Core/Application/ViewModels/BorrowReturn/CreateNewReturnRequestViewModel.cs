@@ -17,6 +17,9 @@ using System.Windows.Input;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Returnings;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Projects;
+using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.BorrowReturn
 {
@@ -24,18 +27,23 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
     {
         private readonly IApiService _apiService;
         public List<BorrowDto> Borrows { get; set; } = new();
+        public List<CreateBorrowDto> BorrowEquipmentDtos { get; set; } = new();
+        public List<string> BorrowEquipments { get; set; } = new();
+        public ObservableCollection<AddBorrowEquipments> BorrowEquipment { get; set; } = new ObservableCollection<AddBorrowEquipments>();
         public List<string> BorrowIds { get; set; } = new();
         public string BorrowId { get; set; }
         public List<string> ProjectNames { get; set; } = new();
         public string ProjectName { get; set; }
         public DateTime RealReturnDate { get; set; } = DateTime.Now;
         public List<ProjectDto> projects { get; set; } = new();
+        public string SelectedBorrowId { get; set; }
 
         //Kiem tra da tim kiem ma don hay chua
         public bool IsSearched { get; set; }
         public bool IsEnable { get; set; }
         public ICommand LoadCreateNewReturnRequestViewCommand {  get; set; }    
         public ICommand LoadBorrowIdsCommand {  get; set; }
+        public ICommand LoadBorrowEquipmentsCommand {  get; set; }
         public ICommand EnableButtonSearchCommand {  get; set; }
         public ICommand ReturnRequestCommand {  get; set; }
 
@@ -46,6 +54,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             LoadBorrowIdsCommand = new RelayCommand(LoadBorrows);
             ReturnRequestCommand = new RelayCommand(ReturnRequest);
             EnableButtonSearchCommand = new RelayCommand(EnableButtonSearch);
+            LoadBorrowEquipmentsCommand = new RelayCommand(LoadEquipmentBorrows);
             BorrowId = "";
            
         }
@@ -57,6 +66,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             ProjectName = string.Empty;
             RealReturnDate = DateTime.Now;
             BorrowIds.Clear();
+            BorrowEquipments.Clear();
+            BorrowEquipment.Clear();
+            BorrowId = "";
         }
 
         private void EnableButtonSearch()
@@ -96,6 +108,35 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
         }
 
+        private async void LoadEquipmentBorrows()
+        {
+           
+          if (!String.IsNullOrEmpty(ProjectName) && !String.IsNullOrEmpty(SelectedBorrowId))
+            {
+                BorrowEquipment.Clear();
+                BorrowEquipments.Clear();
+                try
+                {
+                    BorrowEquipmentDtos = (await _apiService.GetEquipmentFromBorrowIdAsync(ProjectName, SelectedBorrowId)).ToList();
+                    BorrowEquipments = BorrowEquipmentDtos.Select(i => i.Equipments).First().ToList();
+                    
+                    foreach(var a in BorrowEquipments)
+                    {
+                        BorrowEquipment.Add(new()
+                        {
+                            index = BorrowEquipment.Count()+1,                    
+                            name = a
+                        });
+                    }
+
+                }
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+            }
+        }
+
         private async void ReturnRequest()
         {
             if (!String.IsNullOrEmpty(BorrowId))
@@ -123,16 +164,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
                 }
-
-                if (BorrowIds.Count > 0)
+                LoadBorrows();
+                if(BorrowIds.Count() == 0)
                 {
-                    BorrowId = BorrowIds.First();
+                    LoadCreateNewReturnRequestView();   
                 }
-                else
-                {
-                    BorrowId = "";
-                    IsSearched = false;
-                }
+         
             }
             else
             {

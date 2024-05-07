@@ -35,7 +35,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public IEnumerable<ProjectDto> ProjectsFilter { get; set; }
         public IEnumerable<BorrowDto> Borrows { get; set; }
         public bool Approved { get; set; }
-
+        public string NotificationNull { get; set; } = "";
+            
         //Create Borrow
         public string BorrowId { get; set; }
         public DateTime BorrowedDate { get; set; } = DateTime.Now;
@@ -150,8 +151,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             MessageBox.Show("Dự án chưa được duyệt!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                             Approved = false;
                         }
+                        NotificationNull = "";
                     }
-                    else MessageBox.Show("Dự án chưa đăng kí thiết bị!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    else
+                    {
+                        NotificationNull = "Dự án chưa đăng kí thiết bị!";
+                    }
 
                 }
                 catch (HttpRequestException)
@@ -182,7 +187,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         name = BorrowEquipmentName
 
                     });
-               
+
                 }
             }
             

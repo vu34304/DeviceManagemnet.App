@@ -27,7 +27,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
 
 
         private readonly HttpClient _httpClient;
-        private const string serverUrl = "https://equipmentmanagementapi20240504223223.azurewebsites.net/";
+        private const string serverUrl = "https://equipmentmanagementapi.azurewebsites.net/";
 
         public ApiService()
         {
@@ -705,7 +705,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
 
         public async Task<IEnumerable<BorrowDto>> GetBorrowsAsync(string projectName)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}api/Borrow?pageSize=200&pageNumber=1&projectName={projectName}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Borrow?projectName={projectName}&returned=false&pageSize=20&pageNumber=1");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -714,6 +714,20 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             if (equipments is null)
             {
                 return new List<BorrowDto>();
+            }
+            return equipments;
+        }
+        public async Task<IEnumerable<CreateBorrowDto>> GetEquipmentFromBorrowIdAsync(string projectName, string borrowId)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Borrow?borrowId={borrowId}&pageNumber=1&pageSize=200&projectName={projectName}");
+
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var equipments = JsonConvert.DeserializeObject<IEnumerable<CreateBorrowDto>>(responseBody);
+            if (equipments is null)
+            {
+                return new List<CreateBorrowDto>();
             }
             return equipments;
         }

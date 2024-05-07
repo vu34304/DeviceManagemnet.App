@@ -217,7 +217,7 @@ Grid.Row="1"
                                     <Button Grid.Column="2" 
                 Margin="10" 
                     Command="{Binding UpdateStatusCommand}"
-             
+             Background="{Binding ColorButton}"
                 materialDesign:ButtonAssist.CornerRadius="10"
                 Content="{Binding ContentButton}">
                                         

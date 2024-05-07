@@ -366,7 +366,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         MessageBox.Show("Không tìm thấy loại thiết bị! ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                         LoadInitial();
                     }
-                    SearchKeyWord = "";
+    
                 }
                 catch (HttpRequestException)
                 {

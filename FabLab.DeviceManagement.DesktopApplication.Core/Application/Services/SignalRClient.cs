@@ -21,7 +21,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         public SignalRClient()
         {
             connection = new HubConnectionBuilder()
-                .WithUrl("https://equipmentmanagementapi20240504223223.azurewebsites.net/notificationHub")
+                .WithUrl("https://equipmentmanagementapi.azurewebsites.net/notificationHub")
                 .WithAutomaticReconnect()
                 .Build();
         }

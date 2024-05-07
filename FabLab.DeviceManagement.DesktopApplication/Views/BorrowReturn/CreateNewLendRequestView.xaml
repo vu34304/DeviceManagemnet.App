@@ -123,6 +123,12 @@ Text="{Binding ProjectName}">
                         </DataGrid.Columns>
                         
                     </DataGrid>
+                    <TextBlock
+Grid.Row="3" HorizontalAlignment="Center"
+ Text="{Binding NotificationNull}"
+ Style="{StaticResource FieldLabel}"
+ Margin="10"
+ VerticalAlignment="Center"/>
                     <!--<Button Grid.Row="5" 
 Margin="10"
  Command="{Binding AddBorrowEquipmentCommand}"

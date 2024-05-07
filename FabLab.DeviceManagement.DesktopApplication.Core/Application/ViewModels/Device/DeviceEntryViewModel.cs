@@ -95,8 +95,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public event Action? IsOpenMoreDetailView;
 
         //Maintenance Equipment
-        public string ContentButton { get; set; }
-        
+        public string ContentButton { get; set; }   
+        public string ColorButton { get; set; }
         public EStatus UpdatedStatus { get; set; }
 
 
@@ -141,16 +141,19 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 case EStatus.Active:
                     {
                         ContentButton = "NonFunctional";
+                        ColorButton = "Red";
                         break;
                     }
                 case EStatus.NonFunctional:
                     {
                         ContentButton = "Maintenance";
+                        ColorButton = "Yellow";
                         break;
                     }
                 case EStatus.Maintenance:
                     {
                         ContentButton = "Active";
+                        ColorButton = "Green";
                         break;
                     }
                 default: break;

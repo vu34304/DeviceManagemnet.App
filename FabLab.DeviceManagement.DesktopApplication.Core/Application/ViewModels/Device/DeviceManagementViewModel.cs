@@ -417,7 +417,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         LoadInitial();
                     }
 
-                    SearchKeyWord = "";
+                
                 }
                 catch (HttpRequestException)
                 {

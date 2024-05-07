@@ -29,16 +29,19 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         public event Action? Updated;
         public event Action? OnException;
+        public event Action? ShowEquipment;
 
         public ICommand ApprovedCommand { get; set; }
         public ICommand EndCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
+        public ICommand ShowEquipmentCommand { get; set; }
 
         public ProjectManagementEntryViewModel()
         {
             ApprovedCommand = new RelayCommand(ApprovedAsync);
             EndCommand = new RelayCommand(EndAsync);
             DeleteCommand = new RelayCommand(DeleteAsync);
+            ShowEquipmentCommand = new RelayCommand(ShowEquipments);
         }
 
         public ProjectManagementEntryViewModel(string projectName, DateTime startDay, DateTime endDay, DateTime realEndDay, string description, bool approved) : this()
@@ -51,6 +54,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Approved = approved;
         }
 
+        private void ShowEquipments()
+        {
+            ShowEquipment?.Invoke();
+        }
         public void SetApiService(IApiService apiService)
         {
             _apiService = apiService;

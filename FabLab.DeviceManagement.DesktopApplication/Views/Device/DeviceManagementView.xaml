@@ -123,7 +123,7 @@ Content="Tìm kiếm nâng cao">
                                 <DataGridTemplateColumn Width="auto">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Content="Delete"
+                                            <Button Content="Delete" Background="red"
                         materialDesign:ButtonAssist.CornerRadius="10">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">
