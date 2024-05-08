@@ -134,7 +134,7 @@ Margin="10"
  Height="30"                            
   FontSize="14"                             
 materialDesign:ButtonAssist.CornerRadius="5"
-Content="Add Tag">
+Content="Chọn Tag">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <prism:InvokeCommandAction Command="{Binding AddTagCommand}"/>
@@ -178,7 +178,7 @@ Content="Add Tag">
            Width="200" 
            Style="{StaticResource ButtonPrimary}"
            materialDesign:ButtonAssist.CornerRadius="10"
-           Content="Exit" >
+           Content="Thoát" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <prism:InvokeCommandAction Command="{Binding CloseFixViewCommand}"/>

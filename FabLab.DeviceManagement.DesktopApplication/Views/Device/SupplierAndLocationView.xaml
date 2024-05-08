@@ -136,12 +136,12 @@ Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius
                     </Border>
 
                     <TextBlock Grid.Row="1" Grid.Column="0"
-                    Text="Location ID:"
+                    Text="Vị trí:"
                     Style="{StaticResource FieldLabel}"
                     Margin="10"
                     VerticalAlignment="Center"/>
                     <TextBox Grid.Row="1" Grid.Column="1"
-                materialDesign:HintAssist.Hint="Location ID"
+                materialDesign:HintAssist.Hint="Vị trí"
                 FontSize="16"
                 Style="{StaticResource TextBox}"
                 Margin="10"
@@ -438,13 +438,13 @@ Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius
     Style="{StaticResource CardTitle}"/>
                         </Border>
                         <TextBlock Grid.Row="1" Grid.Column="0"
-  Text="Location ID:"
+  Text="Vị trí:"
   Style="{StaticResource FieldLabel}"
   Margin="10"
   VerticalAlignment="Center"/>
                         <ComboBox Grid.Row="1" Grid.Column="1" 
 Margin="10"
-materialDesign:HintAssist.Hint="Location ID"
+materialDesign:HintAssist.Hint="Vị trí"
 Style="{StaticResource ComboBox}"
 ItemsSource="{Binding LocationIds, UpdateSourceTrigger=PropertyChanged}"
 Text="{Binding LocationId}">
@@ -480,7 +480,7 @@ Content="Tìm kiếm">
                                 Background="{StaticResource ColorSurface}"
                                 VirtualizingPanel.ScrollUnit="Pixel" Grid.ColumnSpan="3">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="LocationId" Binding="{Binding LocationId}" Width="auto"/>
+                            <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}" Width="auto"/>
                             <DataGridTextColumn Header="Ghi chú" Binding="{Binding Note}" Width="*"/>
                            
                             <DataGridTemplateColumn Width="auto">

@@ -144,6 +144,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         ColorButton = "Red";
                         break;
                     }
+                case EStatus.Inactive:
+                    {
+                        ContentButton = "Báo hỏng";
+                        ColorButton = "Red";
+                        break;
+                    }
                 case EStatus.NonFunctional:
                     {
                         ContentButton = "Bảo trì";

@@ -218,7 +218,7 @@ Margin="10"
 Width="200"
 Style="{StaticResource ButtonPrimary}"
 materialDesign:ButtonAssist.CornerRadius="10"
-Content="Exit">
+Content="Thoát">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <prism:InvokeCommandAction Command="{Binding CLoseFixViewCommand}"/>
