@@ -125,7 +125,7 @@ ItemsSource="{Binding TagIds}">
                 </ComboBox>
                 <Button Grid.Row="2"  
  Grid.Column="2" Margin="10"
-
+Background="Coral"
   HorizontalAlignment="Center"
  Height="30"                            
   FontSize="14"                             

@@ -129,7 +129,7 @@ ItemsSource="{Binding TagIds}">
 
                 <Button Grid.Row="2"  
  Grid.Column="3"
-Margin="10"
+Margin="10" Background="Coral"
   HorizontalAlignment="Left"
  Height="30"                            
   FontSize="14"                             

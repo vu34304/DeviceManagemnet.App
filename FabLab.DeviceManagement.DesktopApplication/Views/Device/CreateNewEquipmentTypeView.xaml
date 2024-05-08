@@ -144,7 +144,7 @@ HorizontalAlignment="Center"
 
                 <Button Grid.Row="3"  Grid.ColumnSpan="2"
  Grid.Column="5"
-
+Background="Orange"
   HorizontalAlignment="Left"
  Height="30"
   Width="80"                              
@@ -165,7 +165,7 @@ Content="Thêm">
                           Text="Hình ảnh:"
                           Style="{StaticResource FieldLabel}"/>
                     <Button Grid.Row="3"
-                             Grid.Column="3"
+                             Grid.Column="3" Background="ForestGreen"
                               Margin="5 10 10 10"
                               HorizontalAlignment="Center"
                              Height="30"
@@ -291,7 +291,7 @@ ItemsSource="{Binding TagIds}">
 
                 <Button Grid.Row="2"  
  Grid.Column="3"
-
+Background="Coral"
   HorizontalAlignment="Center"
  Height="30"                            
   FontSize="14"                             
