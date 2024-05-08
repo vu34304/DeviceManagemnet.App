@@ -64,7 +64,7 @@ materialDesign:ColorZoneAssist.Background="LightGray">
 
                                 <Border VerticalAlignment="Bottom"  Grid.Row="0" Height="30" Width="150"  Margin="10 20 10 0" Background="LightGray" CornerRadius="10">
                                     <TextBlock Grid.Column="0"
-                                    Text="Humidity" 
+                                    Text="ĐỘ ẨM" 
                                     Style="{StaticResource FieldLabel}"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"/>
@@ -85,7 +85,7 @@ materialDesign:ColorZoneAssist.Background="LightGray">
                             </lvc:P ieChart>-->
                                 <Border  Background="LightGray" VerticalAlignment="Bottom" Grid.Column="1"  Grid.Row="0" Height="30" Width="150"  Margin="10 20 10 0"  CornerRadius="10">
                                     <TextBlock Grid.Column="0"
-        Text="Temperature" 
+        Text="NHIỆT ĐỘ" 
         Style="{StaticResource FieldLabel}"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"/>
@@ -102,7 +102,7 @@ MaxValue="100">
                                 </lvc:PieChart>
                                 <Border Grid.Column="2" VerticalAlignment="Bottom"  Grid.Row="0" Height="30" Width="150"  Margin="10 20 10 0" Background="LightGray" CornerRadius="10">
                                     <TextBlock Grid.Column="0"
-        Text="Gas" 
+        Text="GAS" 
         Style="{StaticResource FieldLabel}"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"/>
@@ -117,7 +117,7 @@ MaxValue="100">
                                 </lvc:PieChart>
                                 <Border Grid.Column="3" VerticalAlignment="Bottom"  Grid.Row="0" Height="30" Width="150"  Margin="10 20 10 0" Background="LightGray" CornerRadius="10">
                                     <TextBlock Grid.Column="0"
-        Text="Noise" 
+        Text="ĐỘ ỒN" 
         Style="{StaticResource FieldLabel}"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"/>

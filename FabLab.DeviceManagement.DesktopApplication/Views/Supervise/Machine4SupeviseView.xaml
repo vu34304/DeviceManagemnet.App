@@ -58,7 +58,7 @@ Text="FRD900S" Style="{StaticResource CardTitle}"/>
                         <TextBlock Margin="10" VerticalAlignment="Center" Grid.ColumnSpan="4" Padding="10" Grid.Row="0" Text="Thông số" Style="{StaticResource CardTitle}"/>
                     </Border>
                     <TextBlock Grid.Column="0" Grid.Row="1"
-                    Text="Power:"
+                    Text="Năng lượng:"
                     Style="{StaticResource FieldLabel}"
                     Margin="10"
                     VerticalAlignment="Center"/>
@@ -71,7 +71,7 @@ VerticalAlignment="Center"/>
                     </Border>
 
                     <TextBlock Grid.Column="0" Grid.Row="2"
-                    Text="Speed:"
+                    Text="Tốc độ:"
                     Style="{StaticResource FieldLabel}"
                     Margin="10"
                     VerticalAlignment="Center"/>
@@ -83,7 +83,7 @@ Margin="10"
 VerticalAlignment="Center"/>
                     </Border>
                     <TextBlock Grid.Column="0" Grid.Row="3"
-                    Text="Vibration:"
+                    Text="Độ rung:"
                     Style="{StaticResource FieldLabel}"
                     Margin="10"
                     VerticalAlignment="Center"/>

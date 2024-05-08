@@ -133,7 +133,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             EquipmentTypeName = equipmentTypeName;
             Tags = tags;
         }
-
+        public bool IsEnableButton { get; set; }
         public void SetStatusEquipment()
         {
             switch (Status)
@@ -142,24 +142,26 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     {
                         ContentButton = "Báo hỏng";
                         ColorButton = "Red";
+                        IsEnableButton = true;
                         break;
                     }
                 case EStatus.Inactive:
                     {
-                        ContentButton = "Báo hỏng";
-                        ColorButton = "Red";
+                        IsEnableButton = false;
                         break;
                     }
                 case EStatus.NonFunctional:
                     {
                         ContentButton = "Bảo trì";
                         ColorButton = "Yellow";
+                        IsEnableButton = true;
                         break;
                     }
                 case EStatus.Maintenance:
                     {
-                        ContentButton = "Tốt";
+                        ContentButton = "Bảo trì xong";
                         ColorButton = "Green";
+                        IsEnableButton = true;
                         break;
                     }
                 default: break;
@@ -184,7 +186,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
         private async void UpdateStatus()
         {
-            
             switch (Status)
             {
                 case EStatus.Active:
@@ -194,7 +195,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     }
                 case EStatus.NonFunctional:
                     {
-                        UpdatedStatus = EStatus.Maintenance; 
+                        UpdatedStatus = EStatus.Maintenance;
                         break;
                     }
                 case EStatus.Maintenance:
@@ -206,6 +207,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
             }
 
+
             FixEquipmentDto fixDto = new FixEquipmentDto(EquipmentId, EquipmentName, YearOfSupply, CodeOfManager, UpdatedStatus, LocationId,SupplierName,equipmentTypeId);
 
             if (_mapper is not null && _apiService is not null)
@@ -215,6 +217,26 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     await _apiService.FixEquipmentAsync(fixDto);
                     Updated?.Invoke();
                     MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    switch (Status)
+                    {
+                        case EStatus.Active:
+                            {
+                                UpdatedStatus = EStatus.NonFunctional;
+                                break;
+                            }
+                        case EStatus.NonFunctional:
+                            {
+                                UpdatedStatus = EStatus.Maintenance;
+                                break;
+                            }
+                        case EStatus.Maintenance:
+                            {
+                                UpdatedStatus = EStatus.Active;
+                                break;
+                            }
+                        default: break;
+
+                    }
 
                 }
                 catch (HttpRequestException)

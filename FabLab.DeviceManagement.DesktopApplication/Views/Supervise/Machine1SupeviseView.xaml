@@ -35,7 +35,7 @@
                     
                     <Border Height="55" Margin="10"  Background="LightGray" VerticalAlignment="Bottom" Grid.Column="1"  Grid.Row="0"  CornerRadius="10">
                         <TextBlock  Padding="10" Margin="10" Grid.Row="0"  VerticalAlignment="Center"
-Text="KB30" Style="{StaticResource CardTitle}"/>
+Text="KB36" Style="{StaticResource CardTitle}"/>
                     </Border>
                     <Image Grid.Row="1" MaxHeight="250" MaxWidth="250" Margin="10" 
                            Source="/Resources/Images/may1.jpg" />
@@ -60,8 +60,8 @@ Text="KB30" Style="{StaticResource CardTitle}"/>
                         <TextBlock Margin="10" VerticalAlignment="Center" Grid.ColumnSpan="4" Padding="10" Grid.Row="0" Text="Thông số" Style="{StaticResource CardTitle}"/>
                     </Border>
                     <TextBlock Grid.Column="0" Grid.Row="1"
-                    Text="Power:"
-                    Style="{StaticResource FieldLabel}"
+                               Text="Năng lượng:"
+                               Style="{StaticResource FieldLabel}"
                     Margin="10"
                     VerticalAlignment="Center"/>
                     <Border Margin="10"  Grid.Row="1" Padding="10" Grid.Column="1" CornerRadius="30" BorderThickness="2" BorderBrush="Black" >
@@ -73,7 +73,7 @@ VerticalAlignment="Center"/>
                     </Border>
 
                     <TextBlock Grid.Column="0" Grid.Row="2"
-                    Text="Speed:"
+                    Text="Tốc độ:"
                     Style="{StaticResource FieldLabel}"
                     Margin="10"
                     VerticalAlignment="Center"/>
@@ -85,7 +85,7 @@ Margin="10"
 VerticalAlignment="Center"/>
                     </Border>
                     <TextBlock Grid.Column="0" Grid.Row="3"
-                    Text="Vibration:"
+                    Text="Độ rung:"
                     Style="{StaticResource FieldLabel}"
                     Margin="10"
                     VerticalAlignment="Center"/>
