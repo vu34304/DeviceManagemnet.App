@@ -22,15 +22,15 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Project
 {
-    public class CreateNewProjectViewModel: BaseViewModel
+    public class CreateNewProjectViewModel : BaseViewModel
     {
         private readonly IApiService _apiService;
-        public List<string> EquipmentNames { get; set; } = new();
-        private List<EquipmentDto> equipments = new();
-        public ObservableCollection<AddBorrowEquipments> BorowEquipments { get; set; } = new();
-        public string EquipmentName { get; set; }
 
+        public List<string> EquipmentNames { get; set; } = new();
+        public ObservableCollection<EquipmentDto> equipments { get; set; } = new();
+        public ObservableCollection<AddBorrowEquipments> BorowEquipments { get; set; } = new();
         public string BorrowEquipmentName { get; set; } = "";
+        public string EquipmentName { get; set; } = "";
         //Create New Project
         public string ProjectName { get; set; } = "";
         public DateTime StartDate { get; set; } = DateTime.Now.Date;
@@ -38,19 +38,36 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string Description { get; set; } = "";
 
 
-
+        private EquipmentDto _SelectedItem;
+        public EquipmentDto SelectedItem
+        {
+            get => _SelectedItem;
+            set
+            {
+                _SelectedItem = value;
+                if (SelectedItem != null)
+                {
+                    OnPropertyChanged(nameof(SelectedItem));
+                    BorrowEquipmentName = SelectedItem.EquipmentName;
+                }
+            }
+        }
 
         public ICommand LoadCreateProjectViewModelCommand { get; set; }
         public ICommand AddEquipmentCommand { get; set; }
+        public ICommand RemoveEquipmentCommand { get; set; }
         public ICommand DeleteEquipmentCommand { get; set; }
         public ICommand CreateProjectCommand { get; set; }
+        public ICommand SearchEquipmentCommand { get; set; }
 
         public CreateNewProjectViewModel( IApiService apiService)
         {
             _apiService = apiService;
             LoadCreateProjectViewModelCommand = new RelayCommand(LoadCreateProjectView);
             AddEquipmentCommand = new RelayCommand(AddBorrowEquipment);
+            RemoveEquipmentCommand = new RelayCommand(RemoveBorrowEquipment);
             CreateProjectCommand = new RelayCommand(CreateProject);
+            SearchEquipmentCommand =new RelayCommand(SearchEquipment);
             DeleteEquipmentCommand = new RelayCommand<AddBorrowEquipments>(execute: DeleteBorrowEquipment);
         }
 
@@ -60,13 +77,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             BorowEquipments.Clear();
             OnPropertyChanged(nameof(EquipmentNames));
             OnPropertyChanged(nameof(BorowEquipments));
+            EquipmentName = "";
         }
    
         private async void UpdateEquipmentIds()
         {
             try
-            {
-                equipments = (await _apiService.GetAllEquipmentsActive()).ToList();
+            {               
+                equipments = new ObservableCollection<EquipmentDto>((await _apiService.GetAllEquipmentsActive()).ToList());
                 EquipmentNames = equipments.Select(i => i.EquipmentName).ToList();
 
             }
@@ -76,35 +94,58 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
         }
 
+        private async void SearchEquipment()
+        {
+            if (!String.IsNullOrEmpty(EquipmentName))
+            {
+                equipments = new ObservableCollection<EquipmentDto>((await _apiService.GetEquipmentsRecordsAsync(EquipmentName)).ToList());               
+            }
+        }
         private void AddBorrowEquipment()
         {
             if (!String.IsNullOrEmpty(BorrowEquipmentName))
             {
                 var item = equipments.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
-                foreach (var a in BorowEquipments)
-                {
-                    if (a.name == BorrowEquipmentName)
-                    {
-                        MessageBox.Show("Thiết bị đã được chọn !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        item=null;
-                    }
-                }
                 
-
-               if(item != null)
+                if (item != null)
                 {
+                    item.IsChecked = true;
                     BorowEquipments.Add(new()
                     {
                         index = BorowEquipments.Count(),
                         name = BorrowEquipmentName,
                         id = item.EquipmentId
                     });
-                    BorrowEquipmentName = "";
+                    
                 }
                
             }
-            else MessageBox.Show("Vui lòng chọn vào thiết bị cần đăng kí !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+           
 
+        }
+
+        private void RemoveBorrowEquipment()
+        {
+            if (!String.IsNullOrEmpty(BorrowEquipmentName))
+            {
+                var itemToRemove = BorowEquipments.SingleOrDefault(r => r.name == BorrowEquipmentName);
+                var a = equipments.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
+                if(a != null) 
+                { 
+                    a.IsChecked = false;
+                }
+
+                if (itemToRemove != null)
+                    BorowEquipments.Remove(itemToRemove);
+
+                var index = 0;
+                foreach (var item in BorowEquipments)
+                {
+                    item.index = index;
+                    index++;
+                    OnPropertyChanged();
+                }
+            }
         }
         private void DeleteBorrowEquipment(AddBorrowEquipments obj)
         {

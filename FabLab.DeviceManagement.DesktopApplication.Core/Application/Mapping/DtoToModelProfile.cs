@@ -32,6 +32,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Mapping
             //    .ForMember(i => i.EquipmentTypeName, o => o.MapFrom(dto => dto.EquipmentTypeId.EquipmentTypeName));
             CreateMap<EquipmentDto, DeviceEntryViewModel>();
             CreateMap<EquipmentTypeDto, EquipmentTypeEntryViewModel>();
+            
             CreateMap<SupplierDto, SupplierEntryViewModel>();
             CreateMap<LocationDto, LocationEntryViewModel>();
             CreateMap<TagDto, TagEntryViewModel>(); 

@@ -283,9 +283,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         case "machine2":
                             {
                                 TimeStamp2 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
-                                IdleTime2 = Convert.ToDouble(tag.IdleTime);
-                                ShiftTime2 = Convert.ToDouble(tag.ShiftTime);
-                                OperationTime2 = Convert.ToDouble(tag.OperationTime);
+                                IdleTime2 = Convert.ToDouble(tag.IdleTime)/60;
+                                ShiftTime2 = Convert.ToDouble(tag.ShiftTime)/60;
+                                OperationTime2 = Convert.ToDouble(tag.OperationTime) / 60;
                                 Oee2 = Convert.ToDouble(tag.Oee);
                                 UpdateValueOEEMachine2(IdleTime2, ShiftTime2, OperationTime2, Oee2);
                                 break;
@@ -293,9 +293,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         case "machine3":
                             {
                                 TimeStamp3 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
-                                IdleTime3 = Convert.ToDouble(tag.IdleTime);
-                                ShiftTime3 = Convert.ToDouble(tag.ShiftTime);
-                                OperationTime3 = Convert.ToDouble(tag.OperationTime);
+                                IdleTime3 = Convert.ToDouble(tag.IdleTime)/60;
+                                ShiftTime3 = Convert.ToDouble(tag.ShiftTime)/60;
+                                OperationTime3 = Convert.ToDouble(tag.OperationTime)/60;
                                 Oee3 = Convert.ToDouble(tag.Oee);
                                 UpdateValueOEEMachine3(IdleTime3, ShiftTime3, OperationTime3, Oee3);
                                 break;
@@ -303,9 +303,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         case "machine4":
                             {
                                 TimeStamp4 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
-                                IdleTime4 = Convert.ToDouble(tag.IdleTime);
-                                ShiftTime4 = Convert.ToDouble(tag.ShiftTime);
-                                OperationTime4 = Convert.ToDouble(tag.OperationTime);
+                                IdleTime4 = Convert.ToDouble(tag.IdleTime)/60;
+                                ShiftTime4 = Convert.ToDouble(tag.ShiftTime)/60;
+                                OperationTime4 = Convert.ToDouble(tag.OperationTime)/60;
                                 Oee4 = Convert.ToDouble(tag.Oee);
                                 UpdateValueOEEMachine4(IdleTime4, ShiftTime4, OperationTime4, Oee4);
                                 break;

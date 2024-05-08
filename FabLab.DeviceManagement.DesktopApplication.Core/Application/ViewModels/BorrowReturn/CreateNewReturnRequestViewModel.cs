@@ -27,6 +27,21 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
     {
         private readonly IApiService _apiService;
         public List<BorrowDto> Borrows { get; set; } = new();
+        private BorrowDto _SelectedItem;
+        public BorrowDto SelectedItem
+        {
+            get => _SelectedItem;
+            set
+            {
+                _SelectedItem = value;
+                if (SelectedItem != null)
+                {
+                   
+                    SelectedBorrowId = SelectedItem.BorrowId;
+                    BorrowId = SelectedItem.BorrowId;
+                }
+            }
+        }
         public List<CreateBorrowDto> BorrowEquipmentDtos { get; set; } = new();
         public List<string> BorrowEquipments { get; set; } = new();
         public ObservableCollection<AddBorrowEquipments> BorrowEquipment { get; set; } = new ObservableCollection<AddBorrowEquipments>();
@@ -37,7 +52,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public DateTime RealReturnDate { get; set; } = DateTime.Now;
         public List<ProjectDto> projects { get; set; } = new();
         public string SelectedBorrowId { get; set; }
-
+        public bool IsShowBorrowEquipmentView { get; set; } 
         //Kiem tra da tim kiem ma don hay chua
         public bool IsSearched { get; set; }
         public bool IsEnable { get; set; }
@@ -46,6 +61,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public ICommand LoadBorrowEquipmentsCommand {  get; set; }
         public ICommand EnableButtonSearchCommand {  get; set; }
         public ICommand ReturnRequestCommand {  get; set; }
+        public ICommand ShowBorrowEquipmentViewCommand {  get; set; }
+        public ICommand CloseBorrowEquipmentViewCommand {  get; set; }
 
         public CreateNewReturnRequestViewModel(IApiService apiService) 
         { 
@@ -55,6 +72,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             ReturnRequestCommand = new RelayCommand(ReturnRequest);
             EnableButtonSearchCommand = new RelayCommand(EnableButtonSearch);
             LoadBorrowEquipmentsCommand = new RelayCommand(LoadEquipmentBorrows);
+            ShowBorrowEquipmentViewCommand = new RelayCommand(OpenShowBorrowEquipment);
+            CloseBorrowEquipmentViewCommand = new RelayCommand(CloseBorrowEquipmentView);
             BorrowId = "";
            
         }
@@ -71,6 +90,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             BorrowId = "";
         }
 
+        private void CloseBorrowEquipmentView()
+        {
+            IsShowBorrowEquipmentView = false;
+        }
         private void EnableButtonSearch()
         {
             IsEnable = true;
@@ -105,6 +128,35 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             catch (HttpRequestException)
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
+        }
+
+        private async void OpenShowBorrowEquipment()
+        {
+            IsShowBorrowEquipmentView = true;
+            if (!String.IsNullOrEmpty(ProjectName) && !String.IsNullOrEmpty(SelectedBorrowId))
+            {
+                BorrowEquipment.Clear();
+                BorrowEquipments.Clear();
+                try
+                {
+                    BorrowEquipmentDtos = (await _apiService.GetEquipmentFromBorrowIdAsync(ProjectName, SelectedBorrowId)).ToList();
+                    BorrowEquipments = BorrowEquipmentDtos.Select(i => i.Equipments).First().ToList();
+
+                    foreach (var a in BorrowEquipments)
+                    {
+                        BorrowEquipment.Add(new()
+                        {
+                            index = BorrowEquipment.Count() + 1,
+                            name = a
+                        });
+                    }
+
+                }
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
             }
         }
 

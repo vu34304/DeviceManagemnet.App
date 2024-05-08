@@ -17,6 +17,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
 {
@@ -64,17 +65,51 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
             return equipments;
         }
+        public string EquipmentId = "";
+        public string EquipmentName = "";
+        public string YearOfSupply = "";
+        public string EquipmentTypeId = "";
+        
         public async Task<IEnumerable<EquipmentDto>> GetEquipmentsRecordsAsync(string equipmentId, string equipmentName, string yearOfSupply, string equipmentTypeId, ECategory? category, EStatus? status, string[] Tags)
         {
-            foreach (var tag in Tags)
+            if(Tags != null)
             {
-                TagIds = TagIds + $"&TagIds={tag}";
+                foreach (var tag in Tags)
+                {
+                    TagIds = TagIds + $"&TagIds={tag}";
+                }
             }
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipment/Enhanced?EquipmentId={equipmentId}&EquipmentName={equipmentName}&EquipmentTypeId={equipmentTypeId}&EquipmentCategory={category}&Status={status}&YearOfSupply={yearOfSupply}&pageSize=200&pageNumber=1" + TagIds);
+            if(equipmentId != "")
+            {
+                EquipmentId = $"&EquipmentId={equipmentId}";
+            }
+            if (equipmentName != "")
+            {
+                EquipmentName = $"&EquipmentName={equipmentName}";
+            }
+            if (yearOfSupply != "")
+            {
+                YearOfSupply = $"&YearOfSupply={yearOfSupply}";
+            }
+            if (equipmentTypeId != "")
+            {
+                EquipmentTypeId = $"&EquipmentTypeId={equipmentTypeId}";
+            }
+            if (category != ECategory.All)
+            {
+                Category = $"&category={category}";
+            }
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipment/Enhanced?Status={status}&pageSize=200&pageNumber=1" + TagIds+Category+ EquipmentTypeId + EquipmentId+EquipmentName);
+
 
             response.EnsureSuccessStatusCode(); //equipmentId={equipmentId//
             string responseBody = await response.Content.ReadAsStringAsync();
-
+            EquipmentId = "";
+            EquipmentName = "";
+            YearOfSupply = "";
+            EquipmentTypeId = "";
+            Category = "";
+            TagIds = "";
             var equipments = JsonConvert.DeserializeObject<IEnumerable<EquipmentDto>>(responseBody);
             if (equipments is null)
             {
@@ -346,16 +381,37 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             return responses;
         }
 
-        public string TagIds;
+        public string TagIds="";
+        public string EquiqmentTypeId="";
+        public string EquiqmentTypeName="";
+        public string Category="";
         public async Task<IEnumerable<EquipmentTypeDto>> GetEquipmentTypesRecordsAsync(string equiqmentTypeId, string equiqmentTypeName, ECategory category, string[] Tags)
         {
 
-            foreach (var tag in Tags )
+            if(Tags != null)
             {
-                TagIds = TagIds + $"&TagIds={tag}";              
+                foreach (var tag in Tags)
+                {
+                    TagIds = TagIds + $"&tagIds={tag}";
+                }
             }
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}api/EquipmentType/Enhanced?equipmentTypeId={equiqmentTypeId}&category={category}&equipmentTypeName={equiqmentTypeName}&pageSize=200&pageNumber=1"+ TagIds);
-
+            if(equiqmentTypeId != "")
+            {
+                EquiqmentTypeId = $"&equipmentTypeId={equiqmentTypeId}";
+            }
+            if (equiqmentTypeName != "")
+            {
+                EquiqmentTypeName = $"&equipmentTypeName={equiqmentTypeName}";
+            }
+            if (category != ECategory.All)
+            {
+                Category = $"&category={category}";
+            }
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}api/EquipmentType/Enhanced?pageSize=200&pageNumber=1" + TagIds+Category+EquiqmentTypeId+EquiqmentTypeName);
+            TagIds = "";
+            Category = "";
+            EquiqmentTypeName = "";
+            EquiqmentTypeId = "";
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
@@ -365,7 +421,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
                 return new List<EquipmentTypeDto>();
             }
             return responses;
-        }
+            
+    }
 
         public async Task<IEnumerable<EquipmentTypeDto>> GetEquipmentTypesRecordsAsync(string serchKeyWord)
         {   

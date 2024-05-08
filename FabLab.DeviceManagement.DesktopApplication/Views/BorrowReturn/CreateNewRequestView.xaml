@@ -27,7 +27,7 @@
 
             <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock Style="{StaticResource HeaderText}" Text="TẠO ĐƠN TRẢ" FontWeight="Bold"/>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="TRẢ ĐƠN" FontWeight="Bold"/>
                 </TabItem.Header>
                 <local:CreateNewReturnRequestView DataContext="{Binding CreateNewReturnRequest}"/>
             </TabItem>

@@ -29,14 +29,16 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+      
             </Grid.RowDefinitions>
             <!--Thêm-->
-
+                
             <materialDesign:Card Grid.Row="0" 
          Grid.Column="0"
          Margin="10">
@@ -97,7 +99,7 @@ Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius
       Margin="10"
       VerticalAlignment="Center"
       Text="{Binding NewPhoneNumber}"/>
-                    <Button Grid.Column="3" Grid.Row="2"
+                    <Button Grid.Column="3" Grid.Row="1"
       Margin="10"
       Width="120"
       Style="{StaticResource ButtonPrimary}"
@@ -111,8 +113,8 @@ Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius
                     </Button>
                 </Grid>
             </materialDesign:Card>
-            <materialDesign:Card Grid.Row="1" 
-                     Grid.Column="0"
+            <materialDesign:Card Grid.Row="0" 
+                     Grid.Column="1"
                      Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -127,7 +129,7 @@ Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0"
     Grid.ColumnSpan="3" Margin="10" Padding="5" Background="LightGray" CornerRadius="10">
-                        <TextBlock VerticalAlignment="Center" Text="Thêm địa chỉ"
+                        <TextBlock VerticalAlignment="Center" Text="Thêm vị trí"
        Grid.Row="0"
        Grid.ColumnSpan="3"                              
         Style="{StaticResource CardTitle}"/>
@@ -172,8 +174,8 @@ Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius
                     </Button>
                 </Grid>
             </materialDesign:Card>
-            <materialDesign:Card Grid.Row="2" 
-                     Grid.Column="0"
+            <materialDesign:Card Grid.Row="0" 
+                     Grid.Column="2"
                      Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -234,8 +236,8 @@ Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius
             </materialDesign:Card>
             <!--Danh sách-->
 
-            <materialDesign:Card Grid.Row="0" x:Name="Data1" 
-                                 Grid.Column="1"
+            <materialDesign:Card Grid.Row="1" x:Name="Data1" 
+                                 Grid.Column="0"
                                  Margin="10">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -305,7 +307,7 @@ Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius
                                 Background="{StaticResource ColorSurface}"
                                 VirtualizingPanel.ScrollUnit="Pixel" Grid.ColumnSpan="3">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Tên NCC" Binding="{Binding SupplierName}" Width="*"/>
+                            <DataGridTextColumn Header="Tên NCC" Binding="{Binding SupplierName}" Width="auto"/>
                             <DataGridTextColumn Header="Địa chỉ" Binding="{Binding Address}" Width="*"/>
                             <DataGridTextColumn Header="SĐT" Binding="{Binding PhoneNumber}" Width="*"/>
                             <DataGridTemplateColumn Width="auto">
@@ -341,7 +343,7 @@ Grid.ColumnSpan="3" Padding="5"  Margin="10" Background="LightGray" CornerRadius
 
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate DataType="{x:Type device:SupplierEntryViewModel}">
-                                <Border Background="{StaticResource PrimaryHueMidBrush}" BorderBrush="{StaticResource ColorSurfaceOn}"
+                                <Border Background="LightGray" BorderBrush="{StaticResource ColorSurfaceOn}"
               BorderThickness="1">
                                     <Grid HorizontalAlignment="Stretch">
                                         <Grid.RowDefinitions>
@@ -478,7 +480,7 @@ Content="Tìm kiếm">
                                 Background="{StaticResource ColorSurface}"
                                 VirtualizingPanel.ScrollUnit="Pixel" Grid.ColumnSpan="3">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="LocationId" Binding="{Binding LocationId}" Width="*"/>
+                            <DataGridTextColumn Header="LocationId" Binding="{Binding LocationId}" Width="auto"/>
                             <DataGridTextColumn Header="Ghi chú" Binding="{Binding Note}" Width="*"/>
                            
                             <DataGridTemplateColumn Width="auto">
@@ -514,7 +516,7 @@ Content="Tìm kiếm">
 
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate DataType="{x:Type device:LocationEntryViewModel}">
-                                <Border  Background="{StaticResource PrimaryHueMidBrush}" BorderBrush="{StaticResource ColorSurfaceOn}"
+                                <Border  Background="LightGray" BorderBrush="{StaticResource ColorSurfaceOn}"
               BorderThickness="1">
                                     <Grid HorizontalAlignment="Stretch">
                                         <Grid.RowDefinitions>
@@ -571,7 +573,7 @@ Content="Tìm kiếm">
                 </Grid>
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="2"  x:Name="Card3"
-                 Grid.Column="1"
+                 Grid.Column="2"
                  Margin="10">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -640,7 +642,7 @@ Content="Tìm kiếm">
                                 Background="{StaticResource ColorSurface}"
                                 VirtualizingPanel.ScrollUnit="Pixel" Grid.ColumnSpan="3">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="TagId" Binding="{Binding TagId}" Width="*"/>
+                            <DataGridTextColumn Header="TagId" Binding="{Binding TagId}" Width="auto"/>
                             <DataGridTextColumn Header="Detail" Binding="{Binding TagDetail}" Width="*"/>
 
                             <DataGridTemplateColumn Width="auto">
@@ -676,7 +678,7 @@ Content="Tìm kiếm">
 
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate DataType="{x:Type device:TagEntryViewModel}">
-                                <Border Background="{StaticResource PrimaryHueMidBrush}" BorderBrush="{StaticResource ColorSurfaceOn}"
+                                <Border Background="LightGray" BorderBrush="{StaticResource ColorSurfaceOn}"
 BorderThickness="1">
                                     <Grid HorizontalAlignment="Stretch">
                                         <Grid.RowDefinitions>

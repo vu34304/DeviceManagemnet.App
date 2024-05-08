@@ -127,7 +127,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public ObservableCollection<DeviceEntryViewModel> DeviceEntries { get; set; } = new();
 
 
-        //Update Combobox
+    
         public List<string> EquipmentNames { get; set; } = new();
         public List<string> EquipmentIds { get; set; } = new();
         public List<string> EquipmentTypeIds { get; set; } = new();
@@ -136,7 +136,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public List<string> SupplierNames { get; set; } = new();
         public List<string> CodeOfManagers { get; set; } = new();
         //
-
+        public string NotificationNull { get; set; }    
 
         public ObservableCollection<string> Years { get; set; } = new();
         public ICommand LoadDeviceEntriesCommand { get; set; }
@@ -255,8 +255,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             EquipmentId = "";
             EquipmentName = "";
             EquipmentTypeId = "";
-            EquipmentTypeName = "";           
-
+            EquipmentTypeName = "";
+            SearchKeyWord = "";
+            NotificationNull = "";
             try
             {
                 equipments = (await _apiService.GetAllEquipmentsAsync()).ToList();
@@ -348,49 +349,54 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         private async void LoadDeviceEntriesAdvance()
         {
-            if (!String.IsNullOrEmpty(EquipmentId) || !String.IsNullOrEmpty(EquipmentName) || !String.IsNullOrEmpty(YearOfSupply) || !String.IsNullOrEmpty(EquipmentTypeName))
+            NotificationNull = "";
+            try
             {
-                try
+                if(TagId != null)
                 {
                     NewTag = TagId.Split("#").Skip(1).ToArray();
-
-                    filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(EquipmentId, EquipmentName, YearOfSupply, EquipmentTypeName, Category, Status, NewTag)).ToList();
-                    if(filteredEquipments.Count > 0)
-                    {
-                        var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(filteredEquipments);
-                        DeviceEntries = new(viewModels);
-
-                        foreach (var entry in DeviceEntries)
-                        {
-                            entry.SetApiService(_apiService);
-                            entry.SetMapper(_mapper);
-                            entry.Updated += LoadInitial;
-                            entry.OnException += Error;
-                            entry.IsOpenFixView += Entry_IsOpen;
-                            entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
-                        }
-                        TagId = "";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không tìm thấy thiết bị! ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        TagId = "";
-                        LoadInitial();
-                    }
-
-
                 }
-                catch (HttpRequestException)
+
+                filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(EquipmentId, EquipmentName, YearOfSupply, EquipmentTypeId, Category, Status, NewTag)).ToList();
+                if (filteredEquipments.Count > 0)
+
                 {
-                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+              
+                    var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(filteredEquipments);
+                    DeviceEntries = new(viewModels);
+
+                    foreach (var entry in DeviceEntries)
+                    {
+                        entry.SetApiService(_apiService);
+                        entry.SetMapper(_mapper);
+                        entry.Updated += LoadInitial;
+                        entry.OnException += Error;
+                        entry.IsOpenFixView += Entry_IsOpen;
+                        entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
+                    }
+                    TagId = "";
+
                 }
+                else
+                {
+                    DeviceEntries.Clear();
+                    NotificationNull = "Không tìm thấy thiết bị!";
+                    TagId = "";
+                    
+                }
+
+
             }
-            else MessageBox.Show("Cần điền đầy đủ các thông tin! ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+            catch (HttpRequestException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
             IsOpenSearchAdvanceView = false;
 
         }
         private async void LoadDeviceEntriesBase()
         {
+            NotificationNull = "";
             if (!String.IsNullOrEmpty(SearchKeyWord))
             {               
                 try
@@ -413,8 +419,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show("Không tìm thấy thiết bị! ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        LoadInitial();
+                          DeviceEntries.Clear();
+                    NotificationNull = "Không tìm thấy thiết bị!";
+                    TagId = "";
                     }
 
                 

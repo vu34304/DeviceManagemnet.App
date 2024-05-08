@@ -121,6 +121,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     if (MessageBox.Show("Xác nhận xóa", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         await _apiService.DeleteEquipmentTypeAsync(EquipmentTypeId);
+                        
                         Updated?.Invoke();
                         MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                         

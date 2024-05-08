@@ -1,5 +1,4 @@
-﻿using FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,20 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FabLab.DeviceManagement.DesktopApplication.Views.Project
+namespace FabLab.DeviceManagement.DesktopApplication.Views.BorrowReturn
 {
     /// <summary>
-    /// Interaction logic for CreateNewProjectView.xaml
+    /// Interaction logic for ShowBorrowEquipmentView.xaml
     /// </summary>
-    public partial class CreateNewProjectView : UserControl
+    public partial class ShowBorrowEquipmentView : UserControl
     {
-       
-        public CreateNewProjectView()
+        public ShowBorrowEquipmentView()
         {
             InitializeComponent();
-           
         }
-
-      
     }
 }

@@ -177,9 +177,16 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             if (!String.IsNullOrEmpty(BorrowEquipmentName))
             {
                 var equipment = equipments.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
+                var a = BorrowEquipmentDtos.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
+
+                if(a != null)
+                {
+                    a.IsChecked = true;
+                }
 
                 if (equipment != null)
                 {
+                    equipment.IsChecked = true;
                     BorrowEquipments.Add(new()
                     {
                         index = BorrowEquipments.Count(),
@@ -196,7 +203,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
 
             if (!String.IsNullOrEmpty(BorrowEquipmentName))
-            {              
+            {
+                var temp = equipments.SingleOrDefault(r => r.EquipmentName == BorrowEquipmentName);
+                var a = BorrowEquipmentDtos.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
+
+                if (a != null)
+                {
+                    a.IsChecked = false;
+                }
+             
                 var itemToRemove = BorrowEquipments.SingleOrDefault(r => r.name == BorrowEquipmentName);
                 if (itemToRemove != null)
                 BorrowEquipments.Remove(itemToRemove);
