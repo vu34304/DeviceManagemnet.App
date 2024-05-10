@@ -64,10 +64,34 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     NewEquipmentTypeId = SelectedItem.EquipmentTypeId;
                     NewEquipmentTypeName = SelectedItem.EquipmentTypeName;
-                    NewCategory = SelectedItem.Category;
+                    
                     NewDescription = SelectedItem.Description;
                     NewSpecificationEquimentTypes = SelectedItem.SpecificationEquimentTypes;
                     NewTagStr = string.Join("", SelectedItem.Tags.Select(s => $"#{s}"));
+                    switch (SelectedItem.Category)
+                    {
+                        case ECategory.All:
+                            {
+                                CategoryStr = "Tất cả";
+                                break;
+                            }
+                        case ECategory.Mechanical:
+                            {
+                                CategoryStr = "Cơ khí";
+                                break;
+                            }
+                        case ECategory.IoT_Robotics:
+                            {
+                                CategoryStr = "IoT_Robotics";
+                                break;
+                            }
+                        case ECategory.Automation:
+                            {
+                                CategoryStr = "Tự động";
+                                break;
+                            }
+                        default: break;
+                    }
                 }
             }
         }
@@ -86,6 +110,46 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string NewEquipmentTypeId { get; set; } = "";
         public string NewEquipmentTypeName { get; set; } = "";
         public ECategory NewCategory { get; set; }
+        private string _CategoryStr;
+        public string CategoryStr
+        {
+            get => _CategoryStr;
+            set
+            {
+                _CategoryStr = value;
+                switch (_CategoryStr)
+                {
+                    case "Tất cả":
+                        {
+                            NewCategory = ECategory.All; 
+                            Category = ECategory.All;
+                            break;
+                            
+                        }
+                    case "Cơ khí":
+                        {
+                            NewCategory = ECategory.Mechanical;
+                            Category = ECategory.Mechanical;
+                            break;
+                        }
+                    case "Tự động":
+                        {
+                            NewCategory = ECategory.Automation;
+                            Category = ECategory.Automation;
+                            break;
+
+                        }
+                    case "IoT_Robotics":
+                        {
+                            NewCategory = ECategory.IoT_Robotics;
+                            Category = ECategory.IoT_Robotics;
+                            break;
+
+                        }
+                    default: break;
+                }
+            }
+        }
         public string NewDescription { get; set; } = "";
         public string NewTagStr { get; set; } = "";
 
@@ -267,6 +331,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             NewEquipmentTypeId = "";
             NewEquipmentTypeName = "";
             NewDescription = "";
+            CategoryStr = "";
             NewCategory = ECategory.All;
             IsOpenCreateView = true;
         }
@@ -279,6 +344,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private void OpenSearchView()
         {
             IsOpenSearchAdvanceView = true;
+            CategoryStr = "";
             TagId = "";
         }
         private void CloseSearchView()
@@ -299,6 +365,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private void Entry_IsOpenFixView()
         {
             IsOpenFixView = true;
+            
             TagId = NewTagStr;
         }
 
@@ -333,6 +400,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         entry.SetMapper(_mapper);
                         entry.Updated += LoadInitial;
                         entry.OnException += Error;
+                        entry.SetCategoryEquipment();
                         entry.IsOpenFixView += Entry_IsOpenFixView;
                         entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
 
@@ -366,6 +434,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             entry.SetMapper(_mapper);
                             entry.Updated += LoadInitial;
                             entry.OnException += Error;
+                            entry.SetCategoryEquipment();
+
                             entry.IsOpenFixView += Entry_IsOpenFixView;
                             entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
                         }
@@ -409,6 +479,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         entry.SetMapper(_mapper);
                         entry.Updated += LoadInitial;
                         entry.OnException += Error;
+                        entry.SetCategoryEquipment();
+
                         entry.IsOpenFixView += Entry_IsOpenFixView;
                         entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
                     }

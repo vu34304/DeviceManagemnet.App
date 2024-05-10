@@ -166,7 +166,7 @@
            ItemsSource="{Binding Path=NewStatus, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
            SelectedValuePath="Value"
            DisplayMemberPath="Description"
-           Text="{Binding Path=NewStatus}"/>
+           Text="{Binding StatusStr}"/>
 
             <StackPanel Margin="10 10 10 0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.ColumnSpan="8">
                 <Button Grid.Column="0"

@@ -17,6 +17,37 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Borrowings
         public DateTime YearOfSupply { get; set; }
         public string CodeOfManager { get; set; }
         public EStatus Status { get; set; }
+        private string _StatusStr;
+        public string StatusStr
+        {
+            get => _StatusStr;
+            set
+            {
+                _StatusStr = value;
+                OnPropertyChanged();
+                switch (Status)
+                {
+                    case EStatus.Active:
+                        {
+                            _StatusStr = "Khả dụng"; break;
+                        }
+                    case EStatus.Inactive:
+                        {
+                            _StatusStr = "Đang mượn"; break;
+                        }
+                    case EStatus.NonFunctional:
+                        {
+                            _StatusStr = "Đang hỏng"; break;
+                        }
+                    case EStatus.Maintenance:
+                        {
+                            _StatusStr = "Đang bảo trì"; break;
+                        }
+                    default: break;
+                }
+            }
+        }
+
         public bool IsAvailable { get; set; }
 
         private bool _IsChecked;

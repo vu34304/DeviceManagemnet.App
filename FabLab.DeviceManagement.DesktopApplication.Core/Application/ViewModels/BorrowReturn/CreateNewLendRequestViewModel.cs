@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MessageBox = System.Windows.MessageBox;
 
 
@@ -142,7 +143,29 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     BorrowEquipmentDtos = (await _apiService.GetBorrowEquipmentAsync(ProjectName)).ToList();
                     ProjectsFilter = await _apiService.GetProjectsAsync(ProjectName);
-
+                    foreach(var item in BorrowEquipmentDtos)
+                    {
+                        switch (item.Status)
+                        {
+                            case EStatus.Active:
+                                {
+                                    item.StatusStr = "Khả dụng"; break;
+                                }
+                            case EStatus.Inactive:
+                                {
+                                    item.StatusStr = "Đang mượn"; break;
+                                }
+                            case EStatus.NonFunctional:
+                                {
+                                    item.StatusStr = "Đang hỏng"; break;
+                                }
+                            case EStatus.Maintenance:
+                                {
+                                    item.StatusStr = "Đang bảo trì"; break;
+                                }
+                            default: break;
+                        }
+                    }
                     if (BorrowEquipmentDtos.Count() != 0)
                     {
                         BorrowEquipments.Clear();

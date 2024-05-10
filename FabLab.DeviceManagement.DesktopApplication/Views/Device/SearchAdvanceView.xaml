@@ -129,7 +129,7 @@ Grid.Row="1"
  ItemsSource="{Binding Path=Category, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
  SelectedValuePath="Value"
  DisplayMemberPath="Description"
- Text="{Binding Path=Category}"/>
+ Text="{Binding CategoryStr}"/>
             <TextBlock Grid.Column="4"
                        Grid.Row="0"
                        Text="Tình trạng:"
@@ -144,7 +144,7 @@ Grid.Row="1"
                        ItemsSource="{Binding Path=Status, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
                        SelectedValuePath="Value"
                        DisplayMemberPath="Description"
-                       Text="{Binding Path=Status}"/>
+                       Text="{Binding StatusStr}"/>
             <TextBlock Grid.Row="2" Grid.Column="0" 
        Margin="10,0,0,0" 
        Text="Tag:"

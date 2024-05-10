@@ -278,7 +278,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         }
         public async Task DeleteLocationAsync(string locationId)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Location?name={locationId}");
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Location?locationId={locationId}");
 
             response.EnsureSuccessStatusCode();
         }
@@ -356,7 +356,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         }
         public async Task DeleteSupplierAsync(string supplierName)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Supplier?name={supplierName}");
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}api/Supplier?supplierName={supplierName}");
 
             response.EnsureSuccessStatusCode();
         }
@@ -716,6 +716,24 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
             return equipments;
         }
+        public async Task<IEnumerable<CreateProjectDto>> GetBorrowEquipment1Async(string projectName)
+        {
+            if (projectName.Contains("#"))
+            {
+                projectName = projectName.Replace("#", "%23");
+            }
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Project?pageSize=200&search={projectName}&pageNumber=1");
+
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var equipments = JsonConvert.DeserializeObject<IEnumerable<CreateProjectDto>>(responseBody);
+            if (equipments is null)
+            {
+                return new List<CreateProjectDto>();
+            }
+            return equipments;
+        }
         public async Task CreateLendRequestAsync(CreateBorrowDto createBorrowDto)
         {
             string json = JsonConvert.SerializeObject(createBorrowDto);
@@ -762,7 +780,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
 
         public async Task<IEnumerable<BorrowDto>> GetBorrowsAsync(string projectName)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Borrow?projectName={projectName}&returned=false&pageSize=20&pageNumber=1");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Borrow?projectName={projectName}&pageSize=20&pageNumber=1");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();

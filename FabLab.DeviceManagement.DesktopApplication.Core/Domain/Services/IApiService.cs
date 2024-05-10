@@ -68,7 +68,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services
         Task EndProjectAsync(EndProjectDto endProjectDto);
 
         //Borrow
-        Task<IEnumerable<BorrowEquipmentDto>> GetBorrowEquipmentAsync(string projectName);
+        Task<IEnumerable<BorrowEquipmentDto>> GetBorrowEquipmentAsync(string projectName);//Lấy danh sách thiết bị sau khi đăng kí đơn mượn
+        Task<IEnumerable<CreateProjectDto>> GetBorrowEquipment1Async(string projectName);//Lấy danh sách thiết bị trước khi đăng kí đơn mượn
         Task<IEnumerable<CreateBorrowDto>> GetEquipmentFromBorrowIdAsync(string projectName, string borrowId);
         Task CreateLendRequestAsync(CreateBorrowDto createBorrowDto);
         Task<IEnumerable<BorrowDto>> GetBorrowsAsync(string projectName);

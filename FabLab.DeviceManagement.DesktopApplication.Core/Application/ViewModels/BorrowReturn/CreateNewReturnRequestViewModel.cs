@@ -87,7 +87,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             BorrowIds.Clear();
             BorrowEquipments.Clear();
             BorrowEquipment.Clear();
-            BorrowId = "";
+            BorrowId = ""; Borrows.Clear();
         }
 
         private void CloseBorrowEquipmentView()
@@ -117,6 +117,16 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             try
             {
                 Borrows = (await _apiService.GetBorrowsAsync(ProjectName)).ToList();
+                foreach(var item in Borrows)
+                {
+#pragma warning disable CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
+                    if (item.RealReturnedDate == null)
+                    {
+                        item.IsReturned = true;
+                    }
+                    else item.IsReturned = false;
+#pragma warning restore CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
+                }
                 BorrowIds = Borrows.Select(i => i.BorrowId).ToList();
                 if(BorrowIds.Count > 0)
                 {

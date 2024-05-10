@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.SeedWork;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Borrowings;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Projects;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Borrows;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Projects;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services;
 using Newtonsoft.Json;
 using Notifications.Wpf.Core;
@@ -20,7 +22,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private readonly IMapper _mapper;
 
 
-       
+
         public List<string> ProjectNames { get; set; } = new();
         public string ProjectName { get; set; }
         public string NotificationNull { get; set; }
@@ -49,6 +51,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public ICommand LoadProjectEntriesCommand { get; set; }
         public ICommand CloseShowEquipmentCommand { get; set; }
         
+        //Danh sachs thiet bij duj an dang ki
+         public List<string> Equipments { get; set; } = new();  
+         public List<CreateProjectDto> EquipmentDtos { get; set; } = new();
+        public ObservableCollection<AddBorrowEquipments> BorrowEquipment { get; set; } = new ObservableCollection<AddBorrowEquipments>();
 
 
         public ProjectManagementViewModel(IApiService apiService, IMapper mapper)
@@ -65,9 +71,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             LoadInitial();
             UpdateProjectNames();
-            OnPropertyChanged(nameof(ProjectNames));      
+            OnPropertyChanged(nameof(ProjectNames));
+            
         }
 
+        
         private void CloseShowEquipment()
         {
             IsShowEquipment = false;
@@ -105,6 +113,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         entry.SetApiService(_apiService);
                         entry.SetMapper(_mapper);
                         entry.Updated += LoadInitial;
+                        entry.LoadBorrows();
                         entry.OnException += Error;
                         entry.ShowEquipment += Entry_ShowEquipment;
                     }
@@ -136,6 +145,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     entry.SetMapper(_mapper);
                     entry.Updated += LoadInitial;
                     entry.OnException += Error;
+                    entry.LoadBorrows();
+
                     entry.ShowEquipment += Entry_ShowEquipment;
                 }
             }
@@ -148,13 +159,27 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async void Entry_ShowEquipment()
         {
             IsShowEquipment = true;
+            EquipmentDtos.Clear();
+            BorrowEquipment.Clear();
             if (!String.IsNullOrEmpty(ProjectName))
             {
                 try
                 {
-                    BorrowEquipmentDtos = (await _apiService.GetBorrowEquipmentAsync(ProjectName)).ToList();
-                    if (BorrowEquipmentDtos.Count() == 0) NotificationNull = "Dự án chưa đăng kí thiết bị!";
-                    else NotificationNull = "";
+                    EquipmentDtos = (await _apiService.GetBorrowEquipment1Async(ProjectName)).ToList();
+                    if (EquipmentDtos.Count() == 0) NotificationNull = "Dự án chưa đăng kí thiết bị!";
+                    else 
+                    {
+                        NotificationNull = "";
+                        Equipments=EquipmentDtos.Select(i=>i.equipments).First().ToList();
+                        foreach(var equipment in Equipments)
+                        {
+                            BorrowEquipment.Add(new()
+                            {
+                                index = BorrowEquipment.Count() + 1,
+                                name = equipment
+                            });
+                        }
+                    }
 
                 }
                 catch (HttpRequestException)

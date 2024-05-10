@@ -138,9 +138,19 @@
                                     <DataGridTextColumn Header="NCC"
                                                         Width="*"
                                                         Binding="{Binding SupplierName}" />
-                                    <DataGridTextColumn Header="Tình trạng"
+                                    <!--<DataGridTextColumn Header="Tình trạng"
                                                         Width="auto"
-                                                        Binding="{Binding Status}" />
+                                                        Foreground="Yellow"
+                                                        Binding="{Binding StatusStr}" />-->
+                                    <DataGridTemplateColumn Header="Tình trạng"  Width="auto">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock  Text="{Binding StatusStr}"
+                                                            FontWeight="Bold"
+                                                            Foreground="{Binding ColorStatus}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                     <DataGridTemplateColumn Width="auto">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>

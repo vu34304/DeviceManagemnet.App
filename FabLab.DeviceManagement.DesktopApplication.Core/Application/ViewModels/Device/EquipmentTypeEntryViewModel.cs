@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MessageBox = System.Windows.MessageBox;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device
@@ -31,7 +32,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string EquipmentTypeName { get; set; }
         public ECategory Category { get; set; }
         public string Description { get; set; }
-
+        
+        public string CategoryStr { get; set; }
+        
         public string[] Tags { get; set; }
         //Thong so
         public ObservableCollection<SpecificationEquimentType> SpecificationEquimentTypes { get; set; }
@@ -72,8 +75,37 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Description = description;
             Tags = tags;
         }
-     
 
+        public void SetCategoryEquipment()
+        {
+
+            switch (Category)
+            {
+                case ECategory.All:
+                    {
+                        CategoryStr = "Tất cả";
+                        break;
+                    }
+                case ECategory.Mechanical:
+                    {
+                        CategoryStr = "Cơ khí";
+                        break;
+                    }
+                case ECategory.Automation:
+                    {
+                        CategoryStr = "Tự động";
+                        break;
+                    }
+                case ECategory.IoT_Robotics:
+                    {
+                        CategoryStr = "IoT_Robotics";
+                        break;
+                    }
+                default: break;
+
+            }
+            
+        }
 
         public void SetApiService(IApiService apiService)
         {

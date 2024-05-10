@@ -12,19 +12,19 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Projects
     public class ProjectDto
     {
         public string ProjectName { get; set; }
-        public DateTime StartDay { get; set; }
-        public DateTime EndDay { get; set; }
-        public DateTime RealEndDay { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string RealEndDate { get; set; }
         public string Description { get; set; }
         public bool Approved { get; set; }
 
 
-        public ProjectDto(string projectName, DateTime startDay, DateTime endDay, DateTime realEndDay, string description, bool approved)
+        public ProjectDto(string projectName, DateTime startDay, DateTime endDay, string realEndDay, string description, bool approved)
         {
             ProjectName = projectName;
-            StartDay = startDay;
-            EndDay = endDay;
-            RealEndDay = realEndDay;
+            StartDate = startDay;
+            EndDate = endDay;
+            RealEndDate = realEndDay;
             Description = description;
             Approved = approved;
         }

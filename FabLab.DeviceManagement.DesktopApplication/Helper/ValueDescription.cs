@@ -10,5 +10,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Helper
     {
         public Enum Value { get; set; }
         public string Description { get; set; }
+        
+        //public string Description { get; set; } 
     }
 }

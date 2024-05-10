@@ -141,13 +141,13 @@
                               SelectedValuePath="Value"
                               DisplayMemberPath="Description"
                               Text="{Binding Path=Category}" />
-
+                    
 
 
 
                     <TextBlock Grid.Column="4"
                                Grid.Row="0"
-                               Text="Tình trạng:"
+                               Text="Trạng thái:"
                                Style="{StaticResource FieldLabel}"
                                Margin="10"
                                VerticalAlignment="Center" />
@@ -156,11 +156,13 @@
                               materialDesign:HintAssist.Hint="Tình trạng"
                               Style="{StaticResource ComboBox}"
                               Margin="10"
-                              ItemsSource="{Binding Path= Status, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
-                              SelectedValuePath="Value"
+                              ItemsSource="{Binding Path=Status, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
                               DisplayMemberPath="Description"
-                              Text="{Binding Path=Status}" />
-
+                              SelectedValuePath="Value"
+                              Text="{Binding StatusStr}"
+                              />
+                    <!--SelectedValuePath="Value"
+DisplayMemberPath="Description"-->
                     <Button Grid.ColumnSpan="6"
                             Grid.Row="4"
                             Margin="10"
@@ -204,10 +206,16 @@
                         <DataGridTextColumn Header="Mã quản lí"
                                             Width="*"
                                             Binding="{Binding CodeOfManager}" />
-                        <DataGridTextColumn Header="Tình trạng"
+                        <!--<DataGridTextColumn Header="Tình trạng"
                                             Width="*"
-                                            Binding="{Binding Status}" />
-
+                                            Binding="{Binding Status}" />-->
+                        <DataGridTemplateColumn Header="Tình trạng" Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  FontWeight="Bold" Text="{Binding StatusStr}" Foreground="{Binding ColorStatus}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto">
                             <DataGridTemplateColumn.CellTemplate>

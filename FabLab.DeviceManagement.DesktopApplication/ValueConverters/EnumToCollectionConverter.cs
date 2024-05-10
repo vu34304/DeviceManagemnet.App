@@ -1,4 +1,5 @@
-﻿using FabLab.DeviceManagement.DesktopApplication.Helper;
+﻿using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Equipments;
+using FabLab.DeviceManagement.DesktopApplication.Helper;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,7 +18,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.ValueConverters
         {
             return EnumHelper.GetAllValuesAndDescriptions(value!.GetType());
         }
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

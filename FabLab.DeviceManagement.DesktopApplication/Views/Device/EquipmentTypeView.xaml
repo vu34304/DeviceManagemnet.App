@@ -104,7 +104,7 @@ Content="Tìm kiếm nâng cao">
                             <DataGrid.Columns >
                                 <DataGridTextColumn Header="Tên loại" Binding="{Binding EquipmentTypeName}" Width="auto"/>
                                 <DataGridTextColumn Header="Mã loại" Binding="{Binding EquipmentTypeId}" Width="auto"/>
-                                <DataGridTextColumn Header="Lĩnh vực" Binding="{Binding Category}" Width="*"/>
+                                <DataGridTextColumn Header="Lĩnh vực" Binding="{Binding CategoryStr}" Width="*"/>
                                 <DataGridTextColumn Header="Mô tả" Binding="{Binding Description}" Width="*"/>
                                 <DataGridTemplateColumn Width="auto">
                                     <DataGridTemplateColumn.CellTemplate>

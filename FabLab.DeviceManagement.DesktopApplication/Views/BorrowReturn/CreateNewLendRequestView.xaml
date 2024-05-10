@@ -103,7 +103,7 @@ Text="{Binding ProjectName}">
             ItemsSource="{Binding BorrowEquipmentDtos}">
                         <DataGrid.Columns >
                             <DataGridTextColumn  Header="Tên thiết bị" Binding="{Binding EquipmentName }" />
-                            <DataGridTextColumn Header="Tình trạng"  Binding="{Binding Status }" />
+                            <DataGridTextColumn Header="Tình trạng"  Binding="{Binding StatusStr }" />
                             <DataGridTemplateColumn Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

@@ -43,6 +43,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string LocationId { get; set; }
         public string SupplierName { get; set; }
         public EStatus Status { get; set; }
+        
+        public string StatusStr { get;set; }
+        public string ColorStatus { get; set; }
+
         public string[] Tags { get; set; }
 
 
@@ -90,6 +94,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
         //Invoke
         public event Action? Updated;
+        public event Action? UpdateColorStatus;
         public event Action? OnException;
         public event Action? IsOpenFixView;
         public event Action? IsOpenMoreDetailView;
@@ -136,37 +141,48 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public bool IsEnableButton { get; set; }
         public void SetStatusEquipment()
         {
+            
             switch (Status)
             {
                 case EStatus.Active:
                     {
                         ContentButton = "Báo hỏng";
                         ColorButton = "Red";
+                        ColorStatus = "Green";
+                        StatusStr = "Khả dụng";
                         IsEnableButton = true;
                         break;
                     }
                 case EStatus.Inactive:
                     {
+                        StatusStr = "Đang mượn";
                         IsEnableButton = false;
+
+                        ColorStatus = "Orange";
                         break;
                     }
                 case EStatus.NonFunctional:
                     {
                         ContentButton = "Bảo trì";
+                        StatusStr = "Đang hỏng";
                         ColorButton = "Yellow";
+                        ColorStatus = "Red";
                         IsEnableButton = true;
                         break;
                     }
                 case EStatus.Maintenance:
                     {
                         ContentButton = "Bảo trì xong";
+                        StatusStr = "Đang bảo trì";
                         ColorButton = "Green";
+                        ColorStatus = "Black";
                         IsEnableButton = true;
                         break;
                     }
                 default: break;
 
             }
+            UpdateColorStatus?.Invoke();
         }
         public void SetApiService(IApiService apiService)
         {

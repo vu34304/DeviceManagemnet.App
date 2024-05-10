@@ -91,6 +91,8 @@
                                 IsReadOnly="True"
                                 AutoGenerateColumns="False"
                                 SelectedItem="{Binding SelectedItem}"
+                                x:Name="data"
+                                MouseLeftButtonDown="data_MouseLeftButtonDown"
                                 ItemsSource="{Binding ProjectManagementEntries}"
                                 Background="{StaticResource ColorSurface}"
                                 VirtualizingPanel.ScrollUnit="Pixel"
@@ -114,10 +116,13 @@
                                                 Binding="{Binding ProjectName}"
                                                 Width="*" />
                             <DataGridTextColumn Header="Ngày bắt đầu"
-                                                Binding="{Binding StartDay}"
+                                                Binding="{Binding StartDate}"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Ngày dự kiến kết thúc"
+                                                Binding="{Binding EndDate}"
                                                 Width="*" />
                             <DataGridTextColumn Header="Ngày kết thúc"
-                                                Binding="{Binding EndDay}"
+                                                Binding="{Binding RealEndDate,StringFormat=dd/MM/yyyy}" 
                                                 Width="*" />
                             <DataGridTextColumn Header="Duyệt"
                                                 Binding="{Binding Approved}"
@@ -130,12 +135,11 @@
                                     <DataTemplate>
                                         <Button Content="Hoàn thành"
                                                 Background="Orange"
+                                                
+                                                Command="{Binding EndCommand}"
+                                                IsEnabled="{Binding IsFinished}"
                                                 materialDesign:ButtonAssist.CornerRadius="10">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Click">
-                                                    <prism:InvokeCommandAction Command="{Binding EndCommand}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
+
                                         </Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -200,121 +204,58 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-
-
                         </DataGrid.Columns>
-
-                        <!--<DataGrid.RowDetailsTemplate>
+                        <DataGrid.RowDetailsTemplate>
                             <DataTemplate DataType="{x:Type project:ProjectManagementEntryViewModel}">
-                                <Border BorderBrush="{StaticResource ColorSurfaceOn}"
-                        BorderThickness="1">
-                                    <Grid Background="{StaticResource PrimaryHueMidBrush}" HorizontalAlignment="Stretch">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto" />
-                                            <RowDefinition Height="auto" />
-                                            <RowDefinition Height="auto" />
-                                        </Grid.RowDefinitions>
+                                <Border Background="LightGray"
+                                        BorderBrush="{StaticResource ColorSurfaceOn}"
+                                        BorderThickness="1">
+                                    <DataGrid IsReadOnly="True"
+                                              AutoGenerateColumns="False"
+                                              Margin=" 10"
+                                              VerticalAlignment="Top"
+                                              Grid.Column="0"
+                                              Grid.ColumnSpan="3"
+                                              Grid.Row="4"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                              SelectedItem="{Binding SelectedItem}"
+                                              ItemsSource="{Binding Borrows}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn  Header="Mã đơn mượn"
+                                                                 Binding="{Binding BorrowId }" />
+                                            <DataGridTextColumn Header="Người mượn"
+                                                                Binding="{Binding Borrower }" />
+                                            <DataGridTextColumn Header="Trạng thái"
+                                                                Binding="{Binding Status }" />
 
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="1.5*"/>
-                                                <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="0.6*"/>
-                                                <ColumnDefinition Width="auto"/>
-                                            </Grid.ColumnDefinitions>
 
-                                            <TextBlock Grid.Row="0" Grid.Column="0"
-                           Text="Mã loại:"
-                           Style="{StaticResource FieldLabel}"
-                           Margin="10"
-                           VerticalAlignment="Center"/>
-                                            <TextBox Grid.Row="0" Grid.Column="1"
-                           materialDesign:HintAssist.Hint="Mã loại"
-                           FontSize="16"
-                           IsEnabled="False"
-                           Style="{StaticResource TextBox}"
-                           Margin="10"
-                           VerticalAlignment="Center"
-                           Text="{Binding EquipmentTypeId}"/>
 
-                                            <TextBlock Grid.Row="0" Grid.Column="2"
-                           Text="Tên loại:"
-                           Style="{StaticResource FieldLabel}"
-                           Margin="10"
-                           VerticalAlignment="Center"/>
-                                            <TextBox Grid.Row="0" Grid.Column="3"
-                           materialDesign:HintAssist.Hint="Tên loại"
-                           FontSize="16"
-                           Style="{StaticResource TextBox}"
-                           Margin="10"
-                           VerticalAlignment="Center"
-                           Text="{Binding EquipmentTypeName, Mode=TwoWay, UpdateSourceTrigger =PropertyChanged}"/>
+                                            <!--<DataGridTemplateColumn Header="Đăng kí " Width="auto">
+                                -->
+                                            <!--<DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <prism:InvokeCommandAction Command="{Binding DataContext.AddBorrowEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <prism:InvokeCommandAction Command="{Binding DataContext.RemoveBorrowEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>-->
+                                            <!--
+                                
+                            </DataGridTemplateColumn>-->
+                                        </DataGrid.Columns>
 
-                                            <TextBlock Grid.Row="0" Grid.Column="4"
-                           Text="Lĩnh vực:"
-                           Style="{StaticResource FieldLabel}"
-                           Margin="10"
-                           VerticalAlignment="Center"/>
-                                            <ComboBox Grid.Row="0" Grid.Column="5"
-                          Margin="10"
-                          materialDesign:HintAssist.Hint="Lĩnh vực"
-                          Style="{StaticResource ComboBox}"
-                          ItemsSource="{Binding Path=Category, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
-                          SelectedValuePath="Value"
-                          DisplayMemberPath="Description"
-                          Text="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger =PropertyChanged}"/>
-
-                                        </Grid>
-
-                                        <Grid Grid.Row="1">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <TextBlock Grid.Row="1" Grid.Column="0"
-                           Text="Hình ảnh:"
-                           Style="{StaticResource FieldLabel}"
-                           Margin="10"
-                           VerticalAlignment="Center"/>
-                                            <TextBox Grid.Row="0" Grid.Column="1"
-                           materialDesign:HintAssist.Hint="Hình ảnh"
-                           FontSize="16"
-                           Style="{StaticResource TextBox}"
-                           Margin="10"
-                           VerticalAlignment="Center"
-                           Text="{Binding Picture, Mode=TwoWay, UpdateSourceTrigger = PropertyChanged}"/>
-                                        </Grid>
-
-                                        <Grid Grid.Row="2" Background="{StaticResource PrimaryHueMidBrush}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <DataGrid Margin="10" IsReadOnly="True" ItemsSource="{Binding SpecificationEquimentTypes}"></DataGrid>
-                                            <DataGrid Margin="10" IsReadOnly="True" 
-AutoGenerateColumns="False"  MaxHeight="200" Grid.Column="1"  Padding="10" 
-VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding Pictures}" >
-
-                                                <DataGrid.Columns >
-                                                    <DataGridTemplateColumn Header="Image">
-                                                        <DataGridTemplateColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <Image Source="{Binding Source}" MaxHeight="200"/>
-                                                            </DataTemplate>
-                                                        </DataGridTemplateColumn.CellTemplate>
-                                                    </DataGridTemplateColumn>
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </Grid>
-                                    </Grid>
+                                    </DataGrid>
                                 </Border>
                             </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>-->
+                        </DataGrid.RowDetailsTemplate>
+
                     </DataGrid>
 
                 </Grid>

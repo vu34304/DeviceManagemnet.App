@@ -31,17 +31,21 @@
                 <RowDefinition Height="auto"/>
                
             </Grid.RowDefinitions>
-            <DataGrid IsReadOnly="True" 
-    AutoGenerateColumns="False" 
-    VirtualizingPanel.ScrollUnit="Pixel" 
-    Margin=" 10"  
-    VerticalAlignment="Top" 
-    Grid.Row="0" Grid.ColumnSpan="2" 
-    ItemsSource="{Binding BorrowEquipmentDtos, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <DataGrid IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      VirtualizingPanel.ScrollUnit="Pixel"
+                      Margin=" 10"
+                      VerticalAlignment="Top"
+                      Grid.Row="0"
+                      Grid.ColumnSpan="2"
+                      ItemsSource="{Binding BorrowEquipment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
-                <DataGrid.Columns >
-                    <DataGridTextColumn Header="Mã thiết bị" Binding="{Binding EquipmentId , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay  }" />
-                    <DataGridTextColumn Header="Tên thiết bị"  Binding="{Binding EquipmentName }" />
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="STT"
+                                        Binding="{Binding index , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay  }" />
+                    <DataGridTextColumn Header="Tên thiết bị"
+                                        Binding="{Binding name }" />
+
                 </DataGrid.Columns>
 
             </DataGrid>

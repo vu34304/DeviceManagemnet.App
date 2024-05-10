@@ -45,8 +45,38 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string SupplierName { get; set; } = "";
         public string LocationId { get; set; } = "";
         public string EquipmentTypeName { get; set; } = "";
-        public string EquipmentTypeId { get; set; } = "";
+        public string EquipmentTypeId { get; set; } = "";     
         public EStatus Status { get; set; }
+        private string _StatusStr;
+        public string StatusStr 
+        {
+            get=>_StatusStr;
+            set
+            {
+                _StatusStr = value;
+                switch (_StatusStr)
+                {
+                    case "Khả dụng":
+                        {
+                            Status=EStatus.Active; break;
+                        }
+                    case "Đang mượn":
+                        {
+                            Status = EStatus.Inactive; break;
+                        }
+                    case "Đang hỏng":
+                        {
+                            Status = EStatus.NonFunctional; break;
+                        }
+                    case "Đang bảo trì":
+                        {
+                            Status = EStatus.Maintenance; break;
+                        }
+                    default: break;
+                }
+            }
+        }
+       
         public ECategory Category { get; set; }
 
 
@@ -83,7 +113,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private void LoadEquipmentMaintenaceView()
         {
             LoadInitial();
-
             UpdateSupplier();
             UpdateEquimentTypeId();
             UpdateEquimentTypeName();
@@ -135,10 +164,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             try
             {
-                if (!String.IsNullOrEmpty(EquipmentId) || !String.IsNullOrEmpty(EquipmentName) || !String.IsNullOrEmpty(YearOfSupply) || !String.IsNullOrEmpty(EquipmentTypeName))
-                {
-                    filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(YearOfSupply,EquipmentId,EquipmentTypeId,Category )).ToList();
-                }
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+                filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(EquipmentId,EquipmentName,YearOfSupply,EquipmentTypeId,Category,Status,null)).ToList();
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
                 //filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync()).ToList();
                 var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(filteredEquipments);
@@ -149,6 +177,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     entry.SetApiService(_apiService);
                     entry.SetMapper(_mapper);                  
                     entry.Updated += LoadInitial;
+                    entry.SetStatusEquipment();
                     entry.OnException += Error;
                 }
             }
