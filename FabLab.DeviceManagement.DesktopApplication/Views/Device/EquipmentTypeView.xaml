@@ -54,14 +54,18 @@
                                  Style="{StaticResource FieldLabel}" 
                                  Text="Search"/>
                         <TextBox Grid.Column="1"
+                                 FontSize="16"
+                                 Style="{StaticResource TextBox}"
+                                 Margin="10"
+                                 VerticalAlignment="Center"
+                                 Text="{Binding SearchKeyWord, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Command="{Binding LoadEquipmentTypeSearchCommand}"
+                                            Key="Enter" />
+                            </TextBox.InputBindings>
+                        </TextBox>
 
-FontSize="16"
-Style="{StaticResource TextBox}"
-Margin="10" 
-VerticalAlignment="Center"
-Text="{Binding SearchKeyWord, UpdateSourceTrigger=PropertyChanged}"/>
-
-                        <Button Grid.Column="2" Grid.Row="0"
+                        <!--<Button Grid.Column="2" Grid.Row="0"
                             Margin="10"
                           
                             Style="{StaticResource ButtonPrimary}"
@@ -72,7 +76,7 @@ Text="{Binding SearchKeyWord, UpdateSourceTrigger=PropertyChanged}"/>
                                     <prism:InvokeCommandAction Command="{Binding LoadEquipmentTypeSearchCommand}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                        </Button>
+                        </Button>-->
                         <Button Grid.ColumnSpan="3" Grid.Row="1"
 Margin="10"
                                 Background="Coral"

@@ -69,8 +69,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         public string EquipmentName = "";
         public string YearOfSupply = "";
         public string EquipmentTypeId = "";
-        
-        public async Task<IEnumerable<EquipmentDto>> GetEquipmentsRecordsAsync(string equipmentId, string equipmentName, string yearOfSupply, string equipmentTypeId, ECategory? category, EStatus? status, string[] Tags)
+        public string Status = "";
+
+        public async Task<IEnumerable<EquipmentDto>> GetEquipmentsRecordsAsync(string equipmentId, string equipmentName, string yearOfSupply, string equipmentTypeId, string? category, string? status, string[] Tags)
         {
             if(Tags != null)
             {
@@ -95,11 +96,69 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             {
                 EquipmentTypeId = $"&EquipmentTypeId={equipmentTypeId}";
             }
-            if (category != ECategory.All)
+            if (category != null)
             {
-                Category = $"&category={category}";
+                switch (category)
+                {
+                    case "Tất cả":
+                        {
+                            Category = $"&EquipmentCategory=All";
+                            break;
+                        }
+                    case "Cơ khí":
+                        {
+                            Category = $"&EquipmentCategory=Mechanical";
+                            break;
+                        }
+                    case "Tự động":
+                        {
+                            Category = $"&EquipmentCategory=Automation";
+                            break;
+
+                        }
+                    case "IoT_Robotics":
+                        {
+                            Category = $"&EquipmentCategory=IoT_Robotics";
+                            break;
+
+                        }
+
+                    default: break;
+                }
+                
             }
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipment/Enhanced?Status={status}&pageSize=200&pageNumber=1" + TagIds+Category+ EquipmentTypeId + EquipmentId+EquipmentName);
+            if (status != null)
+            {
+                switch (status)
+                {
+                    case "Khả dụng":
+                        {
+                            
+                            Status = $"&Status=Active";
+                            break;
+                        }
+                    case "Đang mượn":
+                        {
+                            Status = $"&Status=Inactive";
+                             break;
+                        }
+                    case "Đang hỏng":
+                        {
+                            Status = $"&Status=NonFunctional";
+
+                            break;
+                        }
+                    case "Đang bảo trì":
+                        {
+                            Status = $"&Status=Maintenance";
+
+                             break;
+                        }
+                    default: break;
+                }
+                
+            }
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipment/Enhanced?pageSize=200&pageNumber=1"+Status+ TagIds+Category+ EquipmentTypeId + EquipmentId+EquipmentName);
 
 
             response.EnsureSuccessStatusCode(); //equipmentId={equipmentId//
@@ -385,7 +444,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         public string EquiqmentTypeId="";
         public string EquiqmentTypeName="";
         public string Category="";
-        public async Task<IEnumerable<EquipmentTypeDto>> GetEquipmentTypesRecordsAsync(string equiqmentTypeId, string equiqmentTypeName, ECategory category, string[] Tags)
+        public async Task<IEnumerable<EquipmentTypeDto>> GetEquipmentTypesRecordsAsync(string equiqmentTypeId, string equiqmentTypeName, string? category, string[] Tags)
         {
 
             if(Tags != null)
@@ -403,9 +462,35 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             {
                 EquiqmentTypeName = $"&equipmentTypeName={equiqmentTypeName}";
             }
-            if (category != ECategory.All)
+            if (category != null)
             {
-                Category = $"&category={category}";
+                switch (category)
+                {
+                    case "Tất cả":
+                        {
+                            Category = $"&Category=All";
+                            break;
+                        }
+                    case "Cơ khí":
+                        {
+                            Category = $"&Category=Mechanical";
+                            break;
+                        }
+                    case "Tự động":
+                        {
+                            Category = $"&Category=Automation";
+                            break;
+
+                        }
+                    case "IoT_Robotics":
+                        {
+                            Category = $"&Category=IoT_Robotics";
+                            break;
+
+                        }
+
+                    default: break;
+                }
             }
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}api/EquipmentType/Enhanced?pageSize=200&pageNumber=1" + TagIds+Category+EquiqmentTypeId+EquiqmentTypeName);
             TagIds = "";

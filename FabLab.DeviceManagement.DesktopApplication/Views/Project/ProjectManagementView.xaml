@@ -125,7 +125,7 @@
                                                 Binding="{Binding RealEndDate,StringFormat=dd/MM/yyyy}" 
                                                 Width="*" />
                             <DataGridTextColumn Header="Duyệt"
-                                                Binding="{Binding Approved}"
+                                                Binding="{Binding ApprovedStr}"
                                                 Width="*" />
                             <DataGridTextColumn Header="Mô tả"
                                                 Binding="{Binding Description}"

@@ -17,5 +17,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Equipmen
         NonFunctional = 2,
         [Description("Đang bảo trì")]
         Maintenance = 3,
+       
     }
 }

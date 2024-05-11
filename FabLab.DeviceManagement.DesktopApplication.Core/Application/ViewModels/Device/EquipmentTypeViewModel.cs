@@ -418,51 +418,66 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async void SearchEquipmentType()
         {
             NotificationNull = "";
-            try
-            {
-                filteredEquipmentTypes = (await _apiService.GetEquipmentTypesRecordsAsync(SearchKeyWord)).ToList();
+           
+                try
+                {
+                if (!String.IsNullOrEmpty(SearchKeyWord))
+                {
+                    filteredEquipmentTypes = (await _apiService.GetEquipmentTypesRecordsAsync(SearchKeyWord)).ToList();
+                }
+                else filteredEquipmentTypes = (await _apiService.GetAllEquipmentTypesAsync()).ToList();
+
                 if (filteredEquipmentTypes.Count > 0)
-                {
-                    var viewModels = _mapper.Map<IEnumerable<EquipmentTypeDto>, IEnumerable<EquipmentTypeEntryViewModel>>(filteredEquipmentTypes);
-                    EquipmentTypeEntries = new(viewModels);
-
-                    foreach (var entry in EquipmentTypeEntries)
                     {
-                        entry.SetApiService(_apiService);
-                        entry.SetMapper(_mapper);
-                        entry.Updated += LoadInitial;
-                        entry.OnException += Error;
-                        entry.SetCategoryEquipment();
+                        var viewModels = _mapper.Map<IEnumerable<EquipmentTypeDto>, IEnumerable<EquipmentTypeEntryViewModel>>(filteredEquipmentTypes);
+                        EquipmentTypeEntries = new(viewModels);
 
-                        entry.IsOpenFixView += Entry_IsOpenFixView;
-                        entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
+                        foreach (var entry in EquipmentTypeEntries)
+                        {
+                            entry.SetApiService(_apiService);
+                            entry.SetMapper(_mapper);
+                            entry.Updated += LoadInitial;
+                            entry.OnException += Error;
+                            entry.SetCategoryEquipment();
+
+                            entry.IsOpenFixView += Entry_IsOpenFixView;
+                            entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
+                        }
                     }
+                    else
+                    {
+                        EquipmentTypeEntries.Clear();
+                        NotificationNull = "Không tìm thấy loại thiết bị!";
+
+                    }
+
                 }
-                else
+                catch (HttpRequestException)
                 {
-                    EquipmentTypeEntries.Clear();
-                    NotificationNull = "Không tìm thấy loại thiết bị!";
-
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
                 }
-
-            }
-            catch (HttpRequestException)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-            }
+            
+            //else filteredEquipmentTypes = (await _apiService.GetAllEquipmentTypesAsync()).ToList();
         }
         private async void LoadEquipmentTypeEntries()
         {
             NotificationNull = "";
             try
             {
-                if (TagId.Contains("#"))
+                if(!String.IsNullOrEmpty(CategoryStr) || !String.IsNullOrEmpty(EquipmentTypeId)|| !String.IsNullOrEmpty(EquipmentTypeName)
+                    || !String.IsNullOrEmpty(TagId))
                 {
-                    NewTag = TagId.Split("#").Skip(1).ToArray();
-                }
-                else NewTag = NewTag;
+                    if (TagId.Contains("#"))
+                    {
+                        NewTag = TagId.Split("#").Skip(1).ToArray();
+                    }
+                    else NewTag = NewTag;
 
-                filteredEquipmentTypes = (await _apiService.GetEquipmentTypesRecordsAsync(EquipmentTypeId, EquipmentTypeName, Category, NewTag)).ToList();
+                    filteredEquipmentTypes = (await _apiService.GetEquipmentTypesRecordsAsync(EquipmentTypeId, EquipmentTypeName, CategoryStr, NewTag)).ToList();
+                }
+                else filteredEquipmentTypes = (await _apiService.GetAllEquipmentTypesAsync()).ToList();
+
+
 
                 if (filteredEquipmentTypes.Count > 0)
                 {

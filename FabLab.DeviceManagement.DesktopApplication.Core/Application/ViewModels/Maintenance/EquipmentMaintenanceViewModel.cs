@@ -89,7 +89,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     case "Tất cả":
                         {
-                            Category = ECategory.All;
+                            Category = ECategory.All;                       
                             break;
                         }
                     case "Cơ khí":
@@ -109,6 +109,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             break;
 
                         }
+                        
                     default: break;
                 }
             }
@@ -162,8 +163,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
         private async void LoadInitial()
         {
-            Category = ECategory.All;
-
+            
             EquipmentId = "";
             EquipmentName = "";
             EquipmentTypeId = "";
@@ -198,9 +198,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             try
             {
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-                filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(EquipmentId,EquipmentName,YearOfSupply,EquipmentTypeId,Category,Status,null)).ToList();
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+                if (CategoryStr is not null || StatusStr is not null || !String.IsNullOrEmpty(EquipmentId) 
+                    || !String.IsNullOrEmpty(EquipmentName) || !String.IsNullOrEmpty(YearOfSupply)
+                    || !String.IsNullOrEmpty(EquipmentTypeId))
+                {
+                    filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(EquipmentId, EquipmentName, YearOfSupply, EquipmentTypeId, CategoryStr, StatusStr, null)).ToList();
+                }
+                else filteredEquipments= (await _apiService.GetAllEquipmentsAsync()).ToList();
+
 
                 //filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync()).ToList();
                 var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(filteredEquipments);
@@ -219,9 +224,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server test.");
             }
-            CategoryStr = "";
-            StatusStr = "";
-
+            CategoryStr = null;
+            StatusStr = null;
+            
+            
 
         }
         private void Error()

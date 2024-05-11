@@ -22,6 +22,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string RealEndDate { get; set; }
         public string Description { get; set; }
         public bool Approved { get; set; }
+        public string ApprovedStr => (Approved) ? "Đã duyệt" : "Chưa duyệt";
         public bool StatusApproved => !Approved;
         public List<BorrowDto> Borrows { get; set; } = new();
 

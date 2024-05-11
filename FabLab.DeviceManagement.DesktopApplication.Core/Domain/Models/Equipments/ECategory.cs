@@ -16,6 +16,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Equipmen
         [Description("IoT_Robotics")]
         IoT_Robotics = 2,
         [Description("Tự động")]
-        Automation = 3
+        Automation = 3,
+       
     }
 }

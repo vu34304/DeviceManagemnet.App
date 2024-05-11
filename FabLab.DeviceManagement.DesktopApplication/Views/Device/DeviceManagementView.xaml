@@ -61,21 +61,29 @@
                                  Style="{StaticResource TextBox}"
                                  Margin="10"
                                  VerticalAlignment="Center"
-                                 Text="{Binding SearchKeyWord, UpdateSourceTrigger=PropertyChanged}" />
+                                 Text="{Binding SearchKeyWord, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Command="{Binding LoadDeviceEntriesCommand1}"
+                                            Key="Enter" />
+                            </TextBox.InputBindings>
+                        </TextBox>
 
 
-                        <Button Grid.Column="2"
+                        <!--<Button Grid.Column="2"
                                 Grid.Row="0"
                                 Margin="10"
                                 Style="{StaticResource ButtonPrimary}"
                                 materialDesign:ButtonAssist.CornerRadius="10"
                                 Content="Tìm kiếm">
-                            <i:Interaction.Triggers>
+                            --><!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <prism:InvokeCommandAction Command="{Binding LoadDeviceEntriesCommand1}" />
                                 </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
+                            </i:Interaction.Triggers>--><!--
+                            <Button.InputBindings>
+                                <KeyBinding Command="{Binding LoadDeviceEntriesCommand1}" Key="Enter"/>
+                            </Button.InputBindings>
+                        --><!--</Button>-->
                         <Button Grid.ColumnSpan="3"
                                 Grid.Row="1"
                                 Margin="10" Background="Coral"

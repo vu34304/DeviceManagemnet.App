@@ -140,7 +140,7 @@
                               ItemsSource="{Binding Path=Category, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
                               SelectedValuePath="Value"
                               DisplayMemberPath="Description"
-                              Text="{Binding CategoryStr}" />
+                              Text="{Binding CategoryStr,Mode=TwoWay}" />
                     
 
 
@@ -159,7 +159,7 @@
                               ItemsSource="{Binding Path=Status, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
                               DisplayMemberPath="Description"
                               SelectedValuePath="Value"
-                              Text="{Binding StatusStr}"
+                              Text="{Binding StatusStr,Mode=TwoWay}"
                               />
                     <!--SelectedValuePath="Value"
 DisplayMemberPath="Description"-->

@@ -456,12 +456,22 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             NotificationNull = "";
             try
             {
-                if(TagId != null)
-                {
-                    NewTag = TagId.Split("#").Skip(1).ToArray();
-                }
 
-                filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(EquipmentId, EquipmentName, YearOfSupply, EquipmentTypeId, Category, Status, NewTag)).ToList();
+
+                if (CategoryStr != "" || StatusStr != "" || !String.IsNullOrEmpty(EquipmentId)
+                   || !String.IsNullOrEmpty(EquipmentName) || !String.IsNullOrEmpty(YearOfSupply)
+                   || !String.IsNullOrEmpty(EquipmentTypeId) || TagId != "")
+                {
+                    if (TagId != null)
+                    {
+                        NewTag = TagId.Split("#").Skip(1).ToArray();
+                    }
+                    filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(EquipmentId, EquipmentName, YearOfSupply, EquipmentTypeId, CategoryStr, StatusStr, null)).ToList();
+
+                }
+                else filteredEquipments = (await _apiService.GetAllEquipmentsAsync()).ToList();
+
+                
                 if (filteredEquipments.Count > 0)
 
                 {
