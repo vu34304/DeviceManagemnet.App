@@ -16,6 +16,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         public event Action<string>? EnvironmentChanged;
         public event Action<string>? DataMachineChanged;
         public event Action<string>? FormNotification;
+        public event Action<string>? StatusNotification;
 
 
         public SignalRClient()
@@ -31,6 +32,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             connection.On<string>("EnvironmentChanged", (json) => EnvironmentChanged?.Invoke(json));
             connection.On<string>("DataMachineChanged", (json) => DataMachineChanged?.Invoke(json));
             connection.On<string>("FormNotification", (json) => FormNotification?.Invoke(json));
+            
             await connection.StartAsync();
             var a = connection.State;
         }

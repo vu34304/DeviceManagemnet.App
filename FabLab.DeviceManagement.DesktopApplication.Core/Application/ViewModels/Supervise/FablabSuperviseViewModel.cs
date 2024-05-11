@@ -34,6 +34,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Power1 { get; set; }
         public double Speed1 { get; set; }
         public double Vibration1 { get; set; }
+        public string MachineStatus1 { get;set; }
 
         //Machine 2
         public DateTime? TimeStamp2 { get; set; }
@@ -44,6 +45,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         public double Power2 { get; set; }
         public double Speed2 { get; set; }
+        public string MachineStatus2 { get;set; }
         public double Vibration2 { get; set; }
 
         //Machine 3
@@ -55,6 +57,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Power3 { get; set; }
         public double Speed3 { get; set; }
         public double Vibration3 { get; set; }
+        public string MachineStatus3 { get; set; }
 
         //Machine 4
         public DateTime? TimeStamp4 { get; set; }
@@ -65,6 +68,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Power4 { get; set; }
         public double Speed4 { get; set; }
         public double Vibration4 { get; set; }
+        public string MachineStatus4 { get; set; }
+
         //Machine 5
         public DateTime? TimeStamp5 { get; set; }
         public double IdleTime5 { get; set; }
@@ -73,6 +78,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Oee5 { get; set; }
         public double Power5 { get; set; }
         public double Speed5 { get; set; }
+        public string MachineStatus5 { get;set; }
         public double Vibration5 { get; set; }
 
         //Machine 6
@@ -83,6 +89,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Oee6 { get; set; }
         public double Power6{ get; set; }
         public double Speed6 { get; set; }
+        public string MachineStatus6 { get;set; }
         public double Vibration6 { get; set; }
 
         //Status Environment
@@ -171,6 +178,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                     {
                                         Vibration1 = Convert.ToDouble(tag.value); break;
                                     }
+                                case "MachineStatus":
+                                    {
+                                        MachineStatus1 = ConvertStatus(tag.value); break;
+                                    }
                                 default: break;
                                 
                             }
@@ -191,6 +202,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 case "Vibration":
                                     {
                                         Vibration2 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "MachineStatus":
+                                    {
+                                        MachineStatus2 = ConvertStatus(tag.value); break;
                                     }
                                 default: break;
 
@@ -213,6 +228,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                     {
                                         Vibration3 = Convert.ToDouble(tag.value); break;
                                     }
+                                case "MachineStatus":
+                                    {
+                                        MachineStatus3 = ConvertStatus(tag.value); break;
+                                    }
                                 default: break;
 
                             }
@@ -234,12 +253,16 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                     {
                                         Vibration4 = Convert.ToDouble(tag.value); break;
                                     }
+                                case "MachineStatus":
+                                    {
+                                        MachineStatus4 = ConvertStatus(tag.value); break;
+                                    }
                                 default: break;
 
                             }
                             break;
                         }
-                    case "":
+                    case "C200":
                         {
                             switch (tag.name)
                             {
@@ -254,6 +277,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 case "Vibration":
                                     {
                                         Vibration5 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "MachineStatus":
+                                    {
+                                        MachineStatus5 = ConvertStatus(tag.value); break;
                                     }
                                 default: break;
 
@@ -275,6 +302,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 case "Vibration":
                                     {
                                         Vibration6 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "MachineStatus":
+                                    {
+                                        MachineStatus6 = ConvertStatus(tag.value); break;
                                     }
                                 default: break;
 
@@ -408,6 +439,30 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         }
 
+        private string ConvertStatus(string value)
+        {
+            var result = string.Empty;
+            switch (int.Parse(value))
+            {
+                case 0:
+                    {
+                        result = "Máy tắt";
+                        break;
+                    }
+                case 1:
+                    {
+                        result = "Động cơ chạy";
+                        break;
+                    }               
+                case 5:
+                    {
+                        result = "Máy có điện";
+                        break;
+                    }
+                default:break;
+            }
+            return result;
+        }
         //update chart
         #region update value chart
         private async void UpdateValueOEEMachine1(double IdleTime, double ShiftTime, double OperationTime, double Oee)
@@ -483,12 +538,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Task Update = new(() =>
             {
                 SolidColorPaint solidColorPaint = new SolidColorPaint();
-                if (humidity <= 90 && humidity >= 80)
+                if (humidity <= 80 && humidity >= 40)
                 {
                     solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
                 }
-                else if (humidity > 90) solidColorPaint = new SolidColorPaint(SKColors.Red);
-                else solidColorPaint = new SolidColorPaint(SKColors.Yellow);
+                else if (humidity > 80) solidColorPaint = new SolidColorPaint(SKColors.Red);
+                else solidColorPaint = new SolidColorPaint(SKColors.Blue);
 
 
                 Series5 = GaugeGenerator.BuildSolidGauge(
@@ -515,12 +570,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Task Update = new(() =>
             {
                 SolidColorPaint solidColorPaint = new SolidColorPaint();
-                if (temperature <= 30 && temperature >= 25)
+                if (temperature <= 35 && temperature >= 26)
                 {
                     solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
                 }
-                else if (temperature > 30) solidColorPaint = new SolidColorPaint(SKColors.Red);
-                else solidColorPaint = new SolidColorPaint(SKColors.Yellow);
+                else if (temperature > 35) solidColorPaint = new SolidColorPaint(SKColors.Red);
+                else solidColorPaint = new SolidColorPaint(SKColors.Blue);
 
                 Series6 = GaugeGenerator.BuildSolidGauge(
              new GaugeItem(Convert.ToDouble(temperature), series =>
@@ -589,12 +644,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Task Update = new(() =>
             {
                 SolidColorPaint solidColorPaint = new SolidColorPaint();
-                if (gas <= 90 && gas >= 80)
+                if (gas >= 80)
                 {
-                    solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
+                    solidColorPaint = new SolidColorPaint(SKColors.Red);
                 }
-                else if (gas > 90) solidColorPaint = new SolidColorPaint(SKColors.Red);
-                else solidColorPaint = new SolidColorPaint(SKColors.Yellow);
+                
+                else solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
 
                 Series7 = GaugeGenerator.BuildSolidGauge(
              new GaugeItem(Convert.ToDouble(gas), series =>
@@ -619,12 +674,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Task Update = new(() =>
             {
                 SolidColorPaint solidColorPaint = new SolidColorPaint();
-                if (noise <= 90 && noise >= 80)
+                if (noise >= 450)
                 {
-                    solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
+                    solidColorPaint = new SolidColorPaint(SKColors.Red);
                 }
-                else if (noise > 90) solidColorPaint = new SolidColorPaint(SKColors.Red);
-                else solidColorPaint = new SolidColorPaint(SKColors.Yellow);
+               
+                else solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
 
                 Series8 = GaugeGenerator.BuildSolidGauge(
              new GaugeItem(Convert.ToDouble(noise), series =>
@@ -682,6 +737,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async Task UpdateDataMachine()
         {
             var tags = await _signalRClient.GetBufferMachineDataList();
+
             var Machine1 = (from tag in tags where tag.machineId == "KB36" select tag).ToList();
             var Machine2 = (from tag in tags where tag.machineId == "TSH1390" select tag).ToList();
             var Machine3 = (from tag in tags where tag.machineId == "ERL1330" select tag).ToList();
@@ -700,6 +756,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Vibration1 = Convert.ToDouble(Machine1.LastOrDefault(i => i.name == "Vibration").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                MachineStatus2 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
             if (Machine2 != null)
@@ -712,6 +771,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Vibration2 = Convert.ToDouble(Machine2.LastOrDefault(i => i.name == "Vibration").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                MachineStatus2 = ConvertStatus(Machine2.LastOrDefault(i => i.name == "MachineStatus").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
@@ -726,6 +788,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Vibration3 = Convert.ToDouble(Machine3.LastOrDefault(i => i.name == "Vibration").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                MachineStatus3 = ConvertStatus(Machine3.LastOrDefault(i => i.name == "MachineStatus").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
             if (Machine4 != null)
@@ -738,6 +803,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Vibration4 = Convert.ToDouble(Machine4.LastOrDefault(i => i.name == "Vibration").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                MachineStatus4 = ConvertStatus(Machine4.LastOrDefault(i => i.name == "MachineStatus").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
@@ -752,6 +820,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Vibration5 = Convert.ToDouble(Machine5.LastOrDefault(i => i.name == "Vibration").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                MachineStatus5 = ConvertStatus(Machine5.LastOrDefault(i => i.name == "MachineStatus").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
             if (Machine6 != null)
             {
@@ -763,6 +834,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Vibration6 = Convert.ToDouble(Machine6.LastOrDefault(i => i.name == "Vibration").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                MachineStatus6 = ConvertStatus(Machine6.LastOrDefault(i => i.name == "MachineStatus").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 

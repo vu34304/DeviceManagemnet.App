@@ -13,7 +13,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services
         event Action<string>? EnvironmentChanged;
         event Action<string>? DataMachineChanged;
         event Action<string>? FormNotification;
-
+        event Action<string>? StatusNotification;
         Task ConnectAsync();
         Task<List<TagChangedNotification>> GetBufferList();
         Task<List<EnvironmentChangedNotification>> GetBufferEnvironmentList();

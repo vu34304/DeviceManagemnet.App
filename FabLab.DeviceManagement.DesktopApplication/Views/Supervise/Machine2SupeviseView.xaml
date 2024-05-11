@@ -55,6 +55,30 @@
                            MaxWidth="250"
                            Margin="10"
                            Source="\Resources\Images\may2.jpg" />
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="2">
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="1"
+                                   Text="Trạng thái:"
+                                   Style="{StaticResource FieldLabel}"
+                                   Margin="10"
+                                   VerticalAlignment="Center" />
+                        <Border Margin="5"
+                                Width="150"
+                                Grid.Row="1"
+                                Padding="10"
+                                Grid.Column="1"
+                                CornerRadius="30"
+                                BorderThickness="2"
+                                BorderBrush="Black">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Grid.Column="1"
+                                       Text="{Binding MachineStatus2 }"
+                                       Style="{StaticResource FieldLabel}"
+                                       Margin="10"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                    </StackPanel>
                 </Grid>
             </materialDesign:Card>
             <materialDesign:Card Padding="10"
