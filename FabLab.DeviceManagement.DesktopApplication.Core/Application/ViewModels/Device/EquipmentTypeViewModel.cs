@@ -417,43 +417,39 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
        
         private async void SearchEquipmentType()
         {
-            if (!String.IsNullOrEmpty(SearchKeyWord))
+            NotificationNull = "";
+            try
             {
-                NotificationNull = "";
-                try
+                filteredEquipmentTypes = (await _apiService.GetEquipmentTypesRecordsAsync(SearchKeyWord)).ToList();
+                if (filteredEquipmentTypes.Count > 0)
                 {
-                    filteredEquipmentTypes = (await _apiService.GetEquipmentTypesRecordsAsync(SearchKeyWord)).ToList();
-                    if (filteredEquipmentTypes.Count > 0)
-                    {
-                        var viewModels = _mapper.Map<IEnumerable<EquipmentTypeDto>, IEnumerable<EquipmentTypeEntryViewModel>>(filteredEquipmentTypes);
-                        EquipmentTypeEntries = new(viewModels);
+                    var viewModels = _mapper.Map<IEnumerable<EquipmentTypeDto>, IEnumerable<EquipmentTypeEntryViewModel>>(filteredEquipmentTypes);
+                    EquipmentTypeEntries = new(viewModels);
 
-                        foreach (var entry in EquipmentTypeEntries)
-                        {
-                            entry.SetApiService(_apiService);
-                            entry.SetMapper(_mapper);
-                            entry.Updated += LoadInitial;
-                            entry.OnException += Error;
-                            entry.SetCategoryEquipment();
-
-                            entry.IsOpenFixView += Entry_IsOpenFixView;
-                            entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
-                        }
-                    }
-                    else 
+                    foreach (var entry in EquipmentTypeEntries)
                     {
-                        EquipmentTypeEntries.Clear();
-                        NotificationNull = "Không tìm thấy loại thiết bị!";
-                        
+                        entry.SetApiService(_apiService);
+                        entry.SetMapper(_mapper);
+                        entry.Updated += LoadInitial;
+                        entry.OnException += Error;
+                        entry.SetCategoryEquipment();
+
+                        entry.IsOpenFixView += Entry_IsOpenFixView;
+                        entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
                     }
-    
                 }
-                catch (HttpRequestException)
+                else
                 {
-                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                    EquipmentTypeEntries.Clear();
+                    NotificationNull = "Không tìm thấy loại thiết bị!";
+
                 }
+
             }
-            else MessageBox.Show("Cần điền đầy thông tin! ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+            catch (HttpRequestException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
         }
         private async void LoadEquipmentTypeEntries()
         {

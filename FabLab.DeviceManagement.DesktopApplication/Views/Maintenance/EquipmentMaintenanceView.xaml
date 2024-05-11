@@ -140,7 +140,7 @@
                               ItemsSource="{Binding Path=Category, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
                               SelectedValuePath="Value"
                               DisplayMemberPath="Description"
-                              Text="{Binding Path=Category}" />
+                              Text="{Binding CategoryStr}" />
                     
 
 

@@ -589,7 +589,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         }
         public async Task DeleteTagAsync(string tagId)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Tag?name={tagId}");
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Tag?tagId={tagId}");
 
             response.EnsureSuccessStatusCode();
         }

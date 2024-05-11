@@ -78,7 +78,41 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
        
         public ECategory Category { get; set; }
+        private string _CategoryStr;
+        public string CategoryStr
+        {
+            get => _CategoryStr;
+            set
+            {
+                _CategoryStr = value;
+                switch (_CategoryStr)
+                {
+                    case "Tất cả":
+                        {
+                            Category = ECategory.All;
+                            break;
+                        }
+                    case "Cơ khí":
+                        {
+                            Category = ECategory.Mechanical;
+                            break;
+                        }
+                    case "Tự động":
+                        {
+                            Category = ECategory.Automation;
+                            break;
 
+                        }
+                    case "IoT_Robotics":
+                        {
+                            Category = ECategory.IoT_Robotics;
+                            break;
+
+                        }
+                    default: break;
+                }
+            }
+        }
 
         public List<string> EquipmentNames { get; set; } = new();
         public List<string> EquipmentIds { get; set; } = new();
@@ -185,6 +219,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server test.");
             }
+            CategoryStr = "";
+            StatusStr = "";
+
 
         }
         private void Error()

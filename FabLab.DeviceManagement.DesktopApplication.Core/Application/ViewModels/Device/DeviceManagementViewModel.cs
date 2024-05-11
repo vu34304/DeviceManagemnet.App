@@ -504,43 +504,39 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async void LoadDeviceEntriesBase()
         {
             NotificationNull = "";
-            if (!String.IsNullOrEmpty(SearchKeyWord))
-            {               
-                try
+            try
+            {
+                filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(SearchKeyWord)).ToList();
+                if (filteredEquipments.Count > 0)
                 {
-                    filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(SearchKeyWord)).ToList();
-                    if (filteredEquipments.Count > 0)
-                    {
-                        var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(filteredEquipments);
-                        DeviceEntries = new(viewModels);
+                    var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(filteredEquipments);
+                    DeviceEntries = new(viewModels);
 
-                        foreach (var entry in DeviceEntries)
-                        {
-                            entry.SetApiService(_apiService);
-                            entry.SetMapper(_mapper);
-                            entry.Updated += LoadInitial;
-                            entry.OnException += Error;
-                            entry.SetStatusEquipment();
-                            entry.IsOpenFixView += Entry_IsOpen;
-                            entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
-                        }
-                    }
-                    else
+                    foreach (var entry in DeviceEntries)
                     {
-                          DeviceEntries.Clear();
+                        entry.SetApiService(_apiService);
+                        entry.SetMapper(_mapper);
+                        entry.Updated += LoadInitial;
+                        entry.OnException += Error;
+                        entry.SetStatusEquipment();
+                        entry.IsOpenFixView += Entry_IsOpen;
+                        entry.IsOpenMoreDetailView += Entry_IsOpenMoreDetailView;
+                    }
+                }
+                else
+                {
+                    DeviceEntries.Clear();
                     NotificationNull = "Không tìm thấy thiết bị!";
                     TagId = "";
-                    }
+                }
 
-                
-                }
-                catch (HttpRequestException)
-                {
-                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-                }
+
             }
-            else MessageBox.Show("Cần điền đầy đủ các thông tin! ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-           
+            catch (HttpRequestException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
+
 
         }
 
