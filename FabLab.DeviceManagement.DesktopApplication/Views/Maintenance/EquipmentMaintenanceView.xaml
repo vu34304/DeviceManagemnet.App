@@ -87,17 +87,17 @@
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="1"
-                               Text="Tên loại thiết bị:"
+                               Text="Mã loại thiết bị:"
                                Style="{StaticResource FieldLabel}"
                                Margin="10"
                                VerticalAlignment="Center" />
                     <ComboBox Grid.Column="1"
                               Grid.Row="1"
-                              materialDesign:HintAssist.Hint="Tên loại thiết bị"
+                              materialDesign:HintAssist.Hint="Mã loại thiết bị"
                               Style="{StaticResource ComboBox}"
                               Margin="10"
-                              ItemsSource="{Binding EquipmentTypeNames}"
-                              Text="{Binding EquipmentTypeName}">
+                              ItemsSource="{Binding EquipmentTypeIds}"
+                              Text="{Binding EquipmentTypeId}">
                         <ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />

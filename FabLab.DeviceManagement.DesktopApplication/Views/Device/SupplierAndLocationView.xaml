@@ -225,13 +225,13 @@
                     </Border>
                     <TextBlock Grid.Row="1"
                                Grid.Column="0"
-                               Text="Tag ID:"
+                               Text="Mã Tag:"
                                Style="{StaticResource FieldLabel}"
                                Margin="10"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
-                             materialDesign:HintAssist.Hint="Tag ID"
+                             materialDesign:HintAssist.Hint="Mã Tag"
                              FontSize="16"
                              Style="{StaticResource TextBox}"
                              Margin="10"
@@ -239,13 +239,13 @@
                              Text="{Binding NewTagId}" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
-                               Text="Detail:"
+                               Text="Chi tiết:"
                                Style="{StaticResource FieldLabel}"
                                Margin="10"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
-                             materialDesign:HintAssist.Hint="Detail"
+                             materialDesign:HintAssist.Hint="Chi tiết"
                              FontSize="16"
                              Style="{StaticResource TextBox}"
                              Margin="10"
@@ -687,14 +687,14 @@
                         </Border>
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
-                                   Text="Tag ID:"
+                                   Text="Mã Tag:"
                                    Style="{StaticResource FieldLabel}"
                                    Margin="10"
                                    VerticalAlignment="Center" />
                         <ComboBox Grid.Row="1"
                                   Grid.Column="1"
                                   Margin="10"
-                                  materialDesign:HintAssist.Hint="Tag ID"
+                                  materialDesign:HintAssist.Hint="Mã Tag"
                                   Style="{StaticResource ComboBox}"
                                   ItemsSource="{Binding TagIds, UpdateSourceTrigger=PropertyChanged}"
                                   Text="{Binding TagId}">
@@ -734,10 +734,10 @@
                                 VirtualizingPanel.ScrollUnit="Pixel"
                                 Grid.ColumnSpan="3">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="TagId"
+                            <DataGridTextColumn Header="Mã Tag"
                                                 Binding="{Binding TagId}"
                                                 Width="auto" />
-                            <DataGridTextColumn Header="Detail"
+                            <DataGridTextColumn Header="Chi tiết"
                                                 Binding="{Binding TagDetail}"
                                                 Width="*" />
 

@@ -65,7 +65,25 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Power4 { get; set; }
         public double Speed4 { get; set; }
         public double Vibration4 { get; set; }
+        //Machine 5
+        public DateTime? TimeStamp5 { get; set; }
+        public double IdleTime5 { get; set; }
+        public double ShiftTime5 { get; set; }
+        public double OperationTime5 { get; set; }
+        public double Oee5 { get; set; }
+        public double Power5 { get; set; }
+        public double Speed5 { get; set; }
+        public double Vibration5 { get; set; }
 
+        //Machine 6
+        public DateTime? TimeStamp6 { get; set; }
+        public double IdleTime6 { get; set; }
+        public double ShiftTime6 { get; set; }
+        public double OperationTime6 { get; set; }
+        public double Oee6 { get; set; }
+        public double Power6{ get; set; }
+        public double Speed6 { get; set; }
+        public double Vibration6 { get; set; }
 
         //Status Environment
         public string ColorHumidity { get; set; }
@@ -79,6 +97,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string OpenViewMachineTSH1390 { get; set; }
         public string OpenViewMachineERL1330 { get; set; }
         public string OpenViewMachineFRD900S { get; set; }
+        public string OpenViewMachineC200 { get; set; }
+        public string OpenViewMachineBSM150 { get; set; }
         public int _indexView { get; set; }
 
         //Spinner Loading Api
@@ -98,10 +118,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public IEnumerable<ISeries> Series7 { get; set; }
         public IEnumerable<ISeries> Series8 { get; set; }
         //Chart OEE
-        public IEnumerable<ISeries> Series { get; set; }
-        public IEnumerable<ISeries> Series1 { get; set; }
-        public IEnumerable<ISeries> Series2 { get; set; }
-        public IEnumerable<ISeries> Series3 { get; set; }
+        public IEnumerable<ISeries> Series { get; set; }//Machine1
+        public IEnumerable<ISeries> Series1 { get; set; }//Machine2
+        public IEnumerable<ISeries> Series2 { get; set; }//Machine3
+        public IEnumerable<ISeries> Series3 { get; set; }//Machine4
+        public IEnumerable<ISeries> Series9 { get; set; }//Machine5
+        public IEnumerable<ISeries> Series10 { get; set; }//Machine6
 
         public ICommand LoadFablabSuperviseViewCommand { get; set; }
         public ICommand NextViewCommand { get; set; }
@@ -217,6 +239,48 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             }
                             break;
                         }
+                    case "":
+                        {
+                            switch (tag.name)
+                            {
+                                case "Power":
+                                    {
+                                        Power5 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Speed":
+                                    {
+                                        Speed5 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Vibration":
+                                    {
+                                        Vibration5 = Convert.ToDouble(tag.value); break;
+                                    }
+                                default: break;
+
+                            }
+                            break;
+                        }
+                    case "BSM150":
+                        {
+                            switch (tag.name)
+                            {
+                                case "Power":
+                                    {
+                                        Power6 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Speed":
+                                    {
+                                        Speed6 = Convert.ToDouble(tag.value); break;
+                                    }
+                                case "Vibration":
+                                    {
+                                        Vibration6 = Convert.ToDouble(tag.value); break;
+                                    }
+                                default: break;
+
+                            }
+                            break;
+                        }
                     default:
                         break;
                 }
@@ -269,7 +333,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     switch (tag.DeviceId)
                     {
-                        case "machine1":
+                        case "KB36":
                             {
                                 TimeStamp1 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
                                 IdleTime1 = (Convert.ToDouble(tag.IdleTime))/60;
@@ -280,7 +344,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 break;
                             }
 
-                        case "machine2":
+                        case "TSH1390":
                             {
                                 TimeStamp2 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
                                 IdleTime2 = Convert.ToDouble(tag.IdleTime)/60;
@@ -290,7 +354,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 UpdateValueOEEMachine2(IdleTime2, ShiftTime2, OperationTime2, Oee2);
                                 break;
                             }
-                        case "machine3":
+                        case "ERL1330":
                             {
                                 TimeStamp3 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
                                 IdleTime3 = Convert.ToDouble(tag.IdleTime)/60;
@@ -300,7 +364,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 UpdateValueOEEMachine3(IdleTime3, ShiftTime3, OperationTime3, Oee3);
                                 break;
                             }
-                        case "machine4":
+                        case "FRD900S":
                             {
                                 TimeStamp4 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
                                 IdleTime4 = Convert.ToDouble(tag.IdleTime)/60;
@@ -310,6 +374,27 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 UpdateValueOEEMachine4(IdleTime4, ShiftTime4, OperationTime4, Oee4);
                                 break;
                             }
+                        case "C200":
+                            {
+                                TimeStamp5 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
+                                IdleTime5 = Convert.ToDouble(tag.IdleTime) / 60;
+                                ShiftTime5 = Convert.ToDouble(tag.ShiftTime) / 60;
+                                OperationTime5 = Convert.ToDouble(tag.OperationTime) / 60;
+                                Oee5 = Convert.ToDouble(tag.Oee);
+                                UpdateValueOEEMachine5(IdleTime5, ShiftTime5, OperationTime5, Oee5);
+                                break;
+                            }
+                        case "BSM150":
+                            {
+                                TimeStamp6 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
+                                IdleTime6 = Convert.ToDouble(tag.IdleTime) / 60;
+                                ShiftTime6 = Convert.ToDouble(tag.ShiftTime) / 60;
+                                OperationTime6 = Convert.ToDouble(tag.OperationTime) / 60;
+                                Oee6= Convert.ToDouble(tag.Oee);
+                                UpdateValueOEEMachine6(IdleTime6, ShiftTime6, OperationTime6, Oee6);
+                                break;
+                            }
+
 
                         default:
                             break;
@@ -455,6 +540,50 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             Update.Start();
             await Update;
         }
+        private async void UpdateValueOEEMachine5(double IdleTime, double ShiftTime, double OperationTime, double Oee)
+        {
+            Task Update = new(() =>
+            {
+                var A = Math.Round(IdleTime / ShiftTime, 3);
+                var P = Math.Round(OperationTime / IdleTime, 3);
+                Oee = Math.Round(Oee, 5);
+
+                Series9 = GaugeGenerator.BuildSolidGauge(
+                new GaugeItem(1, series => SetStyle("Q", series)),
+                new GaugeItem(P, series => SetStyle("P", series)),
+                new GaugeItem(A, series => SetStyle("A", series)),
+                new GaugeItem(Oee, series => SetStyle("OEE", series)),
+                new GaugeItem(GaugeItem.Background, series =>
+                {
+                    series.DataLabelsSize = 30;
+                    series.InnerRadius = 20;
+                }));
+            });
+            Update.Start();
+            await Update;
+        }
+        private async void UpdateValueOEEMachine6(double IdleTime, double ShiftTime, double OperationTime, double Oee)
+        {
+            Task Update = new(() =>
+            {
+                var A = Math.Round(IdleTime / ShiftTime, 3);
+                var P = Math.Round(OperationTime / IdleTime, 3);
+                Oee = Math.Round(Oee, 5);
+
+                Series10 = GaugeGenerator.BuildSolidGauge(
+                new GaugeItem(1, series => SetStyle("Q", series)),
+                new GaugeItem(P, series => SetStyle("P", series)),
+                new GaugeItem(A, series => SetStyle("A", series)),
+                new GaugeItem(Oee, series => SetStyle("OEE", series)),
+                new GaugeItem(GaugeItem.Background, series =>
+                {
+                    series.DataLabelsSize = 30;
+                    series.InnerRadius = 20;
+                }));
+            });
+            Update.Start();
+            await Update;
+        }
         private async void UpdateValueGas(double gas)
         {
             Task Update = new(() =>
@@ -557,6 +686,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             var Machine2 = (from tag in tags where tag.machineId == "TSH1390" select tag).ToList();
             var Machine3 = (from tag in tags where tag.machineId == "ERL1330" select tag).ToList();
             var Machine4 = (from tag in tags where tag.machineId == "FRD900S" select tag).ToList();
+            var Machine5 = (from tag in tags where tag.machineId == "C200" select tag).ToList();
+            var Machine6 = (from tag in tags where tag.machineId == "BSM150" select tag).ToList();
 
             if (Machine1 != null)
             {
@@ -610,6 +741,31 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
+            if (Machine5 != null)
+            {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Power5 = Convert.ToDouble(Machine5.LastOrDefault(i => i.name == "Power").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Speed5 = Convert.ToDouble(Machine5.LastOrDefault(i => i.name == "Speed").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Vibration5 = Convert.ToDouble(Machine5.LastOrDefault(i => i.name == "Vibration").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            }
+            if (Machine6 != null)
+            {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Power6 = Convert.ToDouble(Machine6.LastOrDefault(i => i.name == "Power").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Speed6 = Convert.ToDouble(Machine6.LastOrDefault(i => i.name == "Speed").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                Vibration6 = Convert.ToDouble(Machine6.LastOrDefault(i => i.name == "Vibration").value);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            }
+
         }
         private async Task UpdateOee()
         {
@@ -619,8 +775,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             var Machine2 = tags.LastOrDefault(i => i.DeviceId == "TSH1390");
             var Machine3 = tags.LastOrDefault(i => i.DeviceId == "ERL1330");
             var Machine4 = tags.LastOrDefault(i => i.DeviceId == "FRD900S");
+            var Machine5 = tags.LastOrDefault(i => i.DeviceId == "C200");
+            var Machine6 = tags.LastOrDefault(i => i.DeviceId == "BSM150");
 
-            if(Machine1 != null)
+            if (Machine1 != null)
             {               
                 IdleTime1 = Convert.ToDouble(Machine1.IdleTime) / 60;
                 ShiftTime1 = Convert.ToDouble(Machine1.ShiftTime) / 60;
@@ -653,7 +811,23 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Oee4 = Convert.ToDouble(Machine4.Oee);
                 UpdateValueOEEMachine4(IdleTime4, ShiftTime4, OperationTime4, Oee4);
             }
-            
+            if (Machine5 != null)
+            {
+                IdleTime5 = Convert.ToDouble(Machine5.IdleTime) / 60;
+                ShiftTime5 = Convert.ToDouble(Machine5.ShiftTime) / 60;
+                OperationTime5 = Convert.ToDouble(Machine5.OperationTime) / 60;
+                Oee5 = Convert.ToDouble(Machine5.Oee);
+                UpdateValueOEEMachine5(IdleTime5, ShiftTime5, OperationTime5, Oee5);
+            }
+            if (Machine6 != null)
+            {
+                IdleTime6 = Convert.ToDouble(Machine6.IdleTime) / 60;
+                ShiftTime6 = Convert.ToDouble(Machine6.ShiftTime) / 60;
+                OperationTime6 = Convert.ToDouble(Machine6.OperationTime) / 60;
+                Oee6 = Convert.ToDouble(Machine6.Oee);
+                UpdateValueOEEMachine6(IdleTime6, ShiftTime6, OperationTime6, Oee6);
+            }
+
         }
         private async Task UpdateValueEnvironment()
         {
@@ -702,7 +876,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         private void NextView()
         {
-            if(_indexView >=0 && _indexView < 3)
+            if(_indexView >=0 && _indexView < 5)
             {
                 _indexView++;
                 UpdateView(_indexView);
@@ -711,7 +885,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
         private  void PreviusView()
         {
-            if (_indexView > 0 && _indexView <= 3)
+            if (_indexView > 0 && _indexView <= 5)
             {
                 _indexView--;
                 UpdateView(_indexView);
@@ -728,6 +902,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         OpenViewMachineTSH1390 = "Hidden";
                         OpenViewMachineERL1330 = "Hidden";
                         OpenViewMachineFRD900S = "Hidden";
+                        OpenViewMachineC200 = "Hidden";
+                        OpenViewMachineBSM150 = "Hidden";
                         IsFisrtView = true;
                         IsLastView = false;
                         break;
@@ -738,6 +914,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         OpenViewMachineTSH1390 = "Visible";
                         OpenViewMachineERL1330 = "Hidden";
                         OpenViewMachineFRD900S = "Hidden";
+                        OpenViewMachineC200 = "Hidden";
+                        OpenViewMachineBSM150 = "Hidden";
                         IsFisrtView = true;
                         IsLastView = true;
                         break;
@@ -748,6 +926,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         OpenViewMachineTSH1390 = "Hidden";
                         OpenViewMachineERL1330 = "Visible";
                         OpenViewMachineFRD900S = "Hidden";
+                        OpenViewMachineC200 = "Hidden";
+                        OpenViewMachineBSM150 = "Hidden";
                         IsFisrtView = true;
                         IsLastView = true;
                         break;
@@ -758,11 +938,36 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         OpenViewMachineTSH1390 = "Hidden";
                         OpenViewMachineERL1330 = "Hidden";
                         OpenViewMachineFRD900S = "Visible";
+                        OpenViewMachineC200 = "Hidden";
+                        OpenViewMachineBSM150 = "Hidden";
+                        IsFisrtView = true;
+                        IsLastView = true;
+                        break;
+                    }
+                case 4:
+                    {
+                        OpenViewMachineKB36 = "Hidden";
+                        OpenViewMachineTSH1390 = "Hidden";
+                        OpenViewMachineERL1330 = "Hidden";
+                        OpenViewMachineFRD900S = "Hidden";
+                        OpenViewMachineC200 = "Visible";
+                        OpenViewMachineBSM150 = "Hidden";
+                        IsFisrtView = true;
+                        IsLastView = true;
+                        break;
+                    }
+                case 5:
+                    {
+                        OpenViewMachineKB36 = "Hidden";
+                        OpenViewMachineTSH1390 = "Hidden";
+                        OpenViewMachineERL1330 = "Hidden";
+                        OpenViewMachineFRD900S = "Hidden";
+                        OpenViewMachineC200 = "Hidden";
+                        OpenViewMachineBSM150 = "Visible";
                         IsFisrtView = false;
                         IsLastView = true;
                         break;
                     }
-
             }
 
             

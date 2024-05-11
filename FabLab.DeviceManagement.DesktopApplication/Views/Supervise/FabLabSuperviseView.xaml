@@ -140,7 +140,9 @@ MaxValue="100">
                             <local:Machine1SupeviseView Visibility="{Binding OpenViewMachineKB36}"/>
                             <local:Machine2SupeviseView Visibility="{Binding OpenViewMachineTSH1390}"/>
                             <local:Machine3SupeviseView Visibility="{Binding OpenViewMachineERL1330}"/>
-                            <local:Machine4SupeviseView Visibility="{Binding OpenViewMachineFRD900S}"/>
+                            <local:Machine4SupeviseView Visibility="{Binding OpenViewMachineFRD900S}" />
+                            <local:Machine5SuperviseView Visibility="{Binding OpenViewMachineC200 }" />
+                            <local:Machine6SuperviseView Visibility="{Binding OpenViewMachineBSM150}" />
 
                         </Grid>
 
