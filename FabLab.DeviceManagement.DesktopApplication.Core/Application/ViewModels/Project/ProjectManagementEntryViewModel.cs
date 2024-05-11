@@ -133,8 +133,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             {
                 try
                 {
-                    await _apiService.ApprovedProjectAsync(approvedDto);
-                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                   
+                    if (MessageBox.Show("Xác nhận duyệt", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        await _apiService.ApprovedProjectAsync(approvedDto);
+                        Updated?.Invoke();
+                        MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    }
+                    else { }
                 }
                 catch (HttpRequestException)
                 {

@@ -141,6 +141,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             {
                 try
                 {
+                    NotificationNull = "";
                     BorrowEquipmentDtos = (await _apiService.GetBorrowEquipmentAsync(ProjectName)).ToList();
                     ProjectsFilter = await _apiService.GetProjectsAsync(ProjectName);
                     foreach(var item in BorrowEquipmentDtos)
@@ -174,11 +175,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             MessageBox.Show("Dự án chưa được duyệt!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                             Approved = false;
                         }
-                        NotificationNull = "";
+                        
                     }
                     else
                     {
-                        NotificationNull = "Dự án chưa đăng kí thiết bị!";
+                        NotificationNull = "Không tìm thấy thiết bị!";
                     }
 
                 }
