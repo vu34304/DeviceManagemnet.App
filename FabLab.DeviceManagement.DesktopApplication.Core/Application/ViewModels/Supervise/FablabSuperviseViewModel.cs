@@ -834,9 +834,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             var tags = await _signalRClient.GetBufferEnvironmentList();
 
             var _humidity = tags.LastOrDefault(i => i.Name == "Humidity");
-            var _temperature = tags.LastOrDefault(i => i.Name == "Humidity");
-            var _gas = tags.LastOrDefault(i => i.Name == "Humidity");
-            var _noise = tags.LastOrDefault(i => i.Name == "Humidity");
+            var _temperature = tags.LastOrDefault(i => i.Name == "Temperature");
+            var _gas = tags.LastOrDefault(i => i.Name == "Gas");
+            var _noise = tags.LastOrDefault(i => i.Name == "Noise");
 
             if (_humidity is not null)
             {
