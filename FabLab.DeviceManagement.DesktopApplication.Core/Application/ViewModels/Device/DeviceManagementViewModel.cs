@@ -701,7 +701,6 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             NewCodeOfManage = "";
             NewLocationId = "";
             NewSupplierName = "";
-            NewStatus = EStatus.Active;
             NewEquipmentTypeId = "";
             IsOpenFixView = false;
 
