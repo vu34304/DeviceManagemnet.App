@@ -39,7 +39,7 @@
 
                 <DataGrid.Columns >
                     <DataGridTextColumn Header="STT" Binding="{Binding index , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay  }" />
-                    <DataGridTextColumn Header="Tên thiết bị"  Binding="{Binding name }" />
+                    <DataGridTextColumn Header="Mã thiết bị"  Binding="{Binding name }" />
                     
                 </DataGrid.Columns>
 

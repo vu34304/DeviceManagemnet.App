@@ -167,7 +167,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     //OnException?.Invoke();
                     
-                    MessageBox.Show("Có đơn mượn chưa được trả, vui lóng kiểm tra lại các đơn mượn!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Có đơn mượn chưa được trả, vui lòng kiểm tra lại các đơn mượn!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             Updated?.Invoke();
