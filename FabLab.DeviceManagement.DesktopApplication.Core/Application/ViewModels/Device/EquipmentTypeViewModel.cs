@@ -698,10 +698,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             NewEquipmentTypeId = "";
             NewEquipmentTypeName = "";
             NewDescription = "";
-            TagId = "";
-            NewCategory = ECategory.All;
-
-
+            TagId = "";  
         }
         public BitmapImage Base64toImage(string Base64)
         {
