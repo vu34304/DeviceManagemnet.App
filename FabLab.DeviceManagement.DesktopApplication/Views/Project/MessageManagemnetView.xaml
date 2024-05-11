@@ -104,8 +104,8 @@ Text="{Binding ProjectName}">
                         <DataGrid.Columns >
                             <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
-                            <DataGridTextColumn Header="Projectname" Binding="{Binding ProjectName}" Width="*"/>
-                            <DataGridTextColumn Header="Username" Binding="{Binding UserName}" Width="*"/>
+                            <DataGridTextColumn Header="Tên dự án" Binding="{Binding ProjectName}" Width="*"/>
+                            <DataGridTextColumn Header="Người đăng kí" Binding="{Binding UserName}" Width="*"/>
                             <DataGridTextColumn Header="Link GoogleDrive" Binding="{Binding LinkGgDrive}" Width="auto"/>
                             
                             
