@@ -459,7 +459,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         result = "Máy có điện";
                         break;
                     }
-                default:break;
+                default:
+                    {
+                        result = "Null";
+                        break;
+                    }
             }
             return result;
         }

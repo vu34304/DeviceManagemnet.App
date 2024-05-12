@@ -162,9 +162,10 @@
                                     <DataGridTemplateColumn Width="auto">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button Content="Xóa"
+                                                <Button 
                                                         Background="red"
                                                         materialDesign:ButtonAssist.CornerRadius="10">
+                                                    <materialDesign:PackIcon Kind="Delete" />
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="Click">
                                                             <prism:InvokeCommandAction Command="{Binding DeleteCommand}" />
@@ -178,9 +179,10 @@
                                     <DataGridTemplateColumn Width="auto">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button Content="Sửa"
+                                                <Button 
                                                         Background="Bisque"
                                                         materialDesign:ButtonAssist.CornerRadius="10">
+                                                    <materialDesign:PackIcon Kind="Pencil" />
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="Click">
                                                             <prism:InvokeCommandAction Command="{Binding SaveCommand}" />
