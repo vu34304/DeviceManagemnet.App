@@ -12,14 +12,18 @@
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryOn}"/>
-        <Setter Property="Background" Value="{StaticResource ColorPrimaryL1}"/>
+        <Setter Property="Background"
+                Value="{StaticResource ColorPrimaryL1}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
     </Style>
 
     <Style
         x:Key="ButtonSecondary"
         BasedOn="{StaticResource MaterialDesignFlatButton}"
         TargetType="Button">
-
+        <Setter Property="BorderThickness"
+                Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource ColorPrimary}"/>
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource ColorPrimary}" />

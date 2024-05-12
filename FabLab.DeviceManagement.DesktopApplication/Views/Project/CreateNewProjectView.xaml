@@ -196,8 +196,10 @@
                             <Button Grid.Column="2"
                                     Margin="10"
                                     Style="{StaticResource ButtonPrimary}"
-                                    materialDesign:ButtonAssist.CornerRadius="10"
-                                    Content="Tìm kiếm">
+                                    materialDesign:ButtonAssist.CornerRadius="10">
+                                <materialDesign:PackIcon  Height="30"
+                                                          Width="30"
+                                                          Kind="Magnify" />
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
                                         <prism:InvokeCommandAction Command="{Binding SearchEquipmentCommand}" />
@@ -232,11 +234,11 @@
 
                                             <Button Grid.Column="2"
                                                     Margin="5"
+                                                    BorderThickness="0"
                                                     IsEnabled="{Binding IsUnchecked}"
                                                     Command="{Binding DataContext.AddEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                     Background="Beige"
-                                                    materialDesign:ButtonAssist.CornerRadius="10"
-                                                    >
+                                                    materialDesign:ButtonAssist.CornerRadius="10">
                                                 <materialDesign:PackIcon Kind="CheckBold" />
 
 
@@ -251,10 +253,10 @@
                                             <Button Grid.Column="2"
                                                     Background="Beige"
                                                     Margin="5"
+                                                    BorderThickness="0"
                                                     IsEnabled="{Binding IsChecked}"
                                                     Command="{Binding DataContext.RemoveEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                                    materialDesign:ButtonAssist.CornerRadius="10"
-                                                   >
+                                                    materialDesign:ButtonAssist.CornerRadius="10">
 
                                                 <materialDesign:PackIcon Kind="Delete" />
 

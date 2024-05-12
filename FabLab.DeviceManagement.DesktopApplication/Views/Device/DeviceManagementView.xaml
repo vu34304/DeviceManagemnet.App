@@ -162,7 +162,7 @@
                                     <DataGridTemplateColumn Width="auto">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button 
+                                                <Button  BorderThickness="0"
                                                         Background="red"
                                                         materialDesign:ButtonAssist.CornerRadius="10">
                                                     <materialDesign:PackIcon Kind="Delete" />
@@ -179,8 +179,8 @@
                                     <DataGridTemplateColumn Width="auto">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button 
-                                                        Background="Bisque"
+                                                <Button Background="Bisque"
+                                                        BorderThickness="0"
                                                         materialDesign:ButtonAssist.CornerRadius="10">
                                                     <materialDesign:PackIcon Kind="Pencil" />
                                                     <i:Interaction.Triggers>
@@ -197,6 +197,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button  Content="Thông tin thêm"
+                                                         BorderThickness="0"
                                                          Background="PaleVioletRed"
                                                          materialDesign:ButtonAssist.CornerRadius="10">
                                                     <i:Interaction.Triggers>
