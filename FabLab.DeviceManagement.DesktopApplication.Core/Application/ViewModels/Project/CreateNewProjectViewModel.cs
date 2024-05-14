@@ -122,6 +122,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     });
                     
                 }
+
                
             }
            

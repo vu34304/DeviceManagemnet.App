@@ -1,98 +1,108 @@
 ﻿<UserControl x:Class="FabLab.DeviceManagement.DesktopApplication.Views.Device.FixEquipmentTypeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device"
-            xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
-            xmlns:prism="http://prismlibrary.com/" 
-            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-            xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components" 
-            xmlns:vc="clr-namespace:FabLab.DeviceManagement.DesktopApplication.ValueConverters" 
-            xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;assembly=FabLab.DeviceManagement.DesktopApplication.Core" 
-            d:DataContext="{d:DesignInstance Type =device:EquipmentTypeViewModel}"
-            mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components"
+             xmlns:vc="clr-namespace:FabLab.DeviceManagement.DesktopApplication.ValueConverters"
+             xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;assembly=FabLab.DeviceManagement.DesktopApplication.Core"
+             d:DataContext="{d:DesignInstance Type =device:EquipmentTypeViewModel}"
+             mc:Ignorable="d"
              xmlns:busyIndicator="https://github.com/moh3ngolshani/BusyIndicator"
-            xmlns:vm="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;assembly=FabLab.DeviceManagement.DesktopApplication.Core"   
-            Background="{StaticResource ColorBackground}"
-            Padding="10">
-    
+             xmlns:vm="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;assembly=FabLab.DeviceManagement.DesktopApplication.Core"
+             Background="{StaticResource ColorBackground}"
+             Padding="10">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Margin="10" Background="LightGray" CornerRadius="10">
-            <TextBlock  Padding="10" Grid.Row="0" Text="Thông tin chi tiết" Style="{StaticResource CardTitle}"/>
+        <Border Grid.Row="0"
+                Margin="10"
+                Background="LightGray"
+                CornerRadius="10">
+            <TextBlock  Padding="10"
+                        Grid.Row="0"
+                        Text="Thông tin chi tiết"
+                        Style="{StaticResource CardTitle}" />
         </Border>
-        <Grid Grid.Row="1" Width="1000">
+        <Grid Grid.Row="1"
+              Width="1000">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="1" Margin="10">
+            <Grid Grid.Row="1"
+                  Margin="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
                     <!--<ColumnDefinition Width="*"/>-->
                     <!--<ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>-->
 
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" 
-                                   Margin="10"
-                                   Text="Mã loại:"
-                                   Style="{StaticResource FieldLabel}"/>
-                <TextBox Grid.Column="1" IsEnabled="False"
-                                    materialDesign:HintAssist.Hint="Mã loại"
-                                    FontSize="16"
-                                    Style="{StaticResource TextBox}"
-                                    Margin="10"
-                                    VerticalAlignment="Center"
-                                    Text="{Binding NewEquipmentTypeId, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="0"
+                           Margin="10"
+                           Text="Mã loại:"
+                           Style="{StaticResource FieldLabel}" />
+                <TextBox Grid.Column="1"
+                         IsEnabled="False"
+                         materialDesign:HintAssist.Hint="Mã loại"
+                         FontSize="16"
+                         Style="{StaticResource TextBox}"
+                         Margin="10"
+                         VerticalAlignment="Center"
+                         Text="{Binding NewEquipmentTypeId, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock Grid.Column="2"
-                                    Text="Tên loại:"
-                                   HorizontalAlignment="Left"
-                                    Style="{StaticResource FieldLabel}"
-                                    Margin="10" Grid.ColumnSpan="2" />
+                           Text="Tên loại:"
+                           HorizontalAlignment="Left"
+                           Style="{StaticResource FieldLabel}"
+                           Margin="10"
+                           Grid.ColumnSpan="2" />
                 <TextBox Grid.Column="3"
-                                    materialDesign:HintAssist.Hint="Tên loại"
-                                    FontSize="16"
-                                    Style="{StaticResource TextBox}"
-                                    Margin="10"
-                                    VerticalAlignment="Center"
-                                    Text="{Binding NewEquipmentTypeName}"/>
+                         materialDesign:HintAssist.Hint="Tên loại"
+                         FontSize="16"
+                         Style="{StaticResource TextBox}"
+                         Margin="10"
+                         VerticalAlignment="Center"
+                         Text="{Binding NewEquipmentTypeName}" />
 
                 <TextBlock Grid.Column="2"
-                                   Grid.Row="1"
-                                    Text="Lĩnh vực:"
-                                   Margin="10"
-                                   HorizontalAlignment="Left"
-                                    Style="{StaticResource FieldLabel}" />
-                <ComboBox Grid.Column="3" 
-                                  Grid.Row="1"
-                                   Margin="10"
-                                   materialDesign:HintAssist.Hint="Lĩnh vực"
-                                   Style="{StaticResource ComboBox}"
-                                   ItemsSource="{Binding Path=NewCategory, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
-                                   SelectedValuePath="Value"
-                                   DisplayMemberPath="Description"
-                                   Text="{Binding CategoryStr}">
+                           Grid.Row="1"
+                           Text="Lĩnh vực:"
+                           Margin="10"
+                           HorizontalAlignment="Left"
+                           Style="{StaticResource FieldLabel}" />
+                <ComboBox Grid.Column="3"
+                          Grid.Row="1"
+                          Margin="10"
+                          materialDesign:HintAssist.Hint="Lĩnh vực"
+                          Style="{StaticResource ComboBox}"
+                          ItemsSource="{Binding Path=NewCategory, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          Text="{Binding CategoryStr}">
                     <ComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel />
@@ -103,85 +113,100 @@
 
 
                 <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                  Text="Tag:"
-                                   Margin="10" 
-                                  Style="{StaticResource FieldLabel}"/>
+                           Grid.Column="0"
+                           Text="Tag:"
+                           Margin="10"
+                           Style="{StaticResource FieldLabel}" />
 
-                <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1">
+                <Grid Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      Grid.Column="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBox  Grid.Column="0" 
-materialDesign:HintAssist.Hint="Tag Selected" 
-FontSize="16"
-Style="{StaticResource TextBox}"
-Margin="10" 
-VerticalAlignment="Center"
-Text="{Binding TagId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" materialDesign:HintAssist.Hint="Tags" 
-Text="{Binding TagSelected}" Margin="10" Style="{StaticResource ComboBox}" 
-IsEditable="True" Foreground="Black" 
-ItemsSource="{Binding TagIds}">
+                    <TextBox  Grid.Column="0"
+                              materialDesign:HintAssist.Hint="Tag Selected"
+                              FontSize="16"
+                              Style="{StaticResource TextBox}"
+                              Margin="10"
+                              VerticalAlignment="Center"
+                              Text="{Binding TagId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <ComboBox Grid.Row="2"
+                              Grid.Column="1"
+                              Grid.ColumnSpan="2"
+                              materialDesign:HintAssist.Hint="Tags"
+                              Text="{Binding TagSelected}"
+                              Margin="10"
+                              Style="{StaticResource ComboBox}"
+                              IsEditable="True"
+                              Foreground="Black"
+                              ItemsSource="{Binding TagIds}">
                     </ComboBox>
                 </Grid>
 
-                <Button Grid.Row="2"  
- Grid.Column="3"
-Margin="10" Background="Coral"
-  HorizontalAlignment="Left"
- Height="30"                            
-  FontSize="14"                             
-materialDesign:ButtonAssist.CornerRadius="5"
-Content="Chọn Tag">
+                <Button Grid.Row="2"
+                        Grid.Column="3"
+                        Margin="10"
+                        Background="Coral"
+                        HorizontalAlignment="Left"
+                        Height="30"
+                        BorderThickness="0"
+                        FontSize="14"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Content="Chọn Tag">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <prism:InvokeCommandAction Command="{Binding AddTagCommand}"/>
+                            <prism:InvokeCommandAction Command="{Binding AddTagCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <TextBox Grid.Row="1" Grid.Column="1" 
-           materialDesign:HintAssist.Hint="Mô tả"
-           FontSize="16"
-           Style="{StaticResource TextBox}"
-           Margin="10" 
-           VerticalAlignment="Center"
-           Text="{Binding NewDescription}"/>
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         materialDesign:HintAssist.Hint="Mô tả"
+                         FontSize="16"
+                         Style="{StaticResource TextBox}"
+                         Margin="10"
+                         VerticalAlignment="Center"
+                         Text="{Binding NewDescription}" />
 
-                <TextBlock Grid.Row="1" Grid.Column="0" 
-       Margin="10,0,0,0" 
-       Text="Mô tả:"
-       Style="{StaticResource FieldLabel}"/>
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="10,0,0,0"
+                           Text="Mô tả:"
+                           Style="{StaticResource FieldLabel}" />
 
-                
+
             </Grid>
-    
-            <StackPanel Margin="10" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3">
+
+            <StackPanel Margin="10"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Grid.Row="3">
                 <Button Grid.Row="5"
-                     Grid.Column="7"
-                      Margin="10,10,10,10" 
-                      Width="200"
-                      Style="{StaticResource ButtonPrimary}"
-                      materialDesign:ButtonAssist.CornerRadius="10"
-                      Content="Sửa" >
+                        Grid.Column="7"
+                        Margin="10,10,10,10"
+                        Width="200"
+                        Style="{StaticResource ButtonPrimary}"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Content="Sửa">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <prism:InvokeCommandAction Command="{Binding SaveCommand }"/>
+                            <prism:InvokeCommandAction Command="{Binding SaveCommand }" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
 
                 <Button Grid.Row="5"
-          Grid.Column="7"
-           Margin="10,10,10,10"
-           Width="200" 
-           Style="{StaticResource ButtonPrimary}"
-           materialDesign:ButtonAssist.CornerRadius="10"
-           Content="Thoát" >
+                        Grid.Column="7"
+                        Margin="10,10,10,10"
+                        Width="200"
+                        Style="{StaticResource ButtonPrimary}"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Content="Thoát">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <prism:InvokeCommandAction Command="{Binding CloseFixViewCommand}"/>
+                            <prism:InvokeCommandAction Command="{Binding CloseFixViewCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>

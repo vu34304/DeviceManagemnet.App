@@ -10,7 +10,10 @@
         BasedOn="{StaticResource MaterialDesignRaisedButton}"
         TargetType="Button">
         <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Height" Value="40"/>
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Height"
+                Value="40" />
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryOn}"/>
         <Setter Property="Background"
                 Value="{StaticResource ColorPrimaryL1}" />

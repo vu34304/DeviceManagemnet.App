@@ -127,8 +127,9 @@ ItemsSource="{Binding TagIds}">
  Grid.Column="2" Margin="10"
 Background="Coral"
   HorizontalAlignment="Center"
- Height="30"                            
-  FontSize="14"                             
+                        Height="30"
+                        BorderThickness="0"
+                        FontSize="14"                             
 materialDesign:ButtonAssist.CornerRadius="5"
 Content="Chọn Tag">
                     <i:Interaction.Triggers>

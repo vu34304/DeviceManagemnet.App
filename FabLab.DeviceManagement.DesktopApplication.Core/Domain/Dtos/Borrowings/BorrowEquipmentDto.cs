@@ -29,26 +29,47 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Borrowings
                 {
                     case EStatus.Active:
                         {
-                            _StatusStr = "Khả dụng"; break;
+                            _StatusStr = "Khả dụng";
+                            StatusFontWeight = "Bold";
+                           
+                           
+                            break;
                         }
                     case EStatus.Inactive:
                         {
-                            _StatusStr = "Đang mượn"; break;
+                            _StatusStr = "Đang mượn";
+                            StatusFontWeight = "Normal";
+                            
+                          
+                            break;
                         }
                     case EStatus.NonFunctional:
                         {
-                            _StatusStr = "Đang hỏng"; break;
+                            _StatusStr = "Đang hỏng";
+                           
+                            break;
                         }
                     case EStatus.Maintenance:
                         {
-                            _StatusStr = "Đang bảo trì"; break;
+                            _StatusStr = "Đang bảo trì";
+                           
+                            break;
                         }
                     default: break;
                 }
             }
         }
 
-        public bool IsAvailable { get; set; }
+        private string _StatusFontWeight;
+        public string StatusFontWeight
+        {
+            get => _StatusFontWeight;
+            set
+            {
+                _StatusFontWeight = value;
+                OnPropertyChanged();
+            }
+        }
 
         private bool _IsChecked;
         public bool IsChecked
@@ -60,7 +81,18 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Borrowings
                 OnPropertyChanged();
             }
         }
+        private bool _IsUnChecked;
+        public bool IsUnChecked
+        {
+            get => _IsUnChecked;
+            set
+            {
+                _IsUnChecked = value;               
+                OnPropertyChanged();
+            }
+        }
 
-        public bool IsUnchecked => !IsChecked;
+
+
     }
 }

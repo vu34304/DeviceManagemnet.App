@@ -137,12 +137,31 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
         private async void FilterEquipment()
         {
+           
             if (!String.IsNullOrEmpty(ProjectName))
             {
                 try
                 {
+                    Approved = true;
                     NotificationNull = "";
                     BorrowEquipmentDtos = (await _apiService.GetBorrowEquipmentAsync(ProjectName)).ToList();
+
+                    foreach (var item in BorrowEquipmentDtos)
+                    {
+                        if (item.Status == EStatus.Inactive)
+                        {
+                            item.IsChecked = false;
+                            item.IsUnChecked = false;
+                        }
+                        else
+                        {
+                            item.IsUnChecked = true;
+                            item.IsChecked = false;
+                        }
+                    }
+
+                   
+
                     ProjectsFilter = await _apiService.GetProjectsAsync(ProjectName);
                     foreach(var item in BorrowEquipmentDtos)
                     {
@@ -175,6 +194,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             MessageBox.Show("Dự án chưa được duyệt!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                             Approved = false;
                         }
+
                         
                     }
                     else
@@ -205,12 +225,16 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
                 if(a != null)
                 {
+                    
                     a.IsChecked = true;
+                    a.IsUnChecked = false;
+
                 }
 
                 if (equipment != null)
                 {
                     equipment.IsChecked = true;
+                   
                     BorrowEquipments.Add(new()
                     {
                         index = BorrowEquipments.Count(),
@@ -269,14 +293,20 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             catch (HttpRequestException)
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                Approved = true;
+
             }
             catch (DuplicateEntityException)
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Dự án đã tồn tại.");
+                Approved = true;
+
             }
             catch (Exception)
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Không thể tạo dự án mới.");
+                Approved = true;
+
             }
             MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             BorrowEquipmentDtos = (await _apiService.GetBorrowEquipmentAsync(ProjectName)).ToList();

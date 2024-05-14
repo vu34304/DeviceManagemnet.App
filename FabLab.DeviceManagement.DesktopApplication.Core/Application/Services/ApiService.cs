@@ -53,7 +53,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         }
         public async Task<IEnumerable<EquipmentDto>> GetAllEquipmentsActive()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}api/Equipment/Enhanced?searchForProject=true&Status=0&pageSize=200&pageNumber=1&Status=0");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}api/Equipment/Enhanced?pageSize=200&pageNumber=1&Status=0");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -789,7 +789,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             {
                 projectName = projectName.Replace("#", "%23");
             }
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipment/Enhanced?pageSize=200&Status=0&ProjectName={projectName}&pageNumber=1");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipment/Enhanced?pageSize=200&ProjectName={projectName}&pageNumber=1");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();

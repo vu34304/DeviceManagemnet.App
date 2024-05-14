@@ -367,7 +367,10 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
 
-                                        <Button BorderThickness="0"
+                                       
+
+                                        <Button BorderThickness="0" 
+
                                                 Background="Bisque"
                                                 materialDesign:ButtonAssist.CornerRadius="10">
                                             <materialDesign:PackIcon Kind="Pencil" />
@@ -384,7 +387,11 @@
                             <DataGridTemplateColumn Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
+
                                         <Button BorderThickness="0"
+
+                                        
+
                                                 Background="Red"
                                                 materialDesign:ButtonAssist.CornerRadius="10">
                                             <materialDesign:PackIcon Kind="Delete" />
@@ -569,7 +576,10 @@
                             <DataGridTemplateColumn Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
+
                                         <Button BorderThickness="0"
+                                      
+
                                                 Background="Bisque"
                                                 materialDesign:ButtonAssist.CornerRadius="10">
                                             <materialDesign:PackIcon Kind="Pencil" />
@@ -587,8 +597,13 @@
                             <DataGridTemplateColumn Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
+
                                         <Button Background="Red"
                                                 BorderThickness="0"
+
+                                       
+                                             
+
                                                 materialDesign:ButtonAssist.CornerRadius="10">
                                             <materialDesign:PackIcon Kind="Delete" />
 
@@ -761,8 +776,12 @@
                             <DataGridTemplateColumn Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
+
                                         <Button Background="Bisque"
                                                 BorderThickness="0"
+
+                                     
+
                                                 materialDesign:ButtonAssist.CornerRadius="10">
                                             <materialDesign:PackIcon Kind="Pencil" />
 
@@ -779,7 +798,11 @@
                             <DataGridTemplateColumn Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
+
                                         <Button BorderThickness="0"
+
+                                    
+
                                                 Background="Red"
                                                 materialDesign:ButtonAssist.CornerRadius="10">
                                             <materialDesign:PackIcon Kind="Delete" />
