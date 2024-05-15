@@ -145,7 +145,8 @@
                                             <Button Grid.Column="2"
                                                     IsEnabled="{Binding IsUnChecked}"
                                                     Command="{Binding DataContext.AddBorrowEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                                    Background="Beige"
+                                                    Background="LightSeaGreen"
+                                                    BorderThickness="0"
                                                     materialDesign:ButtonAssist.CornerRadius="10">
                                                 <materialDesign:PackIcon Kind="CheckBold" />
 
@@ -158,8 +159,9 @@
                                         <DataTemplate>
 
                                             <Button Grid.Column="2"
-                                                    Background="Beige"
+                                                    Background="LightSeaGreen"
                                                     IsEnabled="{Binding IsChecked}"
+                                                    BorderThickness="0"
                                                     Command="{Binding DataContext.RemoveBorrowEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                     materialDesign:ButtonAssist.CornerRadius="10">
                                                 <materialDesign:PackIcon Kind="Delete" />

@@ -258,6 +258,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 if (a != null)
                 {
                     a.IsChecked = false;
+                   
+                    a.IsUnChecked = true;
                 }
              
                 var itemToRemove = BorrowEquipments.SingleOrDefault(r => r.name == BorrowEquipmentName);

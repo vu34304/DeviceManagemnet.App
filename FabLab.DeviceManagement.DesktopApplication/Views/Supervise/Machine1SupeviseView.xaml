@@ -81,13 +81,11 @@
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
-            <materialDesign:Card 
-                                 Margin="10"
+            <materialDesign:Card Margin="10"
                                  Grid.Row="1"
                                  Grid.Column="1">
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
@@ -99,9 +97,8 @@
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
                     <Border Height="55"
-                            Margin="10"
+                            Margin="10 10 10 30"
                             Grid.ColumnSpan="4"
                             Background="LightGray"
                             VerticalAlignment="Bottom"
@@ -115,26 +112,6 @@
                                    Grid.Row="0"
                                    Text="Thông số"
                                    Style="{StaticResource CardTitle}" />
-                    </Border>
-                    <TextBlock Grid.Column="0"
-                               Grid.Row="1"
-                               Text="Năng lượng:"
-                               Style="{StaticResource FieldLabel}"
-                               Margin="10"
-                               VerticalAlignment="Center" />
-                    <Border Margin="10"
-                            Grid.Row="1"
-                            Padding="5"
-                            Grid.Column="1"
-                            CornerRadius="30"
-                            BorderThickness="2"
-                            BorderBrush="Black">
-                        <TextBlock HorizontalAlignment="Center"
-                                   Grid.Column="1"
-                                   Text="{Binding Power1 }"
-                                   Style="{StaticResource FieldLabel}"
-                                   Margin="10"
-                                   VerticalAlignment="Center" />
                     </Border>
                     <TextBlock Grid.Column="0"
                                Grid.Row="1"
@@ -197,7 +174,12 @@
                                    Margin="10"
                                    VerticalAlignment="Center" />
                     </Border>
-                   
+                    <Grid Grid.Column="2"
+                          Grid.Row="1"
+                          Grid.RowSpan="4">
+
+
+                    </Grid>
 
 
                 </Grid>
