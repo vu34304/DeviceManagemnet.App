@@ -150,6 +150,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 }
             }
         }
+
+        //Update Image
+        public List<byte[]> FileData { get; set; } = new();
         public string NewDescription { get; set; } = "";
         public string NewTagStr { get; set; } = "";
 
@@ -224,6 +227,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public ICommand OpenSearchAdvanceViewCommand { get; set; }
         public ICommand CLoseSearchAdvanceViewCommand { get; set; }
         public ICommand CLoseMoreDetailViewCommand { get; set; }
+        public ICommand SelectImageFixCommand { get; set; }
+        public ICommand DeleteImageFixCommand { get; set; }
+        public ICommand SaveImageFixCommand { get; set; }
+        public ICommand SaveSpecsFixCommand { get; set; }
+        public ICommand DeleteSpecsFixCommand { get; set; }
 
 
         public EquipmentTypeViewModel(IApiService apiService, IMapper mapper, EquipmentTypeStore equipmentTypeStore)
@@ -253,7 +261,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             OpenSearchAdvanceViewCommand = new RelayCommand(OpenSearchView);
             CLoseSearchAdvanceViewCommand = new RelayCommand(CloseSearchView);
             CLoseMoreDetailViewCommand = new RelayCommand(CloseMoreDetailView);
-            IsOpenCreateView = false;
+            SelectImageFixCommand = new RelayCommand(SelectFixImage);
+            DeleteImageFixCommand = new RelayCommand<ImageBitmap>(execute: DeleteFixImage);
+            SaveImageFixCommand = new RelayCommand(SaveFixImage);
+            SaveSpecsFixCommand = new RelayCommand(SaveSpecification);
+            DeleteSpecsFixCommand = new RelayCommand<SpecificationEquimentType>(execute: DeleteFixSpec);
+            IsOpenCreateView = false; 
             IsOpenFixView = false;
             IsOpenSearchAdvanceView = false;
             apiService.StartLoading += ApiService_StartLoading;
@@ -286,6 +299,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             NotificationNull = "";
         }
 
+        
+
         private async void LoadDetail()
         {
             SpecificationEquimentTypes.Clear();
@@ -306,8 +321,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             {
                                 Pictures.Add(new ImageBitmap()
                                 {
-                                    Source = Base64toImage(pic.fileData)
-                                });
+                                    Source = Base64toImage(pic.fileData),
+                                    index = Pictures.Count() + 1
+                                }) ;
                             }
                         }
                     }
@@ -318,7 +334,99 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 }
             }
         }
+        public byte[] ConvertBitmapImageToByteArray(BitmapImage bitmapImage)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                PngBitmapEncoder encoder = new PngBitmapEncoder(); // Choose the appropriate encoder
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                encoder.Save(stream);
+                return stream.ToArray();
+            }
+        }
+        private async void SaveFixImage()
+        {
+            FileData.Clear();
+            foreach(var item in Pictures)
+            {
+                var a = ConvertBitmapImageToByteArray(item.Source);
+                if(a != null)
+                {
+                    FileData.Add(a);
+                }
+            }
 
+            FixImageDto fixdto = new FixImageDto(NewEquipmentTypeId, FileData);
+            if (_mapper is not null && _apiService is not null)
+            {
+                try
+                {
+                    IsBusy = true;
+                    await _apiService.FixImageEquipmentTypesAsync(fixdto);
+                    IsBusy = false;
+                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                    LoadEquipmentTypeView();
+                }
+                catch (HttpRequestException)
+                {
+                    IsBusy = false;
+                    
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+            }
+            NewEquipmentTypeId = "";
+            NewEquipmentTypeName = "";
+            NewDescription = "";
+            TagId = "";
+        }
+        private void SelectFixImage()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
+            openFileDialog.Filter = "Image files|*.bmp;*.jpg;*.png;*.webp";
+            openFileDialog.FilterIndex = 1;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+
+                string[] files = openFileDialog.FileNames;
+                foreach (string file in files)
+                {           
+                    Pictures.Add(new ImageBitmap()
+                    {
+                        Source = ByteToBitmapImage(System.IO.File.ReadAllBytes(file)),
+                        index = Pictures.Count() + 1
+                    });
+                }
+
+            }
+
+        }
+
+        private void DeleteFixImage(ImageBitmap obj)
+        {
+            Pictures.Remove(obj);
+            var index = 1;
+            foreach (var item in Pictures)
+            {
+                item.index = index;
+                index++;
+                OnPropertyChanged();
+            }
+        }
+        public BitmapImage ByteToBitmapImage(byte[] image)
+        {
+            BitmapImage imageSource = new BitmapImage();
+            using (MemoryStream stream = new MemoryStream(image))
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+                imageSource.BeginInit();
+                imageSource.StreamSource = stream;
+                imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                imageSource.EndInit();
+            }
+            return imageSource;
+        }
         //Open and Close View Popup
         private void CloseFixView()
         {
@@ -571,21 +679,51 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
         }
 
-
+        private async void SaveSpecification()
+        {
+            FixSpecificationDto fixdto = new FixSpecificationDto(NewEquipmentTypeId, SpecificationEquimentTypes);
+            if (_mapper is not null && _apiService is not null)
+            {
+                try
+                {
+                    IsBusy = true;
+                    await _apiService.FixSpecificationEquipmentTypesAsync(fixdto);
+                    IsBusy = false;
+                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                    LoadEquipmentTypeView();
+                }
+                catch (HttpRequestException)
+                {
+                    IsBusy = false;
+                    
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+            }
+            
+        }
         public void AddSpec()
         {
+            NewSpecificationEquimentTypes = new(); 
             
 
             if (!String.IsNullOrEmpty(NewName) || !String.IsNullOrEmpty(NewUnit) || !String.IsNullOrEmpty(NewValue))
             {
+                SpecificationEquimentTypes.Add(new SpecificationEquimentType()
+                {
+                    name = NewName,
+                    value = NewValue,
+                    unit = NewUnit
+                });
                 NewSpecificationEquimentTypes.Add(new SpecificationEquimentType()
                 {
                     name = NewName,
-                    value= NewValue,
+                    value = NewValue,
                     unit = NewUnit
                 }
 
-            ) ;
+
+            );
             }
             else MessageBox.Show("Vui lòng nhập đủ thông tin!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             NewName = "";
@@ -595,7 +733,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         private void DeleteSpec(SpecificationEquimentType obj)
         {
-            NewSpecificationEquimentTypes.Remove(obj);
+            if(NewSpecificationEquimentTypes.Count()!=0) NewSpecificationEquimentTypes.Remove(obj);
+
+            
+        }
+        private void DeleteFixSpec(SpecificationEquimentType obj)
+        {
+            
+
+            if (SpecificationEquimentTypes.Count() != 0) SpecificationEquimentTypes.Remove(obj);
         }
 
 

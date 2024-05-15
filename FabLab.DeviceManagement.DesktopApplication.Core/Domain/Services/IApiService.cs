@@ -58,6 +58,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services
         Task<InformationEquipmentDto> GetInformationEquipmenAsync(string equiqmentTypeId);
         Task CreateEquipmentType(CreateEquimentTypeDto equipmentType);
         Task FixEquipmentTypesAsync(EquipmentTypeDto fixDto);
+        Task FixImageEquipmentTypesAsync(FixImageDto fixDto);
+        Task FixSpecificationEquipmentTypesAsync(FixSpecificationDto fixDto);
         Task DeleteEquipmentTypeAsync(string equipmentTypeId);
 
         //Project

@@ -103,7 +103,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
                 {
                     case "Tất cả":
                         {
-                            Category = $"&EquipmentCategory=All";
+                            Category = "";
                             break;
                         }
                     case "Cơ khí":
@@ -586,7 +586,22 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
         }
 
+        public async Task FixImageEquipmentTypesAsync(FixImageDto fixDto)
+        {
+            var json = JsonConvert.SerializeObject(fixDto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
+            HttpResponseMessage response = await _httpClient.PutAsync($"{serverUrl}/api/Picture", content);
+            response.EnsureSuccessStatusCode();
+        }
+        public async Task FixSpecificationEquipmentTypesAsync(FixSpecificationDto fixDto)
+        {
+            var json = JsonConvert.SerializeObject(fixDto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PutAsync($"{serverUrl}/api/Specification", content);
+            response.EnsureSuccessStatusCode();
+        }
         public async Task FixEquipmentTypesAsync(EquipmentTypeDto fixDto)
         {
             var json = JsonConvert.SerializeObject(fixDto);

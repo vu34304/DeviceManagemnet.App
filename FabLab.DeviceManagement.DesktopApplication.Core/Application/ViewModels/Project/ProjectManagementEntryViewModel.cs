@@ -116,8 +116,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 }
                 catch (HttpRequestException)
                 {
-                    OnException?.Invoke();
-                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                    
+                    MessageBox.Show("Vui lòng hoàn thành dự án trước khi xóa!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
 

@@ -642,7 +642,7 @@
 
                                             <TextBlock Grid.Row="0"
                                                        Grid.Column="0"
-                                                       Text="Location ID:"
+                                                       Text="Vị trí:"
                                                        Style="{StaticResource FieldLabel}"
                                                        Margin="10"
                                                        VerticalAlignment="Center" />
@@ -842,7 +842,7 @@
 
                                             <TextBlock Grid.Row="0"
                                                        Grid.Column="0"
-                                                       Text="Location ID:"
+                                                       Text="Mã Tag:"
                                                        Style="{StaticResource FieldLabel}"
                                                        Margin="10"
                                                        VerticalAlignment="Center" />
@@ -858,7 +858,7 @@
 
                                             <TextBlock Grid.Row="0"
                                                        Grid.Column="2"
-                                                       Text="Ghi chú:"
+                                                       Text="Chi tiết:"
                                                        Style="{StaticResource FieldLabel}"
                                                        Margin="10"
                                                        VerticalAlignment="Center" />

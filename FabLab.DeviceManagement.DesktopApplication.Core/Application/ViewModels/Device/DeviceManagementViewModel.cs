@@ -29,6 +29,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using System.Runtime.CompilerServices;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Tags;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device
 {
@@ -404,17 +405,21 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     if (!String.IsNullOrEmpty(NewEquipmentTypeId))
                     {
                         var Dto = (await _apiService.GetInformationEquipmenAsync(NewEquipmentTypeId));
-                        Specifications = new(Dto.Specs);                       
-                        DataPics = Dto.Pics;                     
+                        Specifications = new(Dto.Specs);
+                       
+                        DataPics = Dto.Pics;
+                        var index = 1;
                         foreach (var pic in DataPics)
                         {
                             if (!String.IsNullOrEmpty(pic.fileData))
                             {
                                 Pictures.Add(new ImageBitmap()
                                 {
-                                    Source = Base64toImage(pic.fileData)
-                                });
+                                    Source = Base64toImage(pic.fileData),
+                                    index = index
+                                }) ;
                             }
+                            index++;
                         }
                     }
                 }
