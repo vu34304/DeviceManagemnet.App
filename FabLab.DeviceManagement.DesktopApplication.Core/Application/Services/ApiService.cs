@@ -261,7 +261,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
 
         public async Task DeleteEquipmentAsync(string equipmentId)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Equipment?name={equipmentId}");
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}api/Equipment?id={equipmentId}");
 
             response.EnsureSuccessStatusCode();
         }
