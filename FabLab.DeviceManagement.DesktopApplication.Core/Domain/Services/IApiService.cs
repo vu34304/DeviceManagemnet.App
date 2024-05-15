@@ -1,6 +1,7 @@
 ﻿using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Borrowings;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.EquipmentTypes;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.FablabSupervises;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Locations;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Projects;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Returnings;
@@ -80,5 +81,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services
         Task SeenFormAsync(SeenFromDto seenFromDto);
         Task DeleteFormAsync(string projectName);
 
+        //Get Warning Notifications
+        Task<IEnumerable<WarningNotificationDtos>> GetWarningNotificationAsync(DateTime endDate, DateTime startDate);
     }
 }

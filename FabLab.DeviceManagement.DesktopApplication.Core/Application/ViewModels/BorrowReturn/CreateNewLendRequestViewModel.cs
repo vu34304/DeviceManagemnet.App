@@ -289,6 +289,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             try
             {
                 await _apiService.CreateLendRequestAsync(createDto);
+                MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                FilterEquipment();
             }
             catch (HttpRequestException)
             {
@@ -308,7 +310,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Approved = true;
 
             }
-            MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+           
             BorrowEquipmentDtos = (await _apiService.GetBorrowEquipmentAsync(ProjectName)).ToList();
             BorrowEquipments.Clear();
             BorrowId = "";

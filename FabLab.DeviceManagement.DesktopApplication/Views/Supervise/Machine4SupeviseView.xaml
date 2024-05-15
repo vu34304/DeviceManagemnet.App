@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <materialDesign:Card Padding="10"
+            <materialDesign:Card 
                                  Grid.Column="0"
                                  Margin="10">
                 <Grid Grid.Column="0">
@@ -62,10 +62,10 @@
                                    Style="{StaticResource FieldLabel}"
                                    Margin="10"
                                    VerticalAlignment="Center" />
-                        <Border Margin="5"
+                        <Border Margin="10"
                                 Width="150"
                                 Grid.Row="1"
-                                Padding="10"
+                                Padding="5"
                                 Grid.Column="1"
                                 CornerRadius="30"
                                 BorderThickness="2"
@@ -80,7 +80,7 @@
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
-            <materialDesign:Card Padding="10"
+            <materialDesign:Card 
                                  Margin="10"
                                  Grid.Row="1"
                                  Grid.Column="1">
@@ -121,7 +121,7 @@
                                VerticalAlignment="Center" />
                     <Border Margin="10"
                             Grid.Row="1"
-                            Padding="10"
+                            Padding="5"
                             Grid.Column="1"
                             CornerRadius="30"
                             BorderThickness="2"
@@ -142,7 +142,7 @@
                                VerticalAlignment="Center" />
                     <Border Margin="10"
                             Grid.Row="2"
-                            Padding="10"
+                            Padding="5"
                             Grid.Column="1"
                             CornerRadius="30"
                             BorderThickness="2"
@@ -162,7 +162,7 @@
                                VerticalAlignment="Center" />
                     <Border Margin="10"
                             Grid.Row="3"
-                            Padding="10"
+                            Padding="5"
                             Grid.Column="1"
                             CornerRadius="30"
                             BorderThickness="2"
@@ -184,7 +184,7 @@
 
                 </Grid>
             </materialDesign:Card>
-            <materialDesign:Card Padding="10"
+            <materialDesign:Card 
                                  Margin="10"
                                  Grid.Column="2">
                 <Grid Grid.Column="0">

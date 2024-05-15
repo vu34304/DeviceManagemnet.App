@@ -2,6 +2,7 @@
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Borrowings;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.EquipmentTypes;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.FablabSupervises;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Locations;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Projects;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Returnings;
@@ -937,5 +938,19 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         }
         #endregion FormSubcribe
 
+        public async Task<IEnumerable<WarningNotificationDtos>> GetWarningNotificationAsync(DateTime endDate, DateTime startDate)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Notifications/Warning?endDate={endDate}&startDate={startDate}&pageSize=200&pageNumber=1");
+            //HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Notifications/Warning?pageSize=200&pageNumber=1");
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var responses = JsonConvert.DeserializeObject<IEnumerable<WarningNotificationDtos>>(responseBody);
+            if (responses is null)
+            {
+                return new List<WarningNotificationDtos>();
+            }
+            return responses;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.SeedWork;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.FablabSupervises;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
@@ -18,6 +19,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
     public class FablabSuperviseViewModel : BaseViewModel
     {
         private readonly ISignalRClient _signalRClient;
+        private readonly IApiService _apiService;
         //Environment
         public double Humidity { get; set; }
         public double Temperature { get; set; }
@@ -34,7 +36,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Power1 { get; set; }
         public double Speed1 { get; set; }
         public double Vibration1 { get; set; }
-        public string MachineStatus1 { get;set; }
+        public string MachineStatus1 { get; set; }
 
         //Machine 2
         public DateTime? TimeStamp2 { get; set; }
@@ -45,7 +47,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         public double Power2 { get; set; }
         public double Speed2 { get; set; }
-        public string MachineStatus2 { get;set; }
+        public string MachineStatus2 { get; set; }
         public double Vibration2 { get; set; }
 
         //Machine 3
@@ -78,7 +80,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Oee5 { get; set; }
         public double Power5 { get; set; }
         public double Speed5 { get; set; }
-        public string MachineStatus5 { get;set; }
+        public string MachineStatus5 { get; set; }
         public double Vibration5 { get; set; }
 
         //Machine 6
@@ -87,9 +89,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double ShiftTime6 { get; set; }
         public double OperationTime6 { get; set; }
         public double Oee6 { get; set; }
-        public double Power6{ get; set; }
+        public double Power6 { get; set; }
         public double Speed6 { get; set; }
-        public string MachineStatus6 { get;set; }
+        public string MachineStatus6 { get; set; }
         public double Vibration6 { get; set; }
 
         //Status Environment
@@ -119,6 +121,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        //Open Alarm View
+        public bool IsOpenAlarmView { get; set; }
+        //
         //Chart environment
         public IEnumerable<ISeries> Series5 { get; set; }
         public IEnumerable<ISeries> Series6 { get; set; }
@@ -134,13 +140,30 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         public ICommand LoadFablabSuperviseViewCommand { get; set; }
         public ICommand NextViewCommand { get; set; }
+       
         public ICommand PreviusViewCommand { get; set; }
+        public ICommand OpenAlarmViewCommand { get; set; }
+        public ICommand CloseAlarmViewCommand { get; set; }
+        public ICommand SearchWarningNotificationCommand { get; set; }
+
         //enable button change view
         public bool IsFisrtView { get; set; }
         public bool IsLastView { get; set; }
-        public FablabSuperviseViewModel(ISignalRClient signalRClient)
+
+        //WarningNotification
+        public List<WarningNotificationDtos> WarningNotificationDtos { get; set; } = new();
+        public string TextNotification { get; set; }
+
+
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(7);
+        public DateTime StartDate { get; set; } = DateTime.Now;
+
+        
+        //
+        public FablabSuperviseViewModel(ISignalRClient signalRClient, IApiService apiService)
         {
             _signalRClient = signalRClient;
+            _apiService = apiService;
             signalRClient.OnTagChanged += SignalRClient_OnTagChanged;
             signalRClient.EnvironmentChanged += SignalRClient_EnvironmentChanged;
             signalRClient.DataMachineChanged += SignalRClient_DataMachineChanged;
@@ -151,10 +174,20 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             ColorTemperature = "White";
             ColorGas = "White";
             ColorNoise = "White";
-    
+            OpenAlarmViewCommand = new RelayCommand(OpenAlarmView);
+            CloseAlarmViewCommand = new RelayCommand(CloseAlarmView);
+            SearchWarningNotificationCommand = new RelayCommand(GetWarningNotification);
             UpdateView(0);
         }
 
+        private void OpenAlarmView()
+        {
+            IsOpenAlarmView = true;
+        }
+        private void CloseAlarmView()
+        {
+            IsOpenAlarmView = false;
+        }
         private void SignalRClient_DataMachineChanged(string json)
         {
             var tag = JsonConvert.DeserializeObject<DataMachineChangedNotification>(json);
@@ -183,7 +216,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                         MachineStatus1 = ConvertStatus(tag.value); break;
                                     }
                                 default: break;
-                                
+
                             }
                             break;
                         }
@@ -353,7 +386,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         break;
                 }
             }
-        }     
+        }
         private async void SignalRClient_OnTagChanged(string json)
         {
             Task read = new(() =>
@@ -367,9 +400,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         case "KB36":
                             {
                                 TimeStamp1 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
-                                IdleTime1 = (Convert.ToDouble(tag.IdleTime))/60;
-                                ShiftTime1 = Convert.ToDouble(tag.ShiftTime)/60;
-                                OperationTime1 = Convert.ToDouble(tag.OperationTime)/60;
+                                IdleTime1 = (Convert.ToDouble(tag.IdleTime)) / 60;
+                                ShiftTime1 = Convert.ToDouble(tag.ShiftTime) / 60;
+                                OperationTime1 = Convert.ToDouble(tag.OperationTime) / 60;
                                 Oee1 = Convert.ToDouble(tag.Oee);
                                 UpdateValueOEEMachine1(IdleTime1, ShiftTime1, OperationTime1, Oee1);
                                 break;
@@ -378,8 +411,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         case "TSH1390":
                             {
                                 TimeStamp2 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
-                                IdleTime2 = Convert.ToDouble(tag.IdleTime)/60;
-                                ShiftTime2 = Convert.ToDouble(tag.ShiftTime)/60;
+                                IdleTime2 = Convert.ToDouble(tag.IdleTime) / 60;
+                                ShiftTime2 = Convert.ToDouble(tag.ShiftTime) / 60;
                                 OperationTime2 = Convert.ToDouble(tag.OperationTime) / 60;
                                 Oee2 = Convert.ToDouble(tag.Oee);
                                 UpdateValueOEEMachine2(IdleTime2, ShiftTime2, OperationTime2, Oee2);
@@ -388,9 +421,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         case "ERL1330":
                             {
                                 TimeStamp3 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
-                                IdleTime3 = Convert.ToDouble(tag.IdleTime)/60;
-                                ShiftTime3 = Convert.ToDouble(tag.ShiftTime)/60;
-                                OperationTime3 = Convert.ToDouble(tag.OperationTime)/60;
+                                IdleTime3 = Convert.ToDouble(tag.IdleTime) / 60;
+                                ShiftTime3 = Convert.ToDouble(tag.ShiftTime) / 60;
+                                OperationTime3 = Convert.ToDouble(tag.OperationTime) / 60;
                                 Oee3 = Convert.ToDouble(tag.Oee);
                                 UpdateValueOEEMachine3(IdleTime3, ShiftTime3, OperationTime3, Oee3);
                                 break;
@@ -398,9 +431,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         case "FRD900S":
                             {
                                 TimeStamp4 = DateTime.TryParse(Convert.ToString(tag.TimeStamp), out var span) ? span : default;
-                                IdleTime4 = Convert.ToDouble(tag.IdleTime)/60;
-                                ShiftTime4 = Convert.ToDouble(tag.ShiftTime)/60;
-                                OperationTime4 = Convert.ToDouble(tag.OperationTime)/60;
+                                IdleTime4 = Convert.ToDouble(tag.IdleTime) / 60;
+                                ShiftTime4 = Convert.ToDouble(tag.ShiftTime) / 60;
+                                OperationTime4 = Convert.ToDouble(tag.OperationTime) / 60;
                                 Oee4 = Convert.ToDouble(tag.Oee);
                                 UpdateValueOEEMachine4(IdleTime4, ShiftTime4, OperationTime4, Oee4);
                                 break;
@@ -421,8 +454,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                 IdleTime6 = Convert.ToDouble(tag.IdleTime) / 60;
                                 ShiftTime6 = Convert.ToDouble(tag.ShiftTime) / 60;
                                 OperationTime6 = Convert.ToDouble(tag.OperationTime) / 60;
-                                Oee6= Convert.ToDouble(tag.Oee);
-                                UpdateValueOEEMachine6(IdleTime6, ShiftTime6, OperationTime6, Oee6);
+                                Oee6 = Convert.ToDouble(tag.Oee);
+                                //UpdateValueOEEMachine6(IdleTime6, ShiftTime6, OperationTime6, Oee6);
                                 break;
                             }
 
@@ -453,7 +486,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     {
                         result = "Động cơ chạy";
                         break;
-                    }               
+                    }
                 case 5:
                     {
                         result = "Máy có điện";
@@ -480,14 +513,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Series = GaugeGenerator.BuildSolidGauge(
                 new GaugeItem(1, series => SetStyle("Q", series)),
                 new GaugeItem(P, series => SetStyle("P", series)),
-                new GaugeItem(A, series => SetStyle("A", series)),           
+                new GaugeItem(A, series => SetStyle("A", series)),
                 new GaugeItem(Oee, series => SetStyle("OEE", series)),
                 new GaugeItem(GaugeItem.Background, series =>
                 {
                     series.DataLabelsSize = 30;
                     series.InnerRadius = 20;
                     //series.InnerColor = Color.FromArgb();
-                    
+
                 }));
             });
             Update.Start();
@@ -652,7 +685,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     solidColorPaint = new SolidColorPaint(SKColors.Red);
                 }
-                
+
                 else solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
 
                 Series7 = GaugeGenerator.BuildSolidGauge(
@@ -682,7 +715,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 {
                     solidColorPaint = new SolidColorPaint(SKColors.Red);
                 }
-               
+
                 else solidColorPaint = new SolidColorPaint(SKColors.YellowGreen);
 
                 Series8 = GaugeGenerator.BuildSolidGauge(
@@ -731,11 +764,23 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async void LoadFablabSuperviseView()
         {
             IsBusy = true;
-            await Task.WhenAll( 
+            await Task.WhenAll(
                 UpdateValueEnvironment(),
                 UpdateOee(),
                 UpdateDataMachine());
             IsBusy = false;
+            GetWarningNotification();
+        }
+
+        private async void GetWarningNotification()
+        {
+            TextNotification = "";
+            WarningNotificationDtos = (await _apiService.GetWarningNotificationAsync(EndDate, StartDate)).ToList();
+            if(WarningNotificationDtos.Count() == 0)
+            {
+                TextNotification = "Không có cảnh báo nào!";
+            }
+
         }
 
         private async Task UpdateDataMachine()
@@ -857,7 +902,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             var Machine6 = tags.LastOrDefault(i => i.DeviceId == "BSM150");
 
             if (Machine1 != null)
-            {               
+            {
                 IdleTime1 = Convert.ToDouble(Machine1.IdleTime) / 60;
                 ShiftTime1 = Convert.ToDouble(Machine1.ShiftTime) / 60;
                 OperationTime1 = Convert.ToDouble(Machine1.OperationTime) / 60;
@@ -933,11 +978,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
             if (_noise is not null)
             {
-                Noise = Convert.ToInt64(_noise.Value); 
+                Noise = Convert.ToInt64(_noise.Value);
                 UpdateValueNoise(Noise);
             }
         }
-        
+
         public static void SetStyle(string name, PieSeries<ObservableValue> series)
         {
             series.Name = name;
@@ -948,31 +993,31 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             series.RelativeOuterRadius = 3;
             series.RelativeInnerRadius = 3;
         }
-        
+
 
 
 
         private void NextView()
         {
-            if(_indexView >=0 && _indexView < 5)
+            if (_indexView >= 0 && _indexView < 5)
             {
                 _indexView++;
                 UpdateView(_indexView);
-              
-            }   
+
+            }
         }
-        private  void PreviusView()
+        private void PreviusView()
         {
             if (_indexView > 0 && _indexView <= 5)
             {
                 _indexView--;
                 UpdateView(_indexView);
-                
+
             }
         }
         private void UpdateView(int index)
         {
-            switch(index)
+            switch (index)
             {
                 case 0:
                     {
@@ -1048,7 +1093,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     }
             }
 
-            
+
         }
 
     }
