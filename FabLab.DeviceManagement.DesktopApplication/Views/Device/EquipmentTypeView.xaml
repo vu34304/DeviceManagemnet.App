@@ -117,10 +117,10 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Tên loại"
                                                     Binding="{Binding EquipmentTypeName}"
-                                                    Width="auto" />
+                                                    Width="*" />
                                 <DataGridTextColumn Header="Mã loại"
                                                     Binding="{Binding EquipmentTypeId}"
-                                                    Width="auto" />
+                                                    Width="*" />
                                 <DataGridTextColumn Header="Lĩnh vực"
                                                     Binding="{Binding CategoryStr}"
                                                     Width="*" />

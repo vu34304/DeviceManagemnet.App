@@ -209,7 +209,7 @@ DisplayMemberPath="Description"-->
                         <!--<DataGridTextColumn Header="Tình trạng"
                                             Width="*"
                                             Binding="{Binding Status}" />-->
-                        <DataGridTemplateColumn Header="Tình trạng" Width="auto">
+                        <DataGridTemplateColumn Header="Tình trạng" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate> 
                                     <TextBlock  FontWeight="Bold" Text="{Binding StatusStr}" Foreground="{Binding ColorStatus}"/>
