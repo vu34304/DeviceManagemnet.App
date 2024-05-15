@@ -769,11 +769,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 UpdateOee(),
                 UpdateDataMachine());
             IsBusy = false;
+            
+            StartDate = DateTime.Now.AddDays(-30);
+            EndDate = DateTime.Now; 
             GetWarningNotification();
         }
 
         private async void GetWarningNotification()
         {
+            WarningNotificationDtos.Clear();
             TextNotification = "";
             WarningNotificationDtos = (await _apiService.GetWarningNotificationAsync(EndDate, StartDate)).ToList();
             if(WarningNotificationDtos.Count() == 0)
