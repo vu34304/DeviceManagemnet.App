@@ -224,7 +224,7 @@
                                   SelectedItem="{Binding SelectedItem}"
                                   ItemsSource="{Binding equipments,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Tên thiết bị"
+                                <DataGridTextColumn Header="Tên thiết bị" Width="*"
                                                     Binding="{Binding EquipmentName  }" />
 
 

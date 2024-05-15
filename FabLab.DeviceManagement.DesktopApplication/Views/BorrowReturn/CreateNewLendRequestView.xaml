@@ -127,7 +127,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                                 <DataGridTemplateColumn Header="Trạng thái"
-                                                        Width="auto">
+                                                        Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
 
