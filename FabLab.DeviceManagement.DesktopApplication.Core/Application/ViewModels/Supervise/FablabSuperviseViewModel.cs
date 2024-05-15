@@ -591,11 +591,14 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                  series.DataLabelsPaint = solidColorPaint;
                  series.DataLabelsPosition = PolarLabelsPosition.ChartCenter;
                  series.InnerRadius = 75;
+                 series.RelativeOuterRadius = 8;
+                 series.RelativeInnerRadius = 8;
+
 
              }),
              new GaugeItem(GaugeItem.Background, series =>
              {
-                 series.InnerRadius = 75;
+                 series.InnerRadius = 85;
                  series.Fill = new SolidColorPaint(new SKColor(100, 181, 246, 90));
              }));
             });
@@ -622,10 +625,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                  series.DataLabelsPaint = solidColorPaint;
                  series.DataLabelsPosition = PolarLabelsPosition.ChartCenter;
                  series.InnerRadius = 75;
+                 series.RelativeOuterRadius = 8;
+                 series.RelativeInnerRadius = 8;
              }),
              new GaugeItem(GaugeItem.Background, series =>
              {
-                 series.InnerRadius = 75;
+                 series.InnerRadius = 85;
                  series.Fill = new SolidColorPaint(new SKColor(100, 181, 246, 90));
              }));
             });
@@ -696,10 +701,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                  series.DataLabelsPaint = solidColorPaint;
                  series.DataLabelsPosition = PolarLabelsPosition.ChartCenter;
                  series.InnerRadius = 75;
+                 series.RelativeOuterRadius = 8;
+                 series.RelativeInnerRadius = 8;
              }),
              new GaugeItem(GaugeItem.Background, series =>
              {
-                 series.InnerRadius = 75;
+                 series.InnerRadius = 85;
                  series.Fill = new SolidColorPaint(new SKColor(100, 181, 246, 90));
              }));
             });
@@ -726,10 +733,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                  series.DataLabelsPaint = solidColorPaint;
                  series.DataLabelsPosition = PolarLabelsPosition.ChartCenter;
                  series.InnerRadius = 75;
+                 series.RelativeOuterRadius = 8;
+                 series.RelativeInnerRadius = 8;
              }),
              new GaugeItem(GaugeItem.Background, series =>
              {
-                 series.InnerRadius = 75;
+                 series.InnerRadius = 85;
                  series.Fill = new SolidColorPaint(new SKColor(100, 181, 246, 90));
              }));
             });

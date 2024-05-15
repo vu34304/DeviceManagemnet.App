@@ -20,7 +20,7 @@
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Images/app_icon.png" x:Name="MainView"
         xmlns:md="clr-namespace:ModalControl;assembly=ModalControl"
-        Title="FabLabDeviceManagement" Height="900" Width="1750">
+        Title="FabLabDeviceManagement" Height="900" Width="1600">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
