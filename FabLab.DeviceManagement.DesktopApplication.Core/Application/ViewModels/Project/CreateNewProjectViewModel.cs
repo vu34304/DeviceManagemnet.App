@@ -116,7 +116,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     item.IsChecked = true;
                     BorowEquipments.Add(new()
                     {
-                        index = BorowEquipments.Count(),
+                        index = BorowEquipments.Count() +1,
                         name = BorrowEquipmentName,
                         id = item.EquipmentId
                     });

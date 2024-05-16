@@ -192,7 +192,7 @@
                                             <RowDefinition Height="auto" />
                                         </Grid.RowDefinitions>
                                         <TextBlock Grid.Column="0"
-                                                   Text="ProjectName:"
+                                                   Text="Tên dự án:"
                                                    Style="{StaticResource FieldLabel}"
                                                    Margin="10"
                                                    VerticalAlignment="Center" />
@@ -220,7 +220,7 @@
                                                  Text="{Binding Email }" />
                                         <TextBlock Grid.Column="0"
                                                    Grid.Row="1"
-                                                   Text="Username:"
+                                                   Text="Người đăng kí:"
                                                    Style="{StaticResource FieldLabel}"
                                                    Margin="10"
                                                    VerticalAlignment="Center" />

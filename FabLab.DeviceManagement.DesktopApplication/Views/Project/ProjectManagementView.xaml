@@ -97,20 +97,7 @@
                                 Background="{StaticResource ColorSurface}"
                                 VirtualizingPanel.ScrollUnit="Pixel"
                                 Grid.ColumnSpan="3">
-                        <!--<DataGrid.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                        <Grid Margin="0 30 0 0">
-                                            <ContentPresenter VerticalAlignment="Top"/>
-                                        </Grid>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGrid.CellStyle>-->
+
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tên dự án"
                                                 Binding="{Binding ProjectName}"
@@ -136,7 +123,6 @@
                                         <Button BorderThickness="0"
                                                 Content="Hoàn thành"
                                                 Background="Orange"
-                                                
                                                 Command="{Binding EndCommand}"
                                                 IsEnabled="{Binding IsFinished}"
                                                 materialDesign:ButtonAssist.CornerRadius="10">
@@ -148,28 +134,16 @@
                             <DataGridTemplateColumn Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<Button Content="Duyệt" IsEnabled="False"
-                            materialDesign:ButtonAssist.CornerRadius="10">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Click">
-                                                    <prism:InvokeCommandAction Command="{Binding ApprovedCommand}"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Button>-->
+
                                         <Button BorderThickness="0"
                                                 Grid.Column="2"
                                                 Margin="10"
-                                               
                                                 Background="Beige"
                                                 Command="{Binding ApprovedCommand}"
                                                 IsEnabled="{Binding StatusApproved}"
                                                 materialDesign:ButtonAssist.CornerRadius="10"
                                                 Content="Duyệt">
-                                            <!--<i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Click">
-                                                    <prism:InvokeCommandAction Command="{Binding}"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>-->
+
 
                                         </Button>
                                     </DataTemplate>
@@ -177,91 +151,162 @@
                             </DataGridTemplateColumn>
 
 
-                            
 
-                           
-                     
-                                <DataGridTemplateColumn Width="auto">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button BorderThickness="0"
-                                                    Content="Dánh sách thiết bị đăng kí"
-                                                    Background="GreenYellow"
-                                                   
-                                                    materialDesign:ButtonAssist.CornerRadius="10">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="Click">
-                                                        <prism:InvokeCommandAction Command="{Binding ShowEquipmentCommand}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Button>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Width="auto">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button BorderThickness="0"
-                                                    Background="red"
-                                                    materialDesign:ButtonAssist.CornerRadius="10">
-                                                <materialDesign:PackIcon  Kind="Delete" />
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="Click">
-                                                        <prism:InvokeCommandAction Command="{Binding DeleteCommand}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Button>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
+
+
+
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button BorderThickness="0"
+                                                Content="Dánh sách thiết bị đăng kí"
+                                                Background="GreenYellow"
+                                                materialDesign:ButtonAssist.CornerRadius="10">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction Command="{Binding ShowEquipmentCommand}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button BorderThickness="0"
+                                                Background="red"
+                                                materialDesign:ButtonAssist.CornerRadius="10">
+                                            <materialDesign:PackIcon  Kind="Delete" />
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction Command="{Binding DeleteCommand}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate DataType="{x:Type project:ProjectManagementEntryViewModel}">
                                 <Border Background="LightGray"
                                         BorderBrush="{StaticResource ColorSurfaceOn}"
                                         BorderThickness="1">
-                                    <DataGrid IsReadOnly="True"
-                                              AutoGenerateColumns="False"
-                                              Margin=" 10"
-                                              VerticalAlignment="Top"
-                                              Grid.Column="0"
-                                              Grid.ColumnSpan="3"
-                                              Grid.Row="4"
-                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                              SelectedItem="{Binding SelectedItem}"
-                                              ItemsSource="{Binding Borrows}">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn  Header="Mã đơn mượn"
-                                                                 Binding="{Binding BorrowId }" />
-                                            <DataGridTextColumn Header="Người mượn"
-                                                                Binding="{Binding Borrower }" />
-                                            <DataGridTextColumn Header="Trạng thái"
-                                                                Binding="{Binding Status }" />
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Text="Tên dự án:"
+                                                   Style="{StaticResource FieldLabel}"
+                                                   Margin="10"
+                                                   VerticalAlignment="Center" />
+                                        <TextBox Grid.Column="1"
+                                                 materialDesign:HintAssist.Hint="ProjectName"
+                                                 FontSize="16"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource TextBox}"
+                                                 Margin="10"
+                                                 VerticalAlignment="Center"
+                                                 Text="{Binding ProjectName, Mode=TwoWay}" />
+
+                                        <TextBlock  Grid.Column="2"
+                                                    Text="Ngày kết thúc:"
+                                                    Style="{StaticResource FieldLabel}"
+                                                    Margin="10"
+                                                    VerticalAlignment="Center" />
+                                        <TextBox Grid.Column="3"
+                                                 materialDesign:HintAssist.Hint="Email"
+                                                 FontSize="16"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource TextBox}"
+                                                 Margin="10"
+                                                 VerticalAlignment="Center"
+                                                 Text="{Binding RealEndDate ,StringFormat=dd/MM/yyyy}" />
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="1"
+                                                   Text="Ngày bắt đầu:"
+                                                   Style="{StaticResource FieldLabel}"
+                                                   Margin="10"
+                                                   VerticalAlignment="Center" />
+                                        <TextBox Grid.Column="1"
+                                                 Grid.Row="1"
+                                                 materialDesign:HintAssist.Hint="Username"
+                                                 FontSize="16"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource TextBox}"
+                                                 Margin="10"
+                                                 VerticalAlignment="Center"
+                                                 Text="{Binding StartDate ,StringFormat=dd/MM/yyyy}" />
+
+                                        <TextBlock  Grid.Column="2"
+                                                    Grid.Row="1"
+                                                    Text="Ngày dự kiến kết thúc:"
+                                                    Style="{StaticResource FieldLabel}"
+                                                    Margin="10"
+                                                    VerticalAlignment="Center" />
+                                        <TextBox Grid.Column="3"
+                                                 Grid.Row="1"
+                                                 materialDesign:HintAssist.Hint="MSSV"
+                                                 FontSize="16"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource TextBox}"
+                                                 Margin="10"
+                                                 VerticalAlignment="Center"
+                                                 Text="{Binding EndDate ,StringFormat=dd/MM/yyyy}" />
+                                        <TextBlock  Grid.Column="0"
+                                                    Grid.Row="2"
+                                                    Text="Mô tả:"
+                                                    Style="{StaticResource FieldLabel}"
+                                                    Margin="10"
+                                                    VerticalAlignment="Center" />
+                                        <TextBox Grid.Column="1"
+                                                 Grid.ColumnSpan="4"
+                                                 Grid.Row="2"
+                                                 materialDesign:HintAssist.Hint="Thiết bị đăng kí"
+                                                 FontSize="16"
+                                                 Style="{StaticResource TextBox}"
+                                                 Margin="10"
+                                                 IsReadOnly="True"
+                                                 VerticalAlignment="Center"
+                                                 Text="{Binding Description }" />
+                                        <DataGrid IsReadOnly="True"
+                                                  AutoGenerateColumns="False"
+                                                  Margin=" 10"
+                                                  Grid.Row="3"
+                                                  VerticalAlignment="Top"
+                                                  Grid.Column="0"
+                                                  Grid.ColumnSpan="4"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                  ItemsSource="{Binding Borrows}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn  Header="Mã đơn mượn"
+                                                                     Binding="{Binding BorrowId }" />
+                                                <DataGridTextColumn Header="Người mượn"
+                                                                    Binding="{Binding Borrower }" />
+                                                <DataGridTextColumn Header="Trạng thái"
+                                                                    Binding="{Binding Status }" />
 
 
 
-                                            <!--<DataGridTemplateColumn Header="Đăng kí " Width="auto">
-                                -->
-                                            <!--<DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox>
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Checked">
-                                                    <prism:InvokeCommandAction Command="{Binding DataContext.AddBorrowEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="Unchecked">
-                                                    <prism:InvokeCommandAction Command="{Binding DataContext.RemoveBorrowEquipmentCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </CheckBox>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>-->
-                                            <!--
-                                
-                            </DataGridTemplateColumn>-->
-                                        </DataGrid.Columns>
 
-                                    </DataGrid>
+                                            </DataGrid.Columns>
+
+                                        </DataGrid>
+
+                                    </Grid>
+
                                 </Border>
                             </DataTemplate>
                         </DataGrid.RowDetailsTemplate>
@@ -280,3 +325,4 @@
     </materialDesign:DialogHost>
 
 </UserControl>
+

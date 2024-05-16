@@ -229,20 +229,17 @@
                                     <DataGrid IsReadOnly="True"
                                               AutoGenerateColumns="False"
                                               VirtualizingPanel.ScrollUnit="Pixel"
-                                              
                                               VerticalAlignment="Top"
                                               Grid.Row="2"
                                               Grid.ColumnSpan="4"
                                               ItemsSource="{Binding WarningNotificationDtos, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Tên cảnh báo" 
+                                            <DataGridTextColumn Header="Tên cảnh báo"
                                                                 Binding="{Binding Name , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay  }" />
                                             <DataGridTextColumn Header="Giá trị"
-                                                                
                                                                 Binding="{Binding Value }" />
                                             <DataGridTextColumn Header="Thời gian"
-                                                                
                                                                 Binding="{Binding Timestampe }" />
 
                                         </DataGrid.Columns>
@@ -283,7 +280,8 @@
 
                                     <Button Grid.Row="3"
                                             Grid.ColumnSpan="5"
-                                            Margin="10 0 10 0" Width="120"
+                                            Margin="10 0 10 0"
+                                            Width="120"
                                             Background="Orange"
                                             Style="{StaticResource ButtonPrimary}"
                                             materialDesign:ButtonAssist.CornerRadius="10"

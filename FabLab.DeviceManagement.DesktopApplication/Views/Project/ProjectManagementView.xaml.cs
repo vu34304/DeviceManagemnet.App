@@ -22,7 +22,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Views.Project
     {
         public ProjectManagementView()
         {
-            InitializeComponent();     
+            InitializeComponent();
         }
 
         private void data_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -34,6 +34,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Views.Project
                 else
                     dataGrid.RowDetailsVisibilityMode = DataGridRowDetailsVisibilityMode.VisibleWhenSelected;
             }
+
         }
     }
 }
