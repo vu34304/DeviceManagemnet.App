@@ -307,7 +307,7 @@
                             </Button>
                             <Button Grid.Row="3"
                                     Grid.Column="3"
-                                    Background="Coral"
+                                    Background="OrangeRed"
                                     Margin="5 10 10 10"
                                     BorderThickness="0"
                                     HorizontalAlignment="Center"
@@ -315,7 +315,7 @@
                                     Width="100"
                                     FontSize="14"
                                     materialDesign:ButtonAssist.CornerRadius="5"
-                                    Content="Lưu ảnh">
+                                    Content="Lưu">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
                                         <prism:InvokeCommandAction Command="{Binding SaveImageFixCommand}" />
