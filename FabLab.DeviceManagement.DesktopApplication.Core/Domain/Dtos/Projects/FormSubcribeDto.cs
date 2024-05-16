@@ -18,6 +18,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Projects
         public string LinkGgDrive { get; set; }
         public bool CheckSeen { get; set; }
         public DateTime CreateAt { get; set; }
+        public string equipment { get; set; }
 
     }
 }

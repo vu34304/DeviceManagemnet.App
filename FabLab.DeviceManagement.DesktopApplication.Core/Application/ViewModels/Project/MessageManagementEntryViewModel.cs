@@ -26,6 +26,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public bool CheckSeen { get; set; }
         public bool StatusSeen => !CheckSeen;
         public DateTime CreateAt { get; set; }
+        public string Equipment { get; set; }
 
 
         public event Action? Updated;
@@ -43,7 +44,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             SeenFormCommand = new RelayCommand(Seen);
             DeleteCommand = new RelayCommand(Delete);
         }
-        public MessageManagementEntryViewModel(int id, string email, string projectName, string userName, string mSSV, bool onsite, string linkGgDrive, bool checkSeen, DateTime createAt) : this()
+        public MessageManagementEntryViewModel(int id, string email, string projectName, string userName, string mSSV, bool onsite, string linkGgDrive, bool checkSeen, DateTime createAt, string equipment) : this()
         {
             Id = id;
             Email = email;
@@ -54,6 +55,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             LinkGgDrive = linkGgDrive;
             CheckSeen = checkSeen;
             CreateAt = createAt;
+            Equipment = equipment;
 
         }
         public void SetApiService(IApiService apiService)

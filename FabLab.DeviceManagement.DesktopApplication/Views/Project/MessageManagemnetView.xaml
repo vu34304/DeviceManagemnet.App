@@ -97,20 +97,7 @@
                                 Background="{StaticResource ColorSurface}"
                                 VirtualizingPanel.ScrollUnit="Pixel"
                                 Grid.ColumnSpan="3">
-                        <!--<DataGrid.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                        <Grid Margin="0 30 0 0">
-                                            <ContentPresenter VerticalAlignment="Top"/>
-                                        </Grid>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGrid.CellStyle>-->
+                        
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id"
                                                 Binding="{Binding Id}"
@@ -123,6 +110,9 @@
                                                 Width="*" />
                             <DataGridTextColumn Header="Người đăng kí"
                                                 Binding="{Binding UserName}"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Thiết bị đăng kí"
+                                                Binding="{Binding Equipment}"
                                                 Width="*" />
                             <DataGridTextColumn Header="Link GoogleDrive"
                                                 Binding="{Binding LinkGgDrive}"
@@ -199,6 +189,7 @@
                                             <RowDefinition Height="auto" />
                                             <RowDefinition Height="auto" />
                                             <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
                                         </Grid.RowDefinitions>
                                         <TextBlock Grid.Column="0"
                                                    Text="ProjectName:"
@@ -258,16 +249,31 @@
                                                  Margin="10"
                                                  VerticalAlignment="Center"
                                                  Text="{Binding MSSV }" />
-
                                         <TextBlock  Grid.Column="0"
                                                     Grid.Row="2"
-                                                    Text="Link GoogleDriver:"
+                                                    Text="Thiết bị đăng kí:"
                                                     Style="{StaticResource FieldLabel}"
                                                     Margin="10"
                                                     VerticalAlignment="Center" />
                                         <TextBox Grid.Column="1"
                                                  Grid.ColumnSpan="4"
                                                  Grid.Row="2"
+                                                 materialDesign:HintAssist.Hint="Thiết bị đăng kí"
+                                                 FontSize="16"
+                                                 Style="{StaticResource TextBox}"
+                                                 Margin="10"
+                                                 IsReadOnly="True"
+                                                 VerticalAlignment="Center"
+                                                 Text="{Binding Equipment }" />
+                                        <TextBlock  Grid.Column="0"
+                                                    Grid.Row="3"
+                                                    Text="Link GoogleDriver:"
+                                                    Style="{StaticResource FieldLabel}"
+                                                    Margin="10"
+                                                    VerticalAlignment="Center" />
+                                        <TextBox Grid.Column="1"
+                                                 Grid.ColumnSpan="4"
+                                                 Grid.Row="3"
                                                  materialDesign:HintAssist.Hint="Link GoogleDriver"
                                                  FontSize="16"
                                                  Style="{StaticResource TextBox}"
