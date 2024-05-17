@@ -86,6 +86,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             try
             {               
                 equipments = new List<EquipmentDto>((await _apiService.GetAllEquipmentsActive()).ToList());
+                TempEquipments = new List<EquipmentDto>((await _apiService.GetAllEquipmentsActive()).ToList());
                 EquipmentNames = equipments.Select(i => i.EquipmentName).ToList();
 
             }
@@ -96,27 +97,24 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
 
         private  void SearchEquipment()
-        {
+           {
             if (!String.IsNullOrEmpty(EquipmentName))
             {
-                TempEquipments = equipments;
-                equipments = equipments.Where(i => i.EquipmentName == EquipmentName).ToList();
+               
+                equipments = TempEquipments.Where(i => i.EquipmentName == EquipmentName).ToList();
 
             }
             else
             {
-                List <EquipmentDto> temp = TempEquipments;
-                equipments = temp;
+                equipments = TempEquipments;
                
             }
         }
         private void AddBorrowEquipment()
         {
             if (!String.IsNullOrEmpty(BorrowEquipmentName))
-            {
-                
+            {                
                 var item = equipments.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
-                
                 if (item != null)
                 {
                     item.IsChecked = true;
@@ -126,11 +124,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                         name = BorrowEquipmentName,
                         id = item.EquipmentId
                     });
-                    
                 }
-                
-
-               
+                var temp = TempEquipments.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
+                if (temp != null)
+                {
+                    temp.IsChecked = true;
+                }
             }
            
 
@@ -146,7 +145,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 { 
                     a.IsChecked = false;
                 }
-
+                var temp = TempEquipments.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
+                if (temp != null)
+                {
+                    temp.IsChecked = false;
+                }
                 if (itemToRemove != null)
                     BorowEquipments.Remove(itemToRemove);
 

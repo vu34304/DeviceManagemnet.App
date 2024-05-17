@@ -213,7 +213,7 @@
                                                    Margin="10"
                                                    VerticalAlignment="Center" />
                                         <TextBox Grid.Column="1"
-                                                 materialDesign:HintAssist.Hint="ProjectName"
+                                                 materialDesign:HintAssist.Hint="Tên dự án"
                                                  FontSize="16"
                                                  IsReadOnly="True"
                                                  Style="{StaticResource TextBox}"
@@ -227,7 +227,7 @@
                                                     Margin="10"
                                                     VerticalAlignment="Center" />
                                         <TextBox Grid.Column="3"
-                                                 materialDesign:HintAssist.Hint="Email"
+                                                 materialDesign:HintAssist.Hint="Ngày kết thúc"
                                                  FontSize="16"
                                                  IsReadOnly="True"
                                                  Style="{StaticResource TextBox}"
@@ -242,7 +242,7 @@
                                                    VerticalAlignment="Center" />
                                         <TextBox Grid.Column="1"
                                                  Grid.Row="1"
-                                                 materialDesign:HintAssist.Hint="Username"
+                                                 materialDesign:HintAssist.Hint="Ngày bắt đầu"
                                                  FontSize="16"
                                                  IsReadOnly="True"
                                                  Style="{StaticResource TextBox}"
@@ -258,7 +258,7 @@
                                                     VerticalAlignment="Center" />
                                         <TextBox Grid.Column="3"
                                                  Grid.Row="1"
-                                                 materialDesign:HintAssist.Hint="MSSV"
+                                                 materialDesign:HintAssist.Hint="Ngày dự kiến kết thúc"
                                                  FontSize="16"
                                                  IsReadOnly="True"
                                                  Style="{StaticResource TextBox}"
@@ -274,7 +274,7 @@
                                         <TextBox Grid.Column="1"
                                                  Grid.ColumnSpan="4"
                                                  Grid.Row="2"
-                                                 materialDesign:HintAssist.Hint="Thiết bị đăng kí"
+                                                 materialDesign:HintAssist.Hint="Mô tả"
                                                  FontSize="16"
                                                  Style="{StaticResource TextBox}"
                                                  Margin="10"

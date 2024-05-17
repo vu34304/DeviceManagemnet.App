@@ -19,7 +19,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Store
         public ObservableCollection<string> ProjectNames { get; private set; }
         public ObservableCollection<DateTime> StartDates { get; private set; }
         public ObservableCollection<DateTime> EndDates { get; private set; }
-        public ObservableCollection<DateTime> RealEndDates { get; private set; }
+        public ObservableCollection<DateTime?> RealEndDates { get; private set; }
         public ObservableCollection<string> Descriptions { get; private set; }
         public ObservableCollection<bool> Approveds {  get; private set; }
 
@@ -40,7 +40,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Store
             ProjectNames = new ObservableCollection<string>(Projects.Select(i => i.ProjectName).OrderBy(s => s));
             StartDates = new ObservableCollection<DateTime>(Projects.Select(i => i.StartDate).OrderBy(s => s));
             EndDates = new ObservableCollection<DateTime>(Projects.Select(i => i.EndDate).OrderBy(s => s));
-            RealEndDates = new ObservableCollection<DateTime>(Projects.Select(i => i.RealEndDate).OrderBy(s => s));
+            RealEndDates = new ObservableCollection<DateTime?>(Projects.Select(i => i.RealEndDate).OrderBy(s => s));
             Descriptions = new ObservableCollection<string>(Projects.Select(i => i.Description).OrderBy(s => s));
             Approveds = new ObservableCollection<bool>(Projects.Select(i => i.Approved).OrderBy(s => s));
         }

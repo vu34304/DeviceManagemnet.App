@@ -19,7 +19,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string ProjectName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public DateTime RealEndDate { get; set; }
+        public DateTime? RealEndDate { get; set; }
         public string Description { get; set; }
         public bool Approved { get; set; }
         public string ApprovedStr => (Approved) ? "Đã duyệt" : "Chưa duyệt";
@@ -53,7 +53,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             
         }
 
-        public ProjectManagementEntryViewModel(string projectName, DateTime startDay, DateTime endDay, DateTime realEndDay, string description, bool approved) : this()
+        public ProjectManagementEntryViewModel(string projectName, DateTime startDay, DateTime endDay, DateTime? realEndDay, string description, bool approved) : this()
         {
             ProjectName = projectName;
             StartDate = startDay;
