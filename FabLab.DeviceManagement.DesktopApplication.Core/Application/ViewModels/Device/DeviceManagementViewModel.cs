@@ -253,6 +253,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public ICommand CLoseMoreDetailViewCommand { get; set; }
         public ICommand AddTagCommand { get; set; }
 
+        //Loading Animation
+        public bool IsLoading { get;set; }
 
 
         public DeviceManagementViewModel(IApiService apiService, IMapper mapper)
@@ -329,6 +331,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
         private void LoadDeviceManagementView()
         {
+            IsLoading = true;
             LoadInitial();
 
             UpdateSupplier();
@@ -347,6 +350,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
             IsOpenCreateNewEquipmentView = false;
             IsOpenSearchAdvanceView = false;
+            IsLoading = false;
 
         }
 
@@ -471,10 +475,18 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     {
                         NewTag = TagId.Split("#").Skip(1).ToArray();
                     }
+                    IsLoading = true;
+                    
                     filteredEquipments = (await _apiService.GetEquipmentsRecordsAsync(EquipmentId, EquipmentName, YearOfSupply, EquipmentTypeId, CategoryStr, StatusStr, null)).ToList();
+                    IsLoading = false;
 
                 }
-                else filteredEquipments = (await _apiService.GetAllEquipmentsAsync()).ToList();
+                else
+                {
+                    IsLoading = true;
+                    filteredEquipments = (await _apiService.GetAllEquipmentsAsync()).ToList();
+                    IsLoading = false;
+                }
 
                 
                 if (filteredEquipments.Count > 0)

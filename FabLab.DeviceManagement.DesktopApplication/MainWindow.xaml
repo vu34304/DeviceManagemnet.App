@@ -18,7 +18,7 @@
         xmlns:project="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Project" xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device" xmlns:viewmodels="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels;assembly=FabLab.DeviceManagement.DesktopApplication.Core" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         Background="{StaticResource ColorBackground}"
         WindowStartupLocation="CenterScreen"
-        Icon="/Resources/Images/app_icon.png" x:Name="MainView"
+        x:Name="MainView"
         xmlns:md="clr-namespace:ModalControl;assembly=ModalControl"
         Title="FabLabDeviceManagement" Height="900" Width="1600">
 

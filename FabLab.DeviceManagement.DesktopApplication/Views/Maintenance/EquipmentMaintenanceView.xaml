@@ -222,7 +222,7 @@ DisplayMemberPath="Description"-->
                                 <DataTemplate>
                                     <Button BorderThickness="0" Content="{Binding ContentButton}"
                                             Background="{Binding ColorButton}"
-                                           
+                                            Width="120"
                                             IsEnabled="{Binding IsEnableButton}"
                                             Command="{Binding UpdateStatusCommand}"
                                             materialDesign:ButtonAssist.CornerRadius="10">

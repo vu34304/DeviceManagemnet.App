@@ -29,6 +29,7 @@
         <materialDesign:DialogHost.DialogContent>
             <Components:ErrorMessage Message="{Binding ErrorMessage}" />
         </materialDesign:DialogHost.DialogContent>
+
         <Grid>
             <Grid>
                 <Grid.RowDefinitions>
@@ -74,8 +75,7 @@
                                 Background="Coral"
                                 Margin="10"
                                 Style="{StaticResource ButtonPrimary}"
-                                materialDesign:ButtonAssist.CornerRadius="10"
-                                >
+                                materialDesign:ButtonAssist.CornerRadius="10">
                             <materialDesign:PackIcon  Height="30"
                                                       Width="30"
                                                       Kind="Magnify" />
@@ -84,8 +84,8 @@
                                     <prism:InvokeCommandAction Command="{Binding LoadDeviceEntriesCommand1}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                        
-                           
+
+
                         </Button>
                         <Button Grid.ColumnSpan="3"
                                 Grid.Row="1"
@@ -108,14 +108,14 @@
                                              Margin="10,10,10,10"
                                              Grid.ColumnSpan="2">
 
-                    <busyIndicator:BusyMask x:Name="BusyIndicator"
-                                            IsBusy="{Binding IsBusyLoadingEquipment,Mode=TwoWay}"
+                    <busyIndicator:BusyMask IsBusy="{Binding IsLoading,Mode=TwoWay}"
                                             Grid.Row="2"
                                             IndicatorType="Ring"
                                             BusyContent="Please wait..."
                                             BusyContentMargin="0 20 0 0"
                                             Foreground="Black"
                                             FontSize="24"
+                                            IsBusyAtStartup="False"
                                             Background="#D8FFFFFF">
                         <Grid>
                             <DataGrid Grid.Row="1"
@@ -168,15 +168,13 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
 
-                                              
 
-                                                <Button
-                                                        BorderThickness="0"
 
+                                                <Button BorderThickness="0"
                                                         Background="red"
                                                         materialDesign:ButtonAssist.CornerRadius="10">
                                                     <materialDesign:PackIcon Kind="Delete" />
-                                                    
+
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="Click">
                                                             <prism:InvokeCommandAction Command="{Binding DeleteCommand}" />
@@ -192,10 +190,6 @@
                                             <DataTemplate>
                                                 <Button Background="Bisque"
                                                         BorderThickness="0"
-
-                                                
-                                                      
-
                                                         materialDesign:ButtonAssist.CornerRadius="10">
                                                     <materialDesign:PackIcon Kind="Pencil" />
                                                     <i:Interaction.Triggers>
@@ -264,108 +258,6 @@
                                                 </DataGrid>
                                             </Grid>
                                         </Border>
-
-
-
-                                        <!--<Border BorderBrush="Transparent"
-                                            BorderThickness="1">
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="2"
-                                               Grid.Row="0"
-                                               Text="Tên thiết bị:"
-                                               Margin="10"
-                                               Style="{StaticResource FieldLabel}"
-                                               VerticalAlignment="Center"/>
-                                      <TextBox Grid.Column="3"
-                                               Grid.Row="0"
-                                               materialDesign:HintAssist.Hint="Tên thiết bị"
-                                               Text="{Binding EquipmentName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                               Margin="10"
-                                               VerticalAlignment="Center"/>
-                                    <TextBlock Grid.Column="0"
-                                               Grid.Row="0"
-                                               Text="Mã thiết bị:"
-                                               Style="{StaticResource FieldLabel}"
-                                               Margin="10"
-                                               VerticalAlignment="Center"/>
-                                    <TextBox Grid.Column="1"
-                                               Grid.Row="0"
-                                               materialDesign:HintAssist.Hint="Mã thiết bị"
-                                               Text="{Binding EquipmentId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                               Margin="10"
-                                               IsEnabled="False"
-                                               VerticalAlignment="Center"/>
-                                    <TextBlock Grid.Column="4"
-                                                 Grid.Row="0"
-                                             Text="Năm cấp:"
-                                             Style="{StaticResource FieldLabel}"
-                                             Margin="10"
-                                             VerticalAlignment="Center"/>
-                                    <DatePicker Grid.Column="5"
-                                             Margin="10"
-                                             materialDesign:HintAssist.Hint="Năm cấp"
-                                             SelectedDate="{Binding YearOfSupply, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             VerticalAlignment="Center"/>
-                                    <TextBlock Grid.Column="0"
-                                               Grid.Row="1"
-                                               Text="Mã quản lí:"
-                                               Margin="10"
-                                               VerticalAlignment="Center"/>
-                                    <TextBox Grid.Column="1"
-                                               Grid.Row="1"
-                                               materialDesign:HintAssist.Hint="Mã quản lí"
-                                               Text="{Binding CodeOfManager, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                               Margin="10"
-                                               VerticalAlignment="Center"/>
-                                    <TextBlock Grid.Column="2"
-                                                 Grid.Row="1"
-                                                 Text="Tình trạng:"
-                                                 Style="{StaticResource FieldLabel}"
-                                                 Margin="10"
-                                                 VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="3"
-                                                  Grid.Row="1"
-                                                   materialDesign:HintAssist.Hint="Tình trạng"
-                                                   Style="{StaticResource ComboBox}"
-                                                   Margin="10"
-                                                   ItemsSource="{Binding Path=Status, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
-                                                   SelectedValuePath="Value"
-                                                   DisplayMemberPath="Description"
-                                                   Text="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <Button Content="Cập nhật" Grid.Column="4"
-                                                  Grid.Row="1"
-            materialDesign:ButtonAssist.CornerRadius="10">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Click">
-                                                <prism:InvokeCommandAction Command="{Binding SaveCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Button>
-                                    <Button Content="Xóa" Grid.Row="1" Grid.Column="5"
-materialDesign:ButtonAssist.CornerRadius="10">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Click">
-                                                <prism:InvokeCommandAction Command="{Binding GetSpecificationEquipmentTypesAsyncCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Button>
-                                </Grid>
-                            </Border>-->
                                     </DataTemplate>
                                 </DataGrid.RowDetailsTemplate>
                             </DataGrid>
