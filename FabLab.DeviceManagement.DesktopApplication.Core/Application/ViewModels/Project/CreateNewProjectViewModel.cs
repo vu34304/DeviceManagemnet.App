@@ -27,7 +27,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private readonly IApiService _apiService;
 
         public List<string> EquipmentNames { get; set; } = new();
-        public ObservableCollection<EquipmentDto> equipments { get; set; } = new();
+        public List<EquipmentDto> equipments { get; set; } = new();
+        public List<EquipmentDto> TempEquipments { get; set; } = new();
         public ObservableCollection<AddBorrowEquipments> BorowEquipments { get; set; } = new();
         public string BorrowEquipmentName { get; set; } = "";
         public string EquipmentName { get; set; } = "";
@@ -84,7 +85,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         {
             try
             {               
-                equipments = new ObservableCollection<EquipmentDto>((await _apiService.GetAllEquipmentsActive()).ToList());
+                equipments = new List<EquipmentDto>((await _apiService.GetAllEquipmentsActive()).ToList());
                 EquipmentNames = equipments.Select(i => i.EquipmentName).ToList();
 
             }
@@ -94,21 +95,26 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
         }
 
-        private async void SearchEquipment()
+        private  void SearchEquipment()
         {
             if (!String.IsNullOrEmpty(EquipmentName))
             {
-                equipments = new ObservableCollection<EquipmentDto>((await _apiService.GetEquipmentsRecordsAsync(EquipmentName)).ToList());               
+                TempEquipments = equipments;
+                equipments = equipments.Where(i => i.EquipmentName == EquipmentName).ToList();
+
             }
             else
             {
-                UpdateEquipmentIds();
+                List <EquipmentDto> temp = TempEquipments;
+                equipments = temp;
+               
             }
         }
         private void AddBorrowEquipment()
         {
             if (!String.IsNullOrEmpty(BorrowEquipmentName))
             {
+                
                 var item = equipments.SingleOrDefault(i => i.EquipmentName == BorrowEquipmentName);
                 
                 if (item != null)
@@ -122,6 +128,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                     });
                     
                 }
+                
 
                
             }

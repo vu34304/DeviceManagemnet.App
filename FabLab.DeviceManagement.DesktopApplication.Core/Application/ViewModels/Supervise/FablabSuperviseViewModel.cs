@@ -18,6 +18,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 {
     public class FablabSuperviseViewModel : BaseViewModel
     {
+        #region Khai bao bien
         private readonly ISignalRClient _signalRClient;
         private readonly IApiService _apiService;
         //Environment
@@ -158,8 +159,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public DateTime EndDate { get; set; } = DateTime.Now;
         public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-30);
 
-        
+
         //
+        #endregion Khai bao bien
         public FablabSuperviseViewModel(ISignalRClient signalRClient, IApiService apiService)
         {
             _signalRClient = signalRClient;
