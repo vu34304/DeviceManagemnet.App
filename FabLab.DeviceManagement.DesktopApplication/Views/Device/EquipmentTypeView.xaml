@@ -52,13 +52,13 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBlock   Grid.Row="0"
+                        <!--<TextBlock   Grid.Row="0"
                                      Grid.Column="0"
                                      Margin="10"
                                      Style="{StaticResource FieldLabel}"
-                                     Text="Search" />
+                                     Text="Search" />-->
                         <TextBox Grid.Column="1"
-                                 FontSize="16"
+                                 FontSize="16" materialDesign:HintAssist.Hint="Tìm kiếm"
                                  Style="{StaticResource TextBox}"
                                  Margin="10"
                                  VerticalAlignment="Center"

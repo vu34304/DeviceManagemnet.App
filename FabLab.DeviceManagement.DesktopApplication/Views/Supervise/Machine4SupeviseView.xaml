@@ -71,6 +71,7 @@
                                 BorderThickness="2"
                                 BorderBrush="Black">
                             <TextBlock HorizontalAlignment="Center"
+                                       Foreground="{Binding MachineStatusColor4}"
                                        Grid.Column="1"
                                        Text="{Binding MachineStatus4 }"
                                        Style="{StaticResource FieldLabel}"

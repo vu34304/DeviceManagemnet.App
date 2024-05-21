@@ -22,7 +22,7 @@
                                     Panel.ZIndex="1"
                                     IsItemsHost="True"
                                     KeyboardNavigation.TabIndex="1"
-                                    Background="#1488db" />
+                                  Background="#1D2028" />
                         <Border 
                                     x:Name="Border"
                                     Grid.Column="1"

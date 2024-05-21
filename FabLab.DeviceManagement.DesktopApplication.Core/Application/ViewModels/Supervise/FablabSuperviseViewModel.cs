@@ -38,6 +38,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Speed1 { get; set; }
         public double Vibration1 { get; set; }
         public string MachineStatus1 { get; set; }
+        public string MachineStatusColor1 { get; set; }
+
 
         //Machine 2
         public DateTime? TimeStamp2 { get; set; }
@@ -49,6 +51,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Power2 { get; set; }
         public double Speed2 { get; set; }
         public string MachineStatus2 { get; set; }
+        public string MachineStatusColor2 { get; set; }
         public double Vibration2 { get; set; }
 
         //Machine 3
@@ -61,6 +64,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Speed3 { get; set; }
         public double Vibration3 { get; set; }
         public string MachineStatus3 { get; set; }
+        public string MachineStatusColor3 { get; set; }
+
 
         //Machine 4
         public DateTime? TimeStamp4 { get; set; }
@@ -72,6 +77,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Speed4 { get; set; }
         public double Vibration4 { get; set; }
         public string MachineStatus4 { get; set; }
+        public string MachineStatusColor4 { get; set; }
+
 
         //Machine 5
         public DateTime? TimeStamp5 { get; set; }
@@ -83,6 +90,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Speed5 { get; set; }
         public string MachineStatus5 { get; set; }
         public double Vibration5 { get; set; }
+        public string MachineStatusColor5 { get; set; }
+
 
         //Machine 6
         public DateTime? TimeStamp6 { get; set; }
@@ -94,6 +103,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double Speed6 { get; set; }
         public string MachineStatus6 { get; set; }
         public double Vibration6 { get; set; }
+        public string MachineStatusColor6 { get; set; }
+
 
         //Status Environment
         public string ColorHumidity { get; set; }
@@ -215,7 +226,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                     }
                                 case "MachineStatus":
                                     {
-                                        MachineStatus1 = ConvertStatus(tag.value); break;
+                                        MachineStatus1 = ConvertStatus(tag.value)[1]; 
+                                        MachineStatusColor1 = ConvertStatus(tag.value)[2];
+                                        break;
                                     }
                                 default: break;
 
@@ -240,7 +253,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                     }
                                 case "MachineStatus":
                                     {
-                                        MachineStatus2 = ConvertStatus(tag.value); break;
+                                        MachineStatus2 = ConvertStatus(tag.value)[1];
+                                        MachineStatusColor2 = ConvertStatus(tag.value)[2];
+
+                                        break;
                                     }
                                 default: break;
 
@@ -265,7 +281,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                     }
                                 case "MachineStatus":
                                     {
-                                        MachineStatus3 = ConvertStatus(tag.value); break;
+                                        MachineStatus3 = ConvertStatus(tag.value)[1];
+                                        MachineStatusColor3 = ConvertStatus(tag.value)[2];
+
+                                        break;
                                     }
                                 default: break;
 
@@ -290,7 +309,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                     }
                                 case "MachineStatus":
                                     {
-                                        MachineStatus4 = ConvertStatus(tag.value); break;
+                                        MachineStatus4 = ConvertStatus(tag.value)[1];
+                                        MachineStatusColor4 = ConvertStatus(tag.value)[2];
+                                        break;
                                     }
                                 default: break;
 
@@ -315,7 +336,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                     }
                                 case "MachineStatus":
                                     {
-                                        MachineStatus5 = ConvertStatus(tag.value); break;
+                                        MachineStatus5 = ConvertStatus(tag.value)[1];
+                                        MachineStatusColor5 = ConvertStatus(tag.value)[2];
+                                        break;
                                     }
                                 default: break;
 
@@ -340,7 +363,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                                     }
                                 case "MachineStatus":
                                     {
-                                        MachineStatus6 = ConvertStatus(tag.value); break;
+                                        MachineStatus6 = ConvertStatus(tag.value)[1];
+                                        MachineStatusColor6 = ConvertStatus(tag.value)[2];
+                                        break;
                                     }
                                 default: break;
 
@@ -474,34 +499,38 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         }
 
-        private string ConvertStatus(string value)
+        private string[] ConvertStatus(string value)
         {
-            var result = string.Empty;
+            string[] result = new string[2];
             switch (int.Parse(value))
             {
                 case 0:
                     {
-                        result = "Máy tắt";
+                        result[0] = "Máy tắt";
+                        result[1] = "Red";
                         break;
                     }
                 case 1:
                     {
-                        result = "Động cơ chạy";
+                        result[0] = "Động cơ chạy";
+                        result[1] = "Green";
                         break;
                     }
                 case 5:
                     {
-                        result = "Máy có điện";
+                        result[0] = "Máy có điện";
+                        result[1] = "Blue";
                         break;
                     }
                 default:
                     {
-                        result = "Null";
+                        result[0] = "Null";
                         break;
                     }
             }
             return result;
         }
+        
         //update chart
         #region update value chart
         private async void UpdateValueOEEMachine1(double IdleTime, double ShiftTime, double OperationTime, double Oee)
@@ -809,7 +838,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             var Machine5 = (from tag in tags where tag.machineId == "C200" select tag).ToList();
             var Machine6 = (from tag in tags where tag.machineId == "BSM150" select tag).ToList();
 
-            if (Machine1 != null)
+            if (Machine1.Count()!=0)
             {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Power1 = Convert.ToDouble(Machine1.LastOrDefault(i => i.name == "Power").value);
@@ -821,11 +850,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Vibration1 = Convert.ToDouble(Machine1.LastOrDefault(i => i.name == "Vibration").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus2 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value);
+                MachineStatus1 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                MachineStatusColor1 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
-            if (Machine2 != null)
+            if (Machine2.Count() != 0)
             {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Power2 = Convert.ToDouble(Machine2.LastOrDefault(i => i.name == "Power").value);
@@ -837,11 +867,13 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Vibration2 = Convert.ToDouble(Machine2.LastOrDefault(i => i.name == "Vibration").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus2 = ConvertStatus(Machine2.LastOrDefault(i => i.name == "MachineStatus").value);
+                MachineStatus2 = ConvertStatus(Machine2.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                MachineStatusColor2 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
-            if (Machine3 != null)
+            if (Machine3.Count() != 0)
             {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Power3 = Convert.ToDouble(Machine3.LastOrDefault(i => i.name == "Power").value);
@@ -853,11 +885,13 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Vibration3 = Convert.ToDouble(Machine3.LastOrDefault(i => i.name == "Vibration").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus3 = ConvertStatus(Machine3.LastOrDefault(i => i.name == "MachineStatus").value);
+                MachineStatus3 = ConvertStatus(Machine3.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                MachineStatusColor3 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
-            if (Machine4 != null)
+            if (Machine4.Count() != 0)
             {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Power4 = Convert.ToDouble(Machine4.LastOrDefault(i => i.name == "Power").value);
@@ -869,11 +903,13 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Vibration4 = Convert.ToDouble(Machine4.LastOrDefault(i => i.name == "Vibration").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus4 = ConvertStatus(Machine4.LastOrDefault(i => i.name == "MachineStatus").value);
+                MachineStatus4 = ConvertStatus(Machine4.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                MachineStatusColor4 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
-            if (Machine5 != null)
+            if (Machine5.Count() != 0)
             {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Power5 = Convert.ToDouble(Machine5.LastOrDefault(i => i.name == "Power").value);
@@ -885,10 +921,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Vibration5 = Convert.ToDouble(Machine5.LastOrDefault(i => i.name == "Vibration").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus5 = ConvertStatus(Machine5.LastOrDefault(i => i.name == "MachineStatus").value);
+                MachineStatus5 = ConvertStatus(Machine5.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                MachineStatusColor5 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
-            if (Machine6 != null)
+            if (Machine6.Count()!=0)
             {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Power6 = Convert.ToDouble(Machine6.LastOrDefault(i => i.name == "Power").value);
@@ -900,7 +938,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 Vibration6 = Convert.ToDouble(Machine6.LastOrDefault(i => i.name == "Vibration").value);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus6 = ConvertStatus(Machine6.LastOrDefault(i => i.name == "MachineStatus").value);
+                MachineStatus6 = ConvertStatus(Machine6.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                MachineStatusColor6 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
