@@ -9,6 +9,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Extensions;
 using LiveChartsCore.SkiaSharpView.Painting;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Security.Certificates;
 using SkiaSharp;
 using System.Security.Cryptography;
 using System.Windows.Input;
@@ -34,9 +35,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double OperationTime1 { get; set; }
         public double Oee1 { get; set; }
 
-        public double Power1 { get; set; }
-        public double Speed1 { get; set; }
-        public double Vibration1 { get; set; }
+        public object Power1 { get; set; }
+        public object Speed1 { get; set; }
+        public object Vibration1 { get; set; }
         public string MachineStatus1 { get; set; }
         public string MachineStatusColor1 { get; set; }
 
@@ -48,11 +49,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double OperationTime2 { get; set; }
         public double Oee2 { get; set; }
 
-        public double Power2 { get; set; }
-        public double Speed2 { get; set; }
+        public object Power2 { get; set; }
+        public object Speed2 { get; set; }
         public string MachineStatus2 { get; set; }
         public string MachineStatusColor2 { get; set; }
-        public double Vibration2 { get; set; }
+        public object Vibration2 { get; set; }
 
         //Machine 3
         public DateTime? TimeStamp3 { get; set; }
@@ -60,9 +61,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double ShiftTime3 { get; set; }
         public double OperationTime3 { get; set; }
         public double Oee3 { get; set; }
-        public double Power3 { get; set; }
-        public double Speed3 { get; set; }
-        public double Vibration3 { get; set; }
+        public object Power3 { get; set; }
+        public object Speed3 { get; set; }
+        public object Vibration3 { get; set; }
         public string MachineStatus3 { get; set; }
         public string MachineStatusColor3 { get; set; }
 
@@ -73,9 +74,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double ShiftTime4 { get; set; }
         public double OperationTime4 { get; set; }
         public double Oee4 { get; set; }
-        public double Power4 { get; set; }
-        public double Speed4 { get; set; }
-        public double Vibration4 { get; set; }
+        public object Power4 { get; set; }
+        public object Speed4 { get; set; }
+        public object Vibration4 { get; set; }
         public string MachineStatus4 { get; set; }
         public string MachineStatusColor4 { get; set; }
 
@@ -86,10 +87,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double ShiftTime5 { get; set; }
         public double OperationTime5 { get; set; }
         public double Oee5 { get; set; }
-        public double Power5 { get; set; }
-        public double Speed5 { get; set; }
+        public object Power5 { get; set; }
+        public object Speed5 { get; set; }
         public string MachineStatus5 { get; set; }
-        public double Vibration5 { get; set; }
+        public object Vibration5 { get; set; }
         public string MachineStatusColor5 { get; set; }
 
 
@@ -99,10 +100,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public double ShiftTime6 { get; set; }
         public double OperationTime6 { get; set; }
         public double Oee6 { get; set; }
-        public double Power6 { get; set; }
-        public double Speed6 { get; set; }
+        public object Power6 { get; set; }
+        public object Speed6 { get; set; }
         public string MachineStatus6 { get; set; }
-        public double Vibration6 { get; set; }
+        public object Vibration6 { get; set; }
         public string MachineStatusColor6 { get; set; }
 
 
@@ -152,7 +153,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         public ICommand LoadFablabSuperviseViewCommand { get; set; }
         public ICommand NextViewCommand { get; set; }
-       
+
         public ICommand PreviusViewCommand { get; set; }
         public ICommand OpenAlarmViewCommand { get; set; }
         public ICommand CloseAlarmViewCommand { get; set; }
@@ -214,19 +215,20 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             {
                                 case "Power":
                                     {
-                                        Power1 = Convert.ToDouble(tag.value); break;
+                                        Power1 = tag.value;
+                                        break;
                                     }
                                 case "Speed":
                                     {
-                                        Speed1 = Convert.ToDouble(tag.value); break;
+                                        Speed1 = tag.value; break;
                                     }
                                 case "Vibration":
                                     {
-                                        Vibration1 = Convert.ToDouble(tag.value); break;
+                                        Vibration1 = tag.value; break;
                                     }
                                 case "MachineStatus":
                                     {
-                                        MachineStatus1 = ConvertStatus(tag.value)[1]; 
+                                        MachineStatus1 = ConvertStatus(tag.value)[1];
                                         MachineStatusColor1 = ConvertStatus(tag.value)[2];
                                         break;
                                     }
@@ -241,15 +243,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             {
                                 case "Power":
                                     {
-                                        Power2 = Convert.ToDouble(tag.value); break;
+                                        Power2 = tag.value; break;
                                     }
                                 case "Speed":
                                     {
-                                        Speed2 = Convert.ToDouble(tag.value); break;
+                                        Speed2 = tag.value; break;
                                     }
                                 case "Vibration":
                                     {
-                                        Vibration2 = Convert.ToDouble(tag.value); break;
+                                        Vibration2 = tag.value; break;
                                     }
                                 case "MachineStatus":
                                     {
@@ -269,15 +271,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             {
                                 case "Power":
                                     {
-                                        Power3 = Convert.ToDouble(tag.value); break;
+                                        Power3 = tag.value; break;
                                     }
                                 case "Speed":
                                     {
-                                        Speed3 = Convert.ToDouble(tag.value); break;
+                                        Speed3 = tag.value; break;
                                     }
                                 case "Vibration":
                                     {
-                                        Vibration3 = Convert.ToDouble(tag.value); break;
+                                        Vibration3 = tag.value; break;
                                     }
                                 case "MachineStatus":
                                     {
@@ -297,15 +299,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             {
                                 case "Power":
                                     {
-                                        Power4 = Convert.ToDouble(tag.value); break;
+                                        Power4 = tag.value; break;
                                     }
                                 case "Speed":
                                     {
-                                        Speed4 = Convert.ToDouble(tag.value); break;
+                                        Speed4 = (tag.value); break;
                                     }
                                 case "Vibration":
                                     {
-                                        Vibration4 = Convert.ToDouble(tag.value); break;
+                                        Vibration4 = (tag.value); break;
                                     }
                                 case "MachineStatus":
                                     {
@@ -324,15 +326,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             {
                                 case "Power":
                                     {
-                                        Power5 = Convert.ToDouble(tag.value); break;
+                                        Power5 = (tag.value); break;
                                     }
                                 case "Speed":
                                     {
-                                        Speed5 = Convert.ToDouble(tag.value); break;
+                                        Speed5 = (tag.value); break;
                                     }
                                 case "Vibration":
                                     {
-                                        Vibration5 = Convert.ToDouble(tag.value); break;
+                                        Vibration5 = (tag.value); break;
                                     }
                                 case "MachineStatus":
                                     {
@@ -351,15 +353,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             {
                                 case "Power":
                                     {
-                                        Power6 = Convert.ToDouble(tag.value); break;
+                                        Power6 = (tag.value); break;
                                     }
                                 case "Speed":
                                     {
-                                        Speed6 = Convert.ToDouble(tag.value); break;
+                                        Speed6 = (tag.value); break;
                                     }
                                 case "Vibration":
                                     {
-                                        Vibration6 = Convert.ToDouble(tag.value); break;
+                                        Vibration6 = (tag.value); break;
                                     }
                                 case "MachineStatus":
                                     {
@@ -410,6 +412,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                             break;
                         }
                     default:
+
                         break;
                 }
             }
@@ -530,7 +533,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
             return result;
         }
-        
+
         //update chart
         #region update value chart
         private async void UpdateValueOEEMachine1(double IdleTime, double ShiftTime, double OperationTime, double Oee)
@@ -809,9 +812,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 UpdateOee(),
                 UpdateDataMachine());
             IsBusy = false;
-            
+
             StartDate = DateTime.Now.AddDays(-30);
-            EndDate = DateTime.Now; 
+            EndDate = DateTime.Now;
             GetWarningNotification();
         }
 
@@ -820,7 +823,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             WarningNotificationDtos.Clear();
             TextNotification = "";
             WarningNotificationDtos = (await _apiService.GetWarningNotificationAsync(EndDate, StartDate)).ToList();
-            if(WarningNotificationDtos.Count() == 0)
+            if (WarningNotificationDtos.Count() == 0)
             {
                 TextNotification = "Không có cảnh báo nào!";
             }
@@ -838,110 +841,142 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             var Machine5 = (from tag in tags where tag.machineId == "C200" select tag).ToList();
             var Machine6 = (from tag in tags where tag.machineId == "BSM150" select tag).ToList();
 
-            if (Machine1.Count()!=0)
+            if (Machine1 != null)
             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Power1 = Convert.ToDouble(Machine1.LastOrDefault(i => i.name == "Power").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Speed1 = Convert.ToDouble(Machine1.LastOrDefault(i => i.name == "Speed").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Vibration1 = Convert.ToDouble(Machine1.LastOrDefault(i => i.name == "Vibration").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus1 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
-                MachineStatusColor1 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                var Speed = Machine1.SingleOrDefault(i => i.name == "Speed");
+                if (Speed != null) Speed1 = Speed.value;
+                else Speed1 = "null";
+
+                var Vibration = Machine1.SingleOrDefault(i => i.name == "Vibration");
+                if (Vibration != null) Vibration1 = Vibration.value;
+                else Vibration1 = "null";
+
+                var Power = Machine1.SingleOrDefault(i => i.name == "Power");
+                if (Power != null) Power1 = Power.value;
+                else Power1 = "null";
+
+                var MachineStatus = Machine1.SingleOrDefault(i => i.name == "MachineStatus");
+                if (MachineStatus != null)
+                {
+                    MachineStatus1 = ConvertStatus(MachineStatus.value)[0];
+                    MachineStatusColor1 = ConvertStatus(MachineStatus.value)[1];
+                }
+                else MachineStatus1 = "null";
             }
 
-            if (Machine2.Count() != 0)
+            if (Machine2 != null)
             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Power2 = Convert.ToDouble(Machine2.LastOrDefault(i => i.name == "Power").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Speed2 = Convert.ToDouble(Machine2.LastOrDefault(i => i.name == "Speed").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Vibration2 = Convert.ToDouble(Machine2.LastOrDefault(i => i.name == "Vibration").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus2 = ConvertStatus(Machine2.LastOrDefault(i => i.name == "MachineStatus").value)[1];
-                MachineStatusColor2 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                var Speed = Machine2.SingleOrDefault(i => i.name == "Speed");
+                if (Speed != null) Speed2 = Speed.value;
+                else Speed2 = "null";
 
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                var Vibration = Machine2.SingleOrDefault(i => i.name == "Vibration");
+                if (Vibration != null) Vibration2 = Vibration.value;
+                else Vibration2 = "null";
+
+                var Power = Machine2.SingleOrDefault(i => i.name == "Power");
+                if (Power != null) Power2 = Power.value;
+                else Power2 = "null";
+
+                var MachineStatus = Machine2.SingleOrDefault(i => i.name == "MachineStatus");
+                if (MachineStatus != null)
+                {
+                    MachineStatus2 = ConvertStatus(MachineStatus.value)[0];
+                    MachineStatusColor2 = ConvertStatus(MachineStatus.value)[1];
+                }
+                else MachineStatus2 = "null";
             }
 
-            if (Machine3.Count() != 0)
+            if (Machine3 != null)
             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Power3 = Convert.ToDouble(Machine3.LastOrDefault(i => i.name == "Power").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Speed3 = Convert.ToDouble(Machine3.LastOrDefault(i => i.name == "Speed").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Vibration3 = Convert.ToDouble(Machine3.LastOrDefault(i => i.name == "Vibration").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus3 = ConvertStatus(Machine3.LastOrDefault(i => i.name == "MachineStatus").value)[1];
-                MachineStatusColor3 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                var Speed = Machine3.SingleOrDefault(i => i.name == "Speed");
+                if (Speed != null) Speed3 = Speed.value;
+                else Speed3 = "null";
 
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                var Vibration = Machine3.SingleOrDefault(i => i.name == "Vibration");
+                if (Vibration != null) Vibration3 = Vibration.value;
+                else Vibration3 = "null";
+
+                var Power = Machine3.SingleOrDefault(i => i.name == "Power");
+                if (Power != null) Power3 = Power.value;
+                else Power3 = "null";
+
+                var MachineStatus = Machine3.SingleOrDefault(i => i.name == "MachineStatus");
+                if (MachineStatus != null)
+                {
+                    MachineStatus3 = ConvertStatus(MachineStatus.value)[0];
+                    MachineStatusColor3 = ConvertStatus(MachineStatus.value)[1];
+                }
+                else MachineStatus3 = "null";
+
             }
 
-            if (Machine4.Count() != 0)
+            if (Machine4 != null)
             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Power4 = Convert.ToDouble(Machine4.LastOrDefault(i => i.name == "Power").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Speed4 = Convert.ToDouble(Machine4.LastOrDefault(i => i.name == "Speed").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Vibration4 = Convert.ToDouble(Machine4.LastOrDefault(i => i.name == "Vibration").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus4 = ConvertStatus(Machine4.LastOrDefault(i => i.name == "MachineStatus").value)[1];
-                MachineStatusColor4 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                var Speed = Machine4.SingleOrDefault(i => i.name == "Speed");
+                if (Speed != null) Speed4 = Speed.value;
+                else Speed4 = "null";
 
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                var Vibration = Machine4.SingleOrDefault(i => i.name == "Vibration");
+                if (Vibration != null) Vibration4 = Vibration.value;
+                else Vibration4 = "null";
+
+                var Power = Machine4.SingleOrDefault(i => i.name == "Power");
+                if (Power != null) Power4 = Power.value;
+                else Power4 = "null";
+
+                var MachineStatus = Machine4.SingleOrDefault(i => i.name == "MachineStatus");
+                if (MachineStatus != null)
+                {
+                    MachineStatus4 = ConvertStatus(MachineStatus.value)[0];
+                    MachineStatusColor4 = ConvertStatus(MachineStatus.value)[1];
+                }
+                else MachineStatus4 = "null";
             }
 
-            if (Machine5.Count() != 0)
+            if (Machine5 != null)
             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Power5 = Convert.ToDouble(Machine5.LastOrDefault(i => i.name == "Power").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Speed5 = Convert.ToDouble(Machine5.LastOrDefault(i => i.name == "Speed").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Vibration5 = Convert.ToDouble(Machine5.LastOrDefault(i => i.name == "Vibration").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus5 = ConvertStatus(Machine5.LastOrDefault(i => i.name == "MachineStatus").value)[1];
-                MachineStatusColor5 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                var Speed = Machine5.SingleOrDefault(i => i.name == "Speed");
+                if (Speed != null) Speed5 = Speed.value;
+                else Speed5 = "null";
 
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                var Vibration = Machine5.SingleOrDefault(i => i.name == "Vibration");
+                if (Vibration != null) Vibration5 = Vibration.value;
+                else Vibration5 = "null";
+
+                var Power = Machine5.SingleOrDefault(i => i.name == "Power");
+                if (Power != null) Power5 = Power.value;
+                else Power5 = "null";
+
+                var MachineStatus = Machine5.SingleOrDefault(i => i.name == "MachineStatus");
+                if (MachineStatus != null)
+                {
+                    MachineStatus5 = ConvertStatus(MachineStatus.value)[0];
+                    MachineStatusColor5 = ConvertStatus(MachineStatus.value)[1];
+                }
+                else MachineStatus5 = "null";
             }
-            if (Machine6.Count()!=0)
+            if (Machine6 != null)
             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Power6 = Convert.ToDouble(Machine6.LastOrDefault(i => i.name == "Power").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Speed6 = Convert.ToDouble(Machine6.LastOrDefault(i => i.name == "Speed").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Vibration6 = Convert.ToDouble(Machine6.LastOrDefault(i => i.name == "Vibration").value);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                MachineStatus6 = ConvertStatus(Machine6.LastOrDefault(i => i.name == "MachineStatus").value)[1];
-                MachineStatusColor6 = ConvertStatus(Machine1.LastOrDefault(i => i.name == "MachineStatus").value)[1];
+                var Speed = Machine6.SingleOrDefault(i => i.name == "Speed");
+                if (Speed != null) Speed6 = Speed.value;
+                else Speed6 = "null";
 
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                var Vibration = Machine6.SingleOrDefault(i => i.name == "Vibration");
+                if (Vibration != null) Vibration6 = Vibration.value;
+                else Vibration6 = "null";
+
+                var Power = Machine6.SingleOrDefault(i => i.name == "Power");
+                if (Power != null) Power6 = Power.value;
+                else Power6 = "null";
+
+                var MachineStatus = Machine6.SingleOrDefault(i => i.name == "MachineStatus");
+                if (MachineStatus != null)
+                {
+                    MachineStatus6 = ConvertStatus(MachineStatus.value)[0];
+                    MachineStatusColor6 = ConvertStatus(MachineStatus.value)[1];
+                }
+                else MachineStatus6 = "null";
             }
 
         }
